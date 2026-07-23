@@ -13,7 +13,6 @@
 
         body {
             font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
-            /* Fondo épico con temática de personajes/combate futurista y alta tecnología */
             background: #05070b url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -28,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* Capa de diseño y viñeta para oscurecer sutilmente la imagen de fondo y que resalte el contenido */
         body::before {
             content: '';
             position: fixed;
@@ -37,7 +35,6 @@
             z-index: -2;
         }
 
-        /* Marca de agua gigante "FORTNITE" de fondo */
         .bg-watermark {
             position: fixed;
             top: 50%;
@@ -53,7 +50,6 @@
             text-transform: uppercase;
         }
 
-        /* Header del Creador Grande */
         .creator-bar {
             width: 100%;
             max-width: 900px;
@@ -88,14 +84,12 @@
             letter-spacing: 2px;
         }
 
-        /* Grupo de botones sociales (PayPal e Instagram) */
         .social-buttons {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        /* Botón de PayPal */
         .paypal-btn {
             display: inline-flex;
             align-items: center;
@@ -119,7 +113,6 @@
             background: linear-gradient(135deg, #0088e8, #0040b3);
         }
 
-        /* Botón de Instagram */
         .instagram-btn {
             display: inline-flex;
             align-items: center;
@@ -142,7 +135,6 @@
             box-shadow: 0 0 25px rgba(253, 29, 29, 0.8);
         }
 
-        /* Titulo XL */
         .welcome-title {
             font-size: 32px;
             font-weight: 900;
@@ -157,7 +149,6 @@
             z-index: 2;
         }
 
-        /* Contenedor Gigante */
         .container {
             display: flex;
             flex-direction: column;
@@ -168,7 +159,6 @@
             z-index: 2;
         }
 
-        /* Tarjeta de Contador XL */
         .timer-box {
             padding: 25px 35px;
             border-radius: 20px;
@@ -218,7 +208,6 @@
             text-transform: uppercase;
         }
 
-        /* Colores Neón Personalizados */
         .beskar { 
             background: rgba(212, 175, 55, 0.12); 
             border-color: #ffd700; 
@@ -236,6 +225,12 @@
             border-color: #a855f7; 
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
             color: #e9d5ff;
+        }
+        .event { 
+            background: rgba(0, 255, 200, 0.12); 
+            border-color: #00ffc8; 
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.25);
+            color: #a1fff6;
         }
 
         .action-buttons {
@@ -268,7 +263,6 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Panel de Edición de Admin */
         .admin-controls {
             display: none;
             background: rgba(0, 0, 0, 0.7);
@@ -329,7 +323,6 @@
             border: none;
         }
 
-        /* Sección de Calificación con Estrellas */
         .rating-section {
             width: 100%;
             max-width: 900px;
@@ -384,7 +377,6 @@
             border: 1px solid rgba(0, 210, 255, 0.3);
         }
 
-        /* Sección de Comentarios */
         .comments-section {
             width: 100%;
             max-width: 900px;
@@ -517,10 +509,8 @@
 </head>
 <body>
 
-    <!-- MARCA DE AGUA GIGANTE DE FONDO -->
     <div class="bg-watermark">FORTNITE</div>
 
-    <!-- Barra de Creador + Redes Sociales -->
     <div class="creator-bar">
         <span>CREADOR: <strong>GREGORY</strong></span>
         <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
@@ -535,13 +525,12 @@
         </div>
     </div>
 
-    <!-- Título de Bienvenida -->
     <div class="welcome-title">
         ¡BIENVENIDO ANDROID TYCOON STAR WARS!
     </div>
 
     <div class="container">
-        <!-- Beskar -->
+        <!-- Beskar (15 min cíclico estricto) -->
         <div id="box-beskar" class="timer-box beskar">
             <div class="timer-header">
                 <div class="card-info">
@@ -556,27 +545,27 @@
             </div>
 
             <div id="admin-beskar" class="admin-controls">
-                <div style="font-size: 13px; color: #00d2ff; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR):</div>
+                <div style="font-size: 13px; color: #00d2ff; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR - Máx 15m):</div>
                 <div class="time-inputs">
                     <label>H: <input type="number" id="beskar-h" min="0" value="0"></label>
-                    <label>M: <input type="number" id="beskar-m" min="0" max="59" value="15"></label>
+                    <label>M: <input type="number" id="beskar-m" min="0" max="15" value="15"></label>
                     <label>S: <input type="number" id="beskar-s" min="0" max="59" value="0"></label>
                 </div>
                 <div class="quick-btn-group">
                     <button class="btn-quick" onclick="setQuickTime('beskar', 15)">Default 15m</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', 5)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', -5)">-5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', 1)">+1 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', -1)">-1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', 5, 15)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', -5, 15)">-5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', 1, 15)">+1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', -1, 15)">-1 min</button>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('beskar')">💾 Guardar y Aplicar</button>
+                    <button class="btn-save" onclick="saveTimer('beskar', 15)">💾 Guardar y Aplicar</button>
                     <button class="btn-cancel" onclick="closeAdmin('beskar')">❌ Cancelar</button>
                 </div>
             </div>
         </div>
 
-        <!-- Mítico -->
+        <!-- Mítico (1 hora cíclico estricto) -->
         <div id="box-mythic" class="timer-box mythic">
             <div class="timer-header">
                 <div class="card-info">
@@ -591,27 +580,27 @@
             </div>
 
             <div id="admin-mythic" class="admin-controls">
-                <div style="font-size: 13px; color: #ff1493; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO):</div>
+                <div style="font-size: 13px; color: #ff1493; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO - Máx 60m):</div>
                 <div class="time-inputs">
-                    <label>H: <input type="number" id="mythic-h" min="0" value="1"></label>
+                    <label>H: <input type="number" id="mythic-h" min="0" max="1" value="1"></label>
                     <label>M: <input type="number" id="mythic-m" min="0" max="59" value="0"></label>
                     <label>S: <input type="number" id="mythic-s" min="0" max="59" value="0"></label>
                 </div>
                 <div class="quick-btn-group">
                     <button class="btn-quick" onclick="setQuickTime('mythic', 60)">Default 1h</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', 5)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', -5)">-5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', 1)">+1 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', -1)">-1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', 15, 60)">+15 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', -15, 60)">-15 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', 5, 60)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', -5, 60)">-5 min</button>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('mythic')">💾 Guardar y Aplicar</button>
+                    <button class="btn-save" onclick="saveTimer('mythic', 60)">💾 Guardar y Aplicar</button>
                     <button class="btn-cancel" onclick="closeAdmin('mythic')">❌ Cancelar</button>
                 </div>
             </div>
         </div>
 
-        <!-- Galáctico -->
+        <!-- Galáctico (1 hora cíclico estricto) -->
         <div id="box-galactic" class="timer-box galactic">
             <div class="timer-header">
                 <div class="card-info">
@@ -626,28 +615,54 @@
             </div>
 
             <div id="admin-galactic" class="admin-controls">
-                <div style="font-size: 13px; color: #a855f7; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALÁCTICO):</div>
+                <div style="font-size: 13px; color: #a855f7; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALÁCTICO - Máx 60m):</div>
                 <div class="time-inputs">
-                    <label>H: <input type="number" id="galactic-h" min="0" value="1"></label>
+                    <label>H: <input type="number" id="galactic-h" min="0" max="1" value="1"></label>
                     <label>M: <input type="number" id="galactic-m" min="0" max="59" value="0"></label>
                     <label>S: <input type="number" id="galactic-s" min="0" max="59" value="0"></label>
                 </div>
                 <div class="quick-btn-group">
                     <button class="btn-quick" onclick="setQuickTime('galactic', 60)">Default 1h</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', 5)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', -5)">-5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', 1)">+1 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', -1)">-1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', 15, 60)">+15 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', -15, 60)">-15 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', 5, 60)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', -5, 60)">-5 min</button>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('galactic')">💾 Guardar y Aplicar</button>
+                    <button class="btn-save" onclick="saveTimer('galactic', 60)">💾 Guardar y Aplicar</button>
                     <button class="btn-cancel" onclick="closeAdmin('galactic')">❌ Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Próximo Evento (Se queda en 0 y no se reinicia) -->
+        <div id="box-event" class="timer-box event">
+            <div class="timer-header">
+                <div class="card-info">
+                    <div class="card-title">Próximo Evento</div>
+                    <div id="event-display" class="time-display">00:00:00</div>
+                    <div id="event-status" class="status-badge">¡EVENTO EN VIVO / FINALIZADO!</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-pip" onclick="togglePiP('event', 'EVENTO')">📌 Flotante</button>
+                    <button onclick="requestAdmin('event')">⚙️ Configurar</button>
+                </div>
+            </div>
+
+            <div id="admin-event" class="admin-controls">
+                <div style="font-size: 13px; color: #00ffc8; font-weight: 800;">⚙️ CONFIGURAR FECHA/HORA DEL EVENTO:</div>
+                <div class="time-inputs" style="flex-wrap: wrap;">
+                    <label>Fecha: <input type="date" id="event-date" style="width: 140px;"></label>
+                    <label>Hora: <input type="time" id="event-time" style="width: 110px;" step="1"></label>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <button class="btn-save" onclick="saveEventTimer()">💾 Guardar Evento</button>
+                    <button class="btn-cancel" onclick="closeAdmin('event')">❌ Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SECCIÓN DE CALIFICACIÓN CON ESTRELLAS -->
     <div class="rating-section">
         <div class="rating-title">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
         <div class="stars-container" id="stars-container">
@@ -660,7 +675,6 @@
         <div id="rating-stats" class="rating-stats">Calculando aprobación de la comunidad...</div>
     </div>
 
-    <!-- SECCIÓN DE COMENTARIOS DE LA COMUNIDAD -->
     <div class="comments-section">
         <div class="comments-header">💬 Comentarios de la Comunidad</div>
         
@@ -670,16 +684,12 @@
             <button class="btn-comment" onclick="addComment()">Publicar Comentario</button>
         </div>
 
-        <div id="comments-list" class="comments-list">
-            <!-- Aquí cargan los comentarios en tiempo real desde Firebase -->
-        </div>
+        <div id="comments-list" class="comments-list"></div>
     </div>
 
-    <!-- Canvas de PiP -->
     <canvas id="pipCanvas" width="250" height="120"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
@@ -712,7 +722,8 @@
                 });
             }).catch(() => {});
 
-        const targetTimes = { beskar: 0, mythic: 0, galactic: 0 };
+        // Almacenamiento de marcas objetivo absolutas en milisegundos
+        const targetTimes = { beskar: 0, mythic: 0, galactic: 0, event: 0 };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep(freq = 880) {
@@ -745,14 +756,32 @@
                 
                 if (targetTimes[key] === 0) continue;
 
-                const remainingSeconds = Math.max(0, Math.ceil((targetTimes[key] - now) / 1000));
+                let remainingMillis = targetTimes[key] - now;
+
+                // CICLO AUTOMÁTICO ESTRICTO para Beskar (15m) y Mítico/Galáctico (60m)
+                if (key !== 'event' && remainingMillis <= 0) {
+                    const cycleDurationMs = (key === 'beskar' ? 15 : 60) * 60 * 1000;
+                    // Calcula cuántos ciclos pasaron y salta exactamente al siguiente ciclo para no perder sincronía
+                    const elapsed = Math.abs(remainingMillis);
+                    const cyclesPassed = Math.floor(elapsed / cycleDurationMs) + 1;
+                    targetTimes[key] += cyclesPassed * cycleDurationMs;
+                    
+                    // Actualizar silenciosamente en Firebase para mantener a todos sincronizados
+                    db.collection("timers").doc("starwars").set({
+                        [key]: targetTimes[key]
+                    }, { merge: true }).catch(() => {});
+
+                    remainingMillis = targetTimes[key] - now;
+                }
+
+                const remainingSeconds = Math.max(0, Math.ceil(remainingMillis / 1000));
                 const formatted = formatTime(remainingSeconds);
                 display.innerText = formatted;
 
                 if (remainingSeconds === 0) {
                     box.classList.add('ready-alert');
                     status.style.display = 'block';
-                } else if (remainingSeconds <= 5) {
+                } else if (remainingSeconds <= 5 && key !== 'event') {
                     playBeep(600);
                     box.classList.remove('ready-alert');
                     status.style.display = 'none';
@@ -766,6 +795,8 @@
                 }
             }
         }
+
+        setInterval(updateDisplay, 1000);
 
         const canvas = document.getElementById('pipCanvas');
         const ctx = canvas.getContext('2d');
@@ -822,18 +853,17 @@
                 if (data.beskar) targetTimes.beskar = data.beskar;
                 if (data.mythic) targetTimes.mythic = data.mythic;
                 if (data.galactic) targetTimes.galactic = data.galactic;
+                if (data.event) targetTimes.event = data.event;
                 updateDisplay();
             }
         });
 
-        /* LÓGICA DE ADMINISTRADOR MANUAL */
         function requestAdmin(type) {
             const userPin = prompt("Ingresa la clave de administrador:");
             if (userPin !== ADMIN_PIN) {
                 alert("Clave incorrecta.");
                 return;
             }
-
             document.getElementById(`admin-${type}`).classList.add('active');
         }
 
@@ -847,23 +877,28 @@
             document.getElementById(`${type}-s`).value = 0;
         }
 
-        function adjustInput(type, minDelta) {
+        function adjustInput(type, minDelta, maxLimitMinutes) {
             let mInput = document.getElementById(`${type}-m`);
-            let currentM = parseInt(mInput.value) || 0;
-            let newM = currentM + minDelta;
-            if (newM < 0) newM = 0;
-            mInput.value = newM;
+            let hInput = document.getElementById(`${type}-h`);
+            let totalM = (parseInt(hInput.value) || 0) * 60 + (parseInt(mInput.value) || 0) + minDelta;
+            
+            if (totalM < 0) totalM = 0;
+            if (totalM > maxLimitMinutes) totalM = maxLimitMinutes;
+
+            hInput.value = Math.floor(totalM / 60);
+            mInput.value = totalM % 60;
         }
 
-        function saveTimer(type) {
+        function saveTimer(type, maxLimitMinutes) {
             const h = parseInt(document.getElementById(`${type}-h`).value) || 0;
             const m = parseInt(document.getElementById(`${type}-m`).value) || 0;
             const s = parseInt(document.getElementById(`${type}-s`).value) || 0;
 
             const totalSeconds = (h * 3600) + (m * 60) + s;
+            const maxSeconds = maxLimitMinutes * 60;
 
-            if (totalSeconds < 0) {
-                alert("Ingresa un tiempo válido.");
+            if (totalSeconds < 0 || totalSeconds > maxSeconds) {
+                alert(`El tiempo ingresado excede el límite máximo permitido para este temporizador (${maxLimitMinutes} minutos).`);
                 return;
             }
 
@@ -877,7 +912,28 @@
             });
         }
 
-        /* LÓGICA DE CALIFICACIÓN CON ESTRELLAS */
+        function saveEventTimer() {
+            const dateStr = document.getElementById('event-date').value;
+            const timeStr = document.getElementById('event-time').value;
+
+            if (!dateStr || !timeStr) {
+                alert("Por favor selecciona una fecha y hora válidas para el evento.");
+                return;
+            }
+
+            const eventDateTime = new Date(`${dateStr}T${timeStr}`).getTime();
+            if (isNaN(eventDateTime)) {
+                alert("Fecha u hora inválida.");
+                return;
+            }
+
+            db.collection("timers").doc("starwars").set({
+                event: eventDateTime
+            }, { merge: true }).then(() => {
+                closeAdmin('event');
+            });
+        }
+
         function ratePage(stars) {
             db.collection("ratings").add({
                 rating: stars,
@@ -891,106 +947,93 @@
 
         db.collection("ratings").onSnapshot((snapshot) => {
             if (snapshot.empty) {
-                document.getElementById('rating-stats').innerText = "Sé el primero en calificar esta página ⭐";
+                document.getElementById('rating-stats').innerText = "Sé el primero en calificar ⭐";
                 return;
             }
-
-            let totalVotes = 0;
-            let positiveVotes = 0; 
-
+            let total = 0;
+            let count = 0;
             snapshot.forEach((doc) => {
-                const data = doc.data();
-                totalVotes++;
-                if (data.rating >= 4) {
-                    positiveVotes++;
-                }
+                total += doc.data().rating;
+                count++;
             });
-
-            const positivePercentage = Math.round((positiveVotes / totalVotes) * 100);
-            document.getElementById('rating-stats').innerText = `✨ El ${positivePercentage}% de la gente apoya positivo la página (${totalVotes} votos totales)`;
+            let avg = (total / count).toFixed(1);
+            document.getElementById('rating-stats').innerText = `Aprobación de la Comunidad: ${avg} / 5.0 ⭐ (${count} votos)`;
         });
 
-        /* LÓGICA DE COMENTARIOS */
         function addComment() {
             const nameInput = document.getElementById('comment-name');
             const msgInput = document.getElementById('comment-msg');
-
-            const name = nameInput.value.trim() || "Anónimo";
+            const name = nameInput.value.trim();
             const msg = msgInput.value.trim();
 
-            if (!msg) {
-                alert("Por favor escribe un mensaje antes de publicar.");
+            if (!name || !msg) {
+                alert("Por favor completa tu nombre y tu mensaje.");
                 return;
             }
 
             db.collection("comments").add({
-                author: name,
-                text: msg,
+                name: name,
+                message: msg,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
+                nameInput.value = "";
                 msgInput.value = "";
             }).catch(() => {
-                alert("Error al publicar el comentario.");
+                alert("Error al enviar el comentario.");
             });
         }
 
-        db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+        db.collection("comments").orderBy("timestamp", "desc").limit(20).onSnapshot((snapshot) => {
             const list = document.getElementById('comments-list');
             list.innerHTML = "";
-
             if (snapshot.empty) {
-                list.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 13px;">Sé el primero en dejar un comentario positivo 🙌</div>`;
+                list.innerHTML = '<div style="color: #64748b; text-align: center; padding: 15px;">Aún no hay comentarios. ¡Sé el primero en escribir uno!</div>';
                 return;
             }
-
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                const docId = doc.id;
-                
-                let dateStr = "Hace un momento";
-                if (data.timestamp) {
-                    const d = data.timestamp.toDate();
-                    dateStr = d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                }
-
                 const card = document.createElement('div');
                 card.className = 'comment-card';
-                card.innerHTML = `
-                    <div style="flex: 1;">
-                        <div class="comment-author">${escapeHtml(data.author)}</div>
-                        <div class="comment-text">${escapeHtml(data.text)}</div>
-                        <div class="comment-date">${dateStr}</div>
-                    </div>
-                    <button class="btn-delete-comment" onclick="deleteComment('${docId}')" title="Borrar Comentario">🗑️</button>
-                `;
+
+                const contentDiv = document.createElement('div');
+                
+                const authorDiv = document.createElement('div');
+                authorDiv.className = 'comment-author';
+                authorDiv.innerText = data.name;
+
+                const textDiv = document.createElement('div');
+                textDiv.className = 'comment-text';
+                textDiv.innerText = data.message;
+
+                contentDiv.appendChild(authorDiv);
+                contentDiv.appendChild(textDiv);
+
+                if (data.timestamp) {
+                    const dateDiv = document.createElement('div');
+                    dateDiv.className = 'comment-date';
+                    dateDiv.date = data.timestamp.toDate();
+                    dateDiv.innerText = dateDiv.date.toLocaleDateString() + ' ' + dateDiv.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    contentDiv.appendChild(dateDiv);
+                }
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn-delete-comment';
+                deleteBtn.innerText = '🗑️';
+                deleteBtn.title = 'Eliminar comentario';
+                deleteBtn.onclick = () => {
+                    const pin = prompt("Ingresa la clave de administrador para borrar este comentario:");
+                    if (pin === ADMIN_PIN) {
+                        db.collection("comments").doc(doc.id).delete();
+                    } else if (pin !== null) {
+                        alert("Clave incorrecta.");
+                    }
+                };
+
+                card.appendChild(contentDiv);
+                card.appendChild(deleteBtn);
                 list.appendChild(card);
             });
         });
-
-        function deleteComment(docId) {
-            const userPin = prompt("Ingresa la clave de administrador para borrar este comentario:");
-            if (userPin !== ADMIN_PIN) {
-                alert("Clave incorrecta. No tienes permiso para borrar comentarios.");
-                return;
-            }
-
-            db.collection("comments").doc(docId).delete().then(() => {
-                alert("Comentario eliminado correctamente.");
-            }).catch(() => {
-                alert("Error al intentar borrar el comentario.");
-            });
-        }
-
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        setInterval(updateDisplay, 1000);
     </script>
 </body>
 </html>
