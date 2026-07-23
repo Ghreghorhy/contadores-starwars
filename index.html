@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 30px 20px;
+            padding: 30px 20px 80px 20px;
             user-select: none;
             position: relative;
             overflow-x: hidden;
@@ -208,12 +208,18 @@
         }
 
         .status-badge {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 900;
             letter-spacing: 2px;
             display: none;
             color: #ff2a2a;
             text-transform: uppercase;
+            animation: blinkStatus 0.5s infinite alternate;
+        }
+
+        @keyframes blinkStatus {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
         }
 
         .beskar { 
@@ -334,6 +340,47 @@
             background: #d50000 !important;
             color: #fff !important;
             border: none;
+        }
+
+        /* Nota emotiva flotante en la esquina */
+        .project-note {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 20px;
+            padding: 20px 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .project-note-icon {
+            font-size: 26px;
+            background: rgba(0, 210, 255, 0.15);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 210, 255, 0.4);
+        }
+
+        .project-note-content h4 {
+            font-size: 15px;
+            font-weight: 900;
+            color: #00d2ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .project-note-content p {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            font-weight: 600;
         }
 
         .rating-section {
@@ -518,6 +565,7 @@
             .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
             .timer-header { flex-direction: column; gap: 15px; text-align: center; }
             .bg-watermark { font-size: 20vw; }
+            .project-note { flex-direction: column; text-align: center; align-items: center; }
         }
     </style>
 </head>
@@ -543,6 +591,15 @@
         ¡BIENVENIDO ANDROID TYCOON STAR WARS!
     </div>
 
+    <!-- Nota del Proyecto / Dedicatoria -->
+    <div class="project-note">
+        <div class="project-note-icon">💡</div>
+        <div class="project-note-content">
+            <h4>Nota del Creador (Gregory)</h4>
+            <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
@@ -550,7 +607,7 @@
                 <div class="card-info">
                     <div class="card-title">Beskar</div>
                     <div id="beskar-display" class="time-display">00:15:00</div>
-                    <div id="beskar-status" class="status-badge">¡RESPAWN LISTO!</div>
+                    <div id="beskar-status" class="status-badge">⚠️ ¡BESKAR LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
                     <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
@@ -585,7 +642,7 @@
                 <div class="card-info">
                     <div class="card-title">Mítico</div>
                     <div id="mythic-display" class="time-display">01:00:00</div>
-                    <div id="mythic-status" class="status-badge">¡RESPAWN LISTO!</div>
+                    <div id="mythic-status" class="status-badge">🔥 ¡MÍTICO LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
                     <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
@@ -620,7 +677,7 @@
                 <div class="card-info">
                     <div class="card-title">Galaxy</div>
                     <div id="galactic-display" class="time-display">01:00:00</div>
-                    <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
+                    <div id="galactic-status" class="status-badge">⚡ ¡GALAXY LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
                     <button class="btn-pip" onclick="togglePiP('galactic', 'GALAXY')">📌 Flotante</button>
@@ -657,7 +714,7 @@
                     <div>
                         <div class="card-title">Evento de Galáctico</div>
                         <div id="event-display" class="event-time-display">02 DÍAS 08 HORAS : 30 MINUTOS</div>
-                        <div id="event-status" class="status-badge">¡EVENTO EN VIVO / FINALIZADO!</div>
+                        <div id="event-status" class="status-badge">🌟 ¡EVENTO GALAXY EN VIVO!</div>
                     </div>
                 </div>
                 <div class="action-buttons">
@@ -705,7 +762,6 @@
         <div id="comments-list" class="comments-list"></div>
     </div>
 
-    <!-- CANVAS MEJORADO (MÁS RESOLUCIÓN) -->
     <canvas id="pipCanvas" width="800" height="400"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
@@ -744,16 +800,53 @@
         const targetTimes = { beskar: 0, mythic: 0, galactic: 0, event: 0 };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playBeep(freq = 880) {
+
+        function playUniqueAlert(type) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const now = audioCtx.currentTime;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = freq;
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.2);
+
+            if (type === 'beskar') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(1046.50, now);
+                osc.frequency.setValueAtTime(1318.51, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            } 
+            else if (type === 'mythic') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.setValueAtTime(660, now + 0.12);
+                osc.frequency.setValueAtTime(880, now + 0.24);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } 
+            else if (type === 'galactic') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(900, now + 0.3);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                osc.start(now);
+                osc.stop(now + 0.45);
+            }
+            else if (type === 'event') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(523.25, now + 0.2);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
         }
 
         function formatTime(seconds) {
@@ -813,10 +906,7 @@
                 if (remainingSeconds === 0) {
                     box.classList.add('ready-alert');
                     status.style.display = 'block';
-                } else if (remainingSeconds <= 5 && key !== 'event') {
-                    playBeep(600);
-                    box.classList.remove('ready-alert');
-                    status.style.display = 'none';
+                    playUniqueAlert(key);
                 } else {
                     box.classList.remove('ready-alert');
                     status.style.display = 'none';
@@ -834,30 +924,26 @@
         const ctx = canvas.getContext('2d');
         const video = document.getElementById('pipVideo');
 
-        // FUNCIÓN MEJORADA PARA ADAPTAR TEXTOS
         function renderCanvas(title, timeStr, isReady) {
             ctx.fillStyle = isReady ? "#990000" : "#0f172a";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Título
             ctx.fillStyle = "#00d2ff";
             ctx.font = "bold 45px sans-serif";
             ctx.textAlign = "center";
             ctx.fillText(title, canvas.width / 2, 80);
 
-            // Tiempo Dinámico (Más pequeño si el texto es muy largo)
             ctx.fillStyle = "#ffffff";
             if (timeStr.length > 15) {
-                ctx.font = "bold 38px sans-serif"; // Letra chica para "02 DÍAS 08 HORAS..."
+                ctx.font = "bold 38px sans-serif";
             } else {
-                ctx.font = "bold 90px Courier New"; // Letra gigante para "01:15:00"
+                ctx.font = "bold 90px Courier New";
             }
             ctx.fillText(timeStr, canvas.width / 2, 220);
 
-            // Pie de página
             ctx.fillStyle = isReady ? "#ffea00" : "#94a3b8";
-            ctx.font = "bold 30px sans-serif";
-            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 340);
+            ctx.font = "bold 28px sans-serif";
+            ctx.fillText(isReady ? `¡ATENCIÓN: ${title} LISTO!` : "GREGORY9797", canvas.width / 2, 340);
         }
 
         async function togglePiP(type, title) {
