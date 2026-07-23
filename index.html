@@ -20,8 +20,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 30px 20px 80px 20px;
+            padding: 25px 15px 60px 15px;
             user-select: none;
             position: relative;
             overflow-x: hidden;
@@ -31,370 +30,184 @@
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(11, 19, 43, 0.88) 0%, rgba(3, 5, 8, 0.96) 100%);
+            background: radial-gradient(circle at center, rgba(11, 19, 43, 0.8) 0%, rgba(3, 5, 8, 0.95) 100%);
             z-index: -2;
-        }
-
-        .gaming-particles {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(rgba(0, 210, 255, 0.18) 1px, transparent 0);
-            background-size: 35px 35px;
-            opacity: 0.35;
-            z-index: -1;
-            pointer-events: none;
-            animation: moveParticles 20s linear infinite;
-        }
-
-        @keyframes moveParticles {
-            0% { background-position: 0 0; }
-            100% { background-position: 35px 350px; }
-        }
-
-        .bg-watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14vw;
-            font-weight: 900;
-            color: rgba(0, 210, 255, 0.02);
-            letter-spacing: 15px;
-            white-space: nowrap;
-            z-index: -1;
-            pointer-events: none;
-            text-transform: uppercase;
-            text-shadow: 0 0 30px rgba(0, 210, 255, 0.1);
-        }
-
-        @keyframes rgbAnimation {
-            0% { border-color: #ff0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.5); }
-            33% { border-color: #00d2ff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
-            66% { border-color: #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
-            100% { border-color: #ff0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.5); }
-        }
-
-        @keyframes eventGlowAnimation {
-            0% { border-color: #ffe600; box-shadow: 0 0 25px rgba(255, 230, 0, 0.4), inset 0 0 15px rgba(255, 230, 0, 0.2); }
-            33% { border-color: #ff0055; box-shadow: 0 0 35px rgba(255, 0, 85, 0.7), inset 0 0 20px rgba(255, 0, 85, 0.3); }
-            66% { border-color: #00d2ff; box-shadow: 0 0 35px rgba(0, 210, 255, 0.7), inset 0 0 20px rgba(0, 210, 255, 0.3); }
-            100% { border-color: #ffe600; box-shadow: 0 0 25px rgba(255, 230, 0, 0.4), inset 0 0 15px rgba(255, 230, 0, 0.2); }
         }
 
         .creator-bar {
             width: 100%;
-            max-width: 950px;
+            max-width: 900px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            background: rgba(8, 12, 22, 0.92);
-            backdrop-filter: blur(14px);
-            padding: 16px 30px;
-            border-radius: 16px;
-            font-size: 15px;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 25px;
+            border-radius: 14px;
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            border: 2px solid #00d2ff;
-            position: relative;
-            z-index: 2;
-            animation: rgbAnimation 8s linear infinite;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
         }
 
-        .creator-bar strong { color: #00d2ff; font-size: 17px; text-shadow: 0 0 8px rgba(0, 210, 255, 0.6); }
-        
+        .creator-bar strong { color: #00d2ff; }
+
         .creator-bar .code {
             color: #ff0055;
-            background: rgba(255, 0, 85, 0.15);
-            padding: 6px 14px;
-            border-radius: 8px;
+            background: rgba(255, 0, 85, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
             border: 1px solid #ff0055;
-            font-size: 16px;
             font-weight: 900;
-            letter-spacing: 2px;
-            box-shadow: 0 0 12px rgba(255, 0, 85, 0.4);
         }
 
         .social-buttons {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .paypal-btn, .instagram-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
             color: #ffffff;
             text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 10px;
+            padding: 6px 14px;
+            border-radius: 8px;
             font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 1px;
+            font-size: 12px;
             transition: all 0.3s ease;
         }
 
         .paypal-btn {
             background: linear-gradient(135deg, #0070ba, #003087);
             border: 1px solid #00a6ff;
-            box-shadow: 0 0 15px rgba(0, 112, 186, 0.4);
-        }
-
-        .paypal-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 0 25px rgba(0, 166, 255, 0.8);
         }
 
         .instagram-btn {
             background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
             border: 1px solid #ff758c;
-            box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);
-        }
-
-        .instagram-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 0 25px rgba(253, 29, 29, 0.8);
-        }
-
-        .title-wrapper {
-            margin-bottom: 25px;
-            z-index: 2;
-            text-align: center;
         }
 
         .welcome-title {
-            font-size: 34px;
+            font-size: 28px;
             font-weight: 900;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #ffe600, #ff0055, #00d2ff, #a855f7);
-            background-size: 300% 300%;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ffe600, #ff0055, #00d2ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientText 6s ease infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.3));
+            margin-bottom: 20px;
         }
 
-        @keyframes gradientText {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .project-note {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 14px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+
+        .project-note h4 {
+            font-size: 13px;
+            font-weight: 900;
+            color: #00d2ff;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .project-note p {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Botón Multi-Timer 3 en 1 */
+        .multi-pip-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-multi-pip {
+            background: linear-gradient(90deg, #ff0055, #00d2ff);
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 14px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.5);
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-multi-pip:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 35px rgba(255, 0, 85, 0.7);
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             width: 100%;
-            max-width: 950px;
-            margin-bottom: 35px;
-            z-index: 2;
+            max-width: 900px;
+            margin-bottom: 25px;
         }
 
         .timer-box {
-            padding: 25px 35px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(12px);
-            border: 2px solid;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .timer-box:hover {
-            transform: translateY(-3px);
-        }
-
-        .timer-header {
+            padding: 20px 25px;
+            border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            backdrop-filter: blur(12px);
+            border: 2px solid;
             position: relative;
-            z-index: 1;
-        }
-
-        .card-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
         }
 
         .card-title {
-            font-size: 20px;
+            font-size: 18px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 5px;
         }
 
         .time-display {
-            font-size: 52px;
+            font-size: 42px;
             font-family: 'Courier New', Courier, monospace;
             font-weight: 900;
-            letter-spacing: 4px;
-            text-shadow: 0 0 18px currentColor;
-        }
-
-        .event-time-display {
-            font-size: 26px;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 18px currentColor;
-        }
-
-        .status-badge {
-            font-size: 15px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            display: none;
-            color: #ff2a2a;
-            text-transform: uppercase;
-            animation: blinkStatus 0.5s infinite alternate;
-        }
-
-        @keyframes blinkStatus {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
+            letter-spacing: 3px;
         }
 
         .beskar { 
-            background: linear-gradient(135deg, rgba(20, 30, 48, 0.85), rgba(10, 15, 30, 0.95));
-            border-color: #00d2ff; 
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.25);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: #8c95a5; 
+            box-shadow: 0 0 20px rgba(140, 149, 165, 0.2);
             color: #e2e8f0;
         }
         
         .mythic { 
-            background: linear-gradient(135deg, rgba(60, 10, 25, 0.85), rgba(25, 5, 12, 0.95)); 
-            border-color: #ff0055; 
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
+            background: rgba(120, 20, 25, 0.35); 
+            border-color: #ff3b30; 
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
             color: #ff8580;
         }
         
         .galactic { 
-            background: linear-gradient(135deg, rgba(45, 10, 60, 0.85), rgba(18, 5, 30, 0.95));
-            border-color: #a855f7; 
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
+            background: rgba(88, 28, 135, 0.4);
+            border-color: #ba68c8; 
+            box-shadow: 0 0 20px rgba(186, 104, 200, 0.3);
             color: #f3e8ff;
-        }
-
-        .event { 
-            background: linear-gradient(135deg, rgba(40, 15, 60, 0.9), rgba(12, 5, 30, 0.95));
-            border-color: #ffe600; 
-            box-shadow: 0 0 25px rgba(255, 230, 0, 0.35);
-            color: #fffbeb;
-        }
-
-        .event-row-container {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            align-items: stretch;
-        }
-
-        .event-row-container .timer-box {
-            flex: 1.1;
-        }
-
-        .news-box {
-            flex: 1.3;
-            background: rgba(12, 18, 32, 0.92);
-            border: 3px solid #ffe600;
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            box-shadow: 0 0 30px rgba(255, 230, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: transform 0.3s ease;
-            animation: eventGlowAnimation 5s ease infinite;
-        }
-
-        .news-box:hover {
-            transform: translateY(-3px);
-        }
-
-        .news-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .news-badge {
-            background: #ff0055;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 6px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            box-shadow: 0 0 12px rgba(255, 0, 85, 0.7);
-            animation: blinkStatus 1s infinite alternate;
-        }
-
-        .news-title {
-            font-size: 16px;
-            font-weight: 900;
-            color: #ffe600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
-            margin-bottom: 10px;
-        }
-
-        .news-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .news-list li {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 12px;
-            border-radius: 8px;
-            border-left: 3px solid #00d2ff;
-        }
-
-        .news-footer {
-            margin-top: auto;
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            border-radius: 10px;
-            padding: 8px 12px;
-            font-size: 12px;
-            font-weight: 800;
-            color: #00d2ff;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .news-footer strong {
-            color: #ffe600;
         }
 
         .action-buttons {
@@ -403,10 +216,10 @@
         }
 
         button {
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.8);
             color: #fff;
-            border: 1px solid #334155;
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
             padding: 10px 16px;
             cursor: pointer;
             font-size: 12px;
@@ -419,234 +232,164 @@
         button:hover { 
             background: #ffffff; 
             color: #000000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
         }
 
-        .btn-pip {
-            background: rgba(0, 210, 255, 0.15);
-            border-color: #00d2ff;
-            color: #00d2ff;
-        }
-
-        .btn-pip:hover {
-            background: #00d2ff;
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.8);
-        }
-
-        .admin-controls {
-            display: none;
-            background: rgba(0, 0, 0, 0.85);
-            border-top: 1px dashed rgba(255, 255, 255, 0.2);
-            padding-top: 15px;
-            margin-top: 5px;
+        /* Sección Evento + Noticia en 2 Columnas */
+        .event-section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             width: 100%;
-            position: relative;
-            z-index: 1;
+            max-width: 900px;
+            margin-bottom: 25px;
         }
 
-        .admin-controls.active {
+        .event-card {
+            background: rgba(88, 28, 135, 0.3);
+            border: 2px solid #ba68c8;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(186, 104, 200, 0.2);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            justify-content: space-between;
         }
 
-        .time-inputs {
+        .event-time-display {
+            font-size: 26px;
+            font-weight: 900;
+            margin: 15px 0;
+            color: #f3e8ff;
+            line-height: 1.3;
+        }
+
+        .news-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid #ff0055;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+        }
+
+        .news-tag {
+            background: rgba(255, 0, 85, 0.2);
+            color: #ff0055;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #ffe600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .news-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .news-list li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 800;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 10px;
+            border-radius: 6px;
         }
 
-        .time-inputs input {
-            width: 65px;
-            padding: 8px;
-            background: #0f172a;
-            border: 1px solid #00d2ff;
-            color: #fff;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
+        .news-footer {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 12px;
+            color: #00d2ff;
             font-weight: 700;
         }
 
-        .quick-btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .btn-quick {
-            padding: 6px 12px;
-            font-size: 11px;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-save {
-            background: #00c853 !important;
-            color: #000 !important;
-            border: none;
-            font-weight: 900;
-        }
-
-        .btn-cancel {
-            background: #d50000 !important;
-            color: #fff !important;
-            border: none;
-        }
-
-        .project-note {
+        /* Sección Likes / Apoyos */
+        .likes-section {
             width: 100%;
-            max-width: 950px;
-            background: rgba(12, 18, 32, 0.92);
-            backdrop-filter: blur(12px);
-            border: 2px solid #00d2ff;
-            border-radius: 20px;
-            padding: 20px 25px;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
             margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 2;
-            animation: rgbAnimation 10s linear infinite;
         }
 
-        .project-note h4 {
-            font-size: 15px;
-            font-weight: 900;
-            color: #00d2ff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .project-note p {
-            font-size: 14px;
-            color: #cbd5e1;
-            line-height: 1.5;
-            font-weight: 600;
-        }
-
-        .divider-line {
-            width: 100%;
-            max-width: 950px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00d2ff, #ff0055, transparent);
-            margin: 10px 0 30px 0;
-            z-index: 2;
-            box-shadow: 0 0 10px #00d2ff;
-        }
-
-        .rating-section, .comments-section {
-            width: 100%;
-            max-width: 950px;
-            background: rgba(12, 18, 32, 0.88);
-            backdrop-filter: blur(14px);
-            border: 2px solid rgba(0, 210, 255, 0.3);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
-            margin-bottom: 30px;
-            z-index: 2;
-        }
-
-        .rating-section { 
-            text-align: center; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .rating-title {
-            font-size: 18px;
-            font-weight: 900;
-            color: #ffe600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
-        }
-
-        .like-btn {
-            background: linear-gradient(135deg, #00d2ff, #0055ff);
+        .btn-like {
+            background: linear-gradient(90deg, #00d2ff, #0072ff);
             color: #ffffff;
-            border: 2px solid #00d2ff;
-            border-radius: 50px;
-            padding: 14px 32px;
-            font-size: 16px;
             font-weight: 900;
-            letter-spacing: 1.5px;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            margin: 10px 0;
+            transition: transform 0.2s;
         }
 
-        .like-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 35px rgba(0, 210, 255, 0.9);
-            background: linear-gradient(135deg, #00e5ff, #0066ff);
-            color: #fff;
-        }
-
-        .like-btn.liked {
-            background: linear-gradient(135deg, #00c853, #009624);
-            border-color: #00e676;
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.6);
-            cursor: default;
-        }
+        .btn-like:hover { transform: scale(1.05); }
 
         .like-counter {
-            font-size: 15px;
-            font-weight: 800;
+            font-size: 13px;
             color: #00d2ff;
+            font-weight: 800;
             background: rgba(0, 210, 255, 0.1);
-            padding: 8px 18px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Comentarios */
+        .comments-section {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
         }
 
         .comments-header {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 900;
             color: #00d2ff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .comment-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .comment-form input, .comment-form textarea {
-            background: #090e17;
-            border: 1px solid #1e293b;
-            border-radius: 10px;
-            padding: 12px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px;
             color: #ffffff;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .comment-form input:focus, .comment-form textarea:focus {
-            border-color: #00d2ff;
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
         .btn-comment {
@@ -655,686 +398,214 @@
             font-weight: 900;
             align-self: flex-end;
             border: none;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
-        }
-
-        .btn-comment:hover {
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
+            padding: 10px 20px;
         }
 
         .comments-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-height: 350px;
+            gap: 12px;
+            max-height: 300px;
             overflow-y: auto;
-            padding-right: 5px;
         }
 
         .comment-card {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
-            transition: border-color 0.3s;
-        }
-
-        .comment-card:hover {
-            border-color: rgba(0, 210, 255, 0.4);
+            padding: 12px;
+            border-radius: 10px;
         }
 
         .comment-author {
             font-weight: 800;
             color: #ffe600;
-            font-size: 14px;
-            margin-bottom: 4px;
-            text-shadow: 0 0 5px rgba(255, 230, 0, 0.3);
+            font-size: 13px;
         }
 
         .comment-text {
-            font-size: 14px;
+            font-size: 13px;
             color: #e2e8f0;
-            word-break: break-word;
-            user-select: text;
+            margin-top: 4px;
         }
 
-        .comment-date {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 5px;
+        .admin-controls {
+            display: none;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 10px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            margin-top: 10px;
+            border-radius: 8px;
         }
 
-        .btn-delete-comment {
-            background: transparent;
-            border: none;
-            color: #ff4757;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 4px 8px;
-            border-radius: 6px;
+        .admin-controls.active { display: flex; flex-direction: column; gap: 8px; }
+
+        .time-inputs input {
+            width: 50px;
+            padding: 4px;
+            background: #0f172a;
+            border: 1px solid #00d2ff;
+            color: #fff;
+            border-radius: 4px;
+            text-align: center;
         }
 
-        .btn-delete-comment:hover {
-            background: rgba(255, 71, 87, 0.2);
-            color: #ff6b81;
-            box-shadow: none;
-        }
+        canvas { display: none; }
 
-        @keyframes readyPulse {
-            0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
-            100% { border-color: #ffffff; box-shadow: 0 0 50px #ff0000; }
-        }
-
-        .ready-alert {
-            animation: readyPulse 0.8s infinite alternate !important;
-        }
-
-        /* Elementos PIP ocultos en pantalla */
-        #pipCanvas { display: none; }
-        #pipVideo { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-
-        @media (max-width: 768px) {
-            .event-row-container { flex-direction: column; }
-            .time-display { font-size: 38px; }
-            .event-time-display { font-size: 20px; }
-            .welcome-title { font-size: 22px; }
-            .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
-            .timer-header { flex-direction: column; gap: 15px; text-align: center; }
-            .bg-watermark { font-size: 20vw; }
+        @media (max-width: 650px) {
+            .event-section-grid { grid-template-columns: 1fr; }
+            .timer-box { flex-direction: column; gap: 15px; text-align: center; }
+            .time-display { font-size: 34px; }
+            .creator-bar { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="gaming-particles"></div>
-    <div class="bg-watermark">FORTNITE</div>
-
+    <!-- Barra de Creador -->
     <div class="creator-bar">
-        <span>🎮 CREADOR: <strong>GREGORY</strong></span>
-        <span>🛒 CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
-        
+        <span>CREADOR: <strong>GREGORY</strong></span>
+        <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
         <div class="social-buttons">
-            <a href="https://www.instagram.com/ghregory97?igsh=eHlobWR5Yzc2MnNw" target="_blank" class="instagram-btn">
-                📸 Instagram
-            </a>
-            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">
-                💙 Donar
-            </a>
+            <a href="https://www.instagram.com/ghregory97?igsh=eHlobWR5Yzc2MnNw" target="_blank" class="instagram-btn">📸 Instagram</a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">💙 Donar</a>
         </div>
     </div>
 
-    <div class="title-wrapper">
-        <div class="welcome-title">
-            ⚡ ANDROID TYCOON STAR WARS ⚡
-        </div>
-    </div>
-
+    <!-- Título y Nota -->
+    <div class="welcome-title">⚡ ANDROID TYCOON STAR WARS ⚡</div>
+    
     <div class="project-note">
-        <h4>📝 Nota del Creador (Gregory)</h4>
+        <h4>📝 NOTA DEL CREADOR (GREGORY)</h4>
         <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
     </div>
 
+    <!-- NUEVO: Botón Flotante 3 en 1 -->
+    <div class="multi-pip-wrapper">
+        <button class="btn-multi-pip" onclick="toggleMultiPiP()">
+            📌 ABRIR FLOTANTE MULTI-TIMER (BESKAR + MÍTICO + GALAXY)
+        </button>
+    </div>
+
+    <!-- Contenedor de Temporizadores -->
     <div class="container">
         <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
-            <div class="timer-header">
-                <div class="card-info">
-                    <div class="card-title">🛡️ Beskar</div>
-                    <div id="beskar-display" class="time-display">00:15:00</div>
-                    <div id="beskar-status" class="status-badge">⚠️ ¡BESKAR LISTO!</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
-                    <button onclick="requestAdmin('beskar')">⚙️ Configurar</button>
-                </div>
+            <div>
+                <div class="card-title">🛡️ BESKAR</div>
+                <div id="beskar-display" class="time-display">00:15:00</div>
             </div>
-
+            <div class="action-buttons">
+                <button onclick="togglePiP('beskar', 'BESKAR')">📌 FLOTANTE</button>
+                <button onclick="requestAdmin('beskar')">⚙️ CONFIGURAR</button>
+            </div>
             <div id="admin-beskar" class="admin-controls">
-                <div style="font-size: 13px; color: #a0aec0; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR - Máx 15m):</div>
                 <div class="time-inputs">
-                    <label>H: <input type="number" id="beskar-h" min="0" value="0"></label>
-                    <label>M: <input type="number" id="beskar-m" min="0" max="15" value="15"></label>
-                    <label>S: <input type="number" id="beskar-s" min="0" max="59" value="0"></label>
+                    <label>H: <input type="number" id="beskar-h" value="0"></label>
+                    <label>M: <input type="number" id="beskar-m" value="15"></label>
+                    <label>S: <input type="number" id="beskar-s" value="0"></label>
                 </div>
-                <div class="quick-btn-group">
-                    <button class="btn-quick" onclick="setQuickTime('beskar', 15)">Default 15m</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', 5, 15)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', -5, 15)">-5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', 1, 15)">+1 min</button>
-                    <button class="btn-quick" onclick="adjustInput('beskar', -1, 15)">-1 min</button>
-                </div>
-                <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('beskar', 15)">💾 Guardar y Aplicar</button>
-                    <button class="btn-cancel" onclick="closeAdmin('beskar')">❌ Cancelar</button>
-                </div>
+                <button onclick="saveTimer('beskar')">💾 Guardar</button>
             </div>
         </div>
 
         <!-- Mítico -->
         <div id="box-mythic" class="timer-box mythic">
-            <div class="timer-header">
-                <div class="card-info">
-                    <div class="card-title">⚔️ Mítico</div>
-                    <div id="mythic-display" class="time-display">01:00:00</div>
-                    <div id="mythic-status" class="status-badge">🔥 ¡MÍTICO LISTO!</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
-                    <button onclick="requestAdmin('mythic')">⚙️ Configurar</button>
-                </div>
+            <div>
+                <div class="card-title">⚔️ MÍTICO</div>
+                <div id="mythic-display" class="time-display">01:00:00</div>
             </div>
-
+            <div class="action-buttons">
+                <button onclick="togglePiP('mythic', 'MÍTICO')">📌 FLOTANTE</button>
+                <button onclick="requestAdmin('mythic')">⚙️ CONFIGURAR</button>
+            </div>
             <div id="admin-mythic" class="admin-controls">
-                <div style="font-size: 13px; color: #ff5252; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO - Máx 60m):</div>
                 <div class="time-inputs">
-                    <label>H: <input type="number" id="mythic-h" min="0" max="1" value="1"></label>
-                    <label>M: <input type="number" id="mythic-m" min="0" max="59" value="0"></label>
-                    <label>S: <input type="number" id="mythic-s" min="0" max="59" value="0"></label>
+                    <label>H: <input type="number" id="mythic-h" value="1"></label>
+                    <label>M: <input type="number" id="mythic-m" value="0"></label>
+                    <label>S: <input type="number" id="mythic-s" value="0"></label>
                 </div>
-                <div class="quick-btn-group">
-                    <button class="btn-quick" onclick="setQuickTime('mythic', 60)">Default 1h</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', 15, 60)">+15 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', -15, 60)">-15 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', 5, 60)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('mythic', -5, 60)">-5 min</button>
-                </div>
-                <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('mythic', 60)">💾 Guardar y Aplicar</button>
-                    <button class="btn-cancel" onclick="closeAdmin('mythic')">❌ Cancelar</button>
-                </div>
+                <button onclick="saveTimer('mythic')">💾 Guardar</button>
             </div>
         </div>
 
-        <!-- Galáctico -->
+        <!-- Galaxy -->
         <div id="box-galactic" class="timer-box galactic">
-            <div class="timer-header">
-                <div class="card-info">
-                    <div class="card-title">🌌 Galaxy</div>
-                    <div id="galactic-display" class="time-display">01:00:00</div>
-                    <div id="galactic-status" class="status-badge">⚡ ¡GALAXY LISTO!</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('galactic', 'GALAXY')">📌 Flotante</button>
-                    <button onclick="requestAdmin('galactic')">⚙️ Configurar</button>
-                </div>
+            <div>
+                <div class="card-title">🌌 GALAXY</div>
+                <div id="galactic-display" class="time-display">01:00:00</div>
             </div>
-
+            <div class="action-buttons">
+                <button onclick="togglePiP('galactic', 'GALAXY')">📌 FLOTANTE</button>
+                <button onclick="requestAdmin('galactic')">⚙️ CONFIGURAR</button>
+            </div>
             <div id="admin-galactic" class="admin-controls">
-                <div style="font-size: 13px; color: #e040fb; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALAXY - Máx 60m):</div>
                 <div class="time-inputs">
-                    <label>H: <input type="number" id="galactic-h" min="0" max="1" value="1"></label>
-                    <label>M: <input type="number" id="galactic-m" min="0" max="59" value="0"></label>
-                    <label>S: <input type="number" id="galactic-s" min="0" max="59" value="0"></label>
+                    <label>H: <input type="number" id="galactic-h" value="1"></label>
+                    <label>M: <input type="number" id="galactic-m" value="0"></label>
+                    <label>S: <input type="number" id="galactic-s" value="0"></label>
                 </div>
-                <div class="quick-btn-group">
-                    <button class="btn-quick" onclick="setQuickTime('galactic', 60)">Default 1h</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', 15, 60)">+15 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', -15, 60)">-15 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', 5, 60)">+5 min</button>
-                    <button class="btn-quick" onclick="adjustInput('galactic', -5, 60)">-5 min</button>
-                </div>
-                <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveTimer('galactic', 60)">💾 Guardar y Aplicar</button>
-                    <button class="btn-cancel" onclick="closeAdmin('galactic')">❌ Cancelar</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fila: Evento Galáctico + Bloque Noticia Importante -->
-        <div class="event-row-container">
-            <div id="box-event" class="timer-box event">
-                <div class="timer-header">
-                    <div class="card-info">
-                        <div class="card-title">🚀 Evento de Galáctico</div>
-                        <div id="event-display" class="event-time-display">02 DÍAS 08 HORAS : 30 MINUTOS</div>
-                        <div id="event-status" class="status-badge">🌟 ¡EVENTO EN VIVO!</div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-pip" onclick="togglePiP('event', 'EVENTO GALÁCTICO')">📌 Flotante</button>
-                        <button onclick="requestAdmin('event')">⚙️ Configurar</button>
-                    </div>
-                </div>
-
-                <div id="admin-event" class="admin-controls">
-                    <div style="font-size: 13px; color: #ffe600; font-weight: 800;">⚙️ CONFIGURAR TIEMPO MANUAL (DÍAS, HORAS, MINUTOS):</div>
-                    <div class="time-inputs">
-                        <label>Días: <input type="number" id="event-days" min="0" value="2" style="width: 70px;"></label>
-                        <label>Horas: <input type="number" id="event-hours" min="0" max="23" value="8" style="width: 65px;"></label>
-                        <label>Minutos: <input type="number" id="event-minutes" min="0" max="59" value="30" style="width: 65px;"></label>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 5px;">
-                        <button class="btn-save" onclick="saveManualEventTimer()">💾 Guardar Evento</button>
-                        <button class="btn-cancel" onclick="closeAdmin('event')">❌ Cancelar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="news-box">
-                <div class="news-header">
-                    <div class="news-badge">🚨 NOTICIA IMPORTANTE</div>
-                </div>
-                <div class="news-title">🌌 COMIENZA EL EVENTO GALÁCTICO</div>
-                
-                <ul class="news-list">
-                    <li>🔹 Aumento de aparición de planos galácticos</li>
-                    <li>🔹 Nivel de pico x2</li>
-                    <li>🔹 Velocidad de fabricación x2</li>
-                    <li>🔹 Cristales Nova</li>
-                </ul>
-
-                <div class="news-footer">
-                    <div>📅 <strong>Días:</strong> Sábado 25 de Julio y Domingo 26 de Julio</div>
-                    <div>⏳ <strong>Duración:</strong> 24 Horas de evento</div>
-                </div>
+                <button onclick="saveTimer('galactic')">💾 Guardar</button>
             </div>
         </div>
     </div>
 
-    <div class="divider-line"></div>
+    <!-- Evento Galáctico + Noticias -->
+    <div class="event-section-grid">
+        <div class="event-card">
+            <div>
+                <div class="card-title">🚀 EVENTO DE GALÁCTICO</div>
+                <div id="event-display" class="event-time-display">02 DÍAS 00 HS : 29 MIN</div>
+            </div>
+            <div class="action-buttons">
+                <button onclick="togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 FLOTANTE</button>
+                <button onclick="requestAdmin('event')">⚙️ CONFIGURAR</button>
+            </div>
+            <div id="admin-event" class="admin-controls">
+                <div class="time-inputs">
+                    <label>Días: <input type="number" id="event-days" value="2"></label>
+                    <label>Horas: <input type="number" id="event-hours" value="0"></label>
+                    <label>Min: <input type="number" id="event-minutes" value="30"></label>
+                </div>
+                <button onclick="saveManualEventTimer()">💾 Guardar</button>
+            </div>
+        </div>
 
-    <div class="rating-section">
-        <div class="rating-title">🔥 ¿TE SIRVE LA PÁGINA? ¡DALE UN LIKE! 🔥</div>
-        <button id="like-btn" class="like-btn" onclick="giveLike()">
-            <span id="like-icon">👍</span> <span id="like-text">¡ME GUSTA ESTE PROYECTO!</span>
-        </button>
-        <div id="like-counter" class="like-counter">Cargando likes de la comunidad...</div>
+        <div class="news-card">
+            <span class="news-tag">🚨 NOTICIA IMPORTANTE</span>
+            <div class="news-title">🌌 COMIENZA EL EVENTO GALÁCTICO</div>
+            <ul class="news-list">
+                <li>🔹 Aumento de aparición de planos galácticos</li>
+                <li>🔹 Nivel de pico x2</li>
+                <li>🔹 Velocidad de fabricación x2</li>
+                <li>🔹 Cristales Nova</li>
+            </ul>
+            <div class="news-footer">
+                📅 Días: Sábado 25 de Julio y Domingo 26 de Julio<br>
+                ⏳ Duración: 24 Horas de evento
+            </div>
+        </div>
     </div>
 
+    <!-- Likes -->
+    <div class="likes-section">
+        <div style="font-size: 15px; font-weight: 900; color: #ffe600;">🔥 ¿TE SIRVE LA PÁGINA? ¡DALE UN LIKE! 🔥</div>
+        <button class="btn-like" onclick="addLike()">👍 ¡ME GUSTA ESTE PROYECTO!</button><br>
+        <div id="like-counter" class="like-counter">🔥 Total de Apoyos: Loading...</div>
+    </div>
+
+    <!-- Comentarios -->
     <div class="comments-section">
-        <div class="comments-header">💬 Comentarios de la Comunidad</div>
-        
+        <div class="comments-header">💬 COMENTARIOS DE LA COMUNIDAD</div>
         <div class="comment-form">
             <input type="text" id="comment-name" placeholder="Tu Nombre o Nickname..." maxlength="30">
-            <textarea id="comment-msg" rows="3" placeholder="Deja un mensaje o saludo positivo para el clan..." maxlength="250"></textarea>
-            <button class="btn-comment" onclick="addComment()">🚀 Publicar Comentario</button>
+            <textarea id="comment-msg" rows="3" placeholder="Deja un mensaje o saludo positivo..." maxlength="250"></textarea>
+            <button class="btn-comment" onclick="addComment()">🚀 PUBLICAR COMENTARIO</button>
         </div>
-
         <div id="comments-list" class="comments-list"></div>
     </div>
 
-    <canvas id="pipCanvas" width="900" height="420"></canvas>
-    <video id="pipVideo" autoplay muted playsinline></video>
+    <canvas id="pipCanvas" width="800" height="450"></canvas>
+    <video id="pipVideo" autoplay muted style="display:none;"></video>
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-    <script>
-        const ADMIN_PIN = "HOLAGORDIS69KELL$$"; 
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDSQtr6xQONdpcK7HQDe_TIVCm6yBg4C3E",
-            authDomain: "starwars-timers.firebaseapp.com",
-            projectId: "starwars-timers",
-            storageBucket: "starwars-timers.firebasestorage.app",
-            messagingSenderId: "823447387092",
-            appId: "1:823447387092:web:c98ee916a04d00eee83441"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        let serverOffset = 0;
-        let activePipType = null;
-        let activePipTitle = "";
-        let timerStates = {};
-        let resettingTimers = {};
-
-        // DURACIONES POR DEFECTO EN MINUTOS PARA CADA CICLO
-        const DEFAULT_DURATIONS = {
-            beskar: 15,     // 15 minutos
-            mythic: 60,     // 1 hora
-            galactic: 60    // 1 hora
-        };
-
-        function playGamerAlertSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                function playBeep(freq, startTime, duration) {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'square';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.3, startTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start(startTime);
-                    osc.stop(startTime + duration);
-                }
-
-                const now = audioCtx.currentTime;
-                playBeep(880, now, 0.15);
-                playBeep(1046.5, now + 0.2, 0.15);
-                playBeep(1318.5, now + 0.4, 0.3);
-            } catch (e) {
-                console.log("Audio no permitido aún:", e);
-            }
-        }
-
-        db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
-            .then(() => {
-                db.collection(".info").doc("serverTime").get().then(doc => {
-                    if (doc.exists && doc.data().now) {
-                        const serverTime = doc.data().now.toMillis();
-                        serverOffset = serverTime - Date.now();
-                    }
-                });
-            }).catch(e => console.log(e));
-
-        function getNow() { return Date.now() + serverOffset; }
-
-        function formatTime(seconds) {
-            if (seconds <= 0) return "00:00:00";
-            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-            return `${h}:${m}:${s}`;
-        }
-
-        function formatEventTime(seconds) {
-            if (seconds <= 0) return "00 DÍAS 00 HORAS : 00 MIN";
-            const days = Math.floor(seconds / 86400);
-            const hours = Math.floor((seconds % 86400) / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const dStr = days.toString().padStart(2, '0');
-            const hStr = hours.toString().padStart(2, '0');
-            const mStr = minutes.toString().padStart(2, '0');
-            return `${dStr} DÍAS ${hStr} HS : ${mStr} MIN`;
-        }
-
-        function syncTimers() {
-            db.collection("timers").onSnapshot(snapshot => {
-                snapshot.forEach(doc => {
-                    timerStates[doc.id] = doc.data();
-                });
-                updateUI();
-            });
-        }
-
-        // LÓGICA DE ACTUALIZACIÓN Y AUTO-REINICIO EN CICLO
-        function updateUI() {
-            const now = getNow();
-            for (let id in timerStates) {
-                const data = timerStates[id];
-                const display = document.getElementById(`${id}-display`);
-                const status = document.getElementById(`${id}-status`);
-                const box = document.getElementById(`box-${id}`);
-
-                if (!display) continue;
-
-                let remaining = Math.max(0, Math.floor((data.targetTime - now) / 1000));
-
-                if (id === 'event') {
-                    display.innerText = formatEventTime(remaining);
-                } else {
-                    display.innerText = formatTime(remaining);
-                }
-
-                // SI EL TIEMPO LLEGA A 0 Y PERTENECE A LOS TIMERS EN BUCLE:
-                if (remaining <= 0 && DEFAULT_DURATIONS[id]) {
-                    if (!resettingTimers[id]) {
-                        resettingTimers[id] = true;
-                        playGamerAlertSound();
-
-                        // REINICIAR AUTOMÁTICAMENTE AL TIEMPO POR DEFECTO
-                        const nextTarget = now + (DEFAULT_DURATIONS[id] * 60 * 1000);
-                        db.collection("timers").doc(id).set({ targetTime: nextTarget })
-                            .then(() => {
-                                resettingTimers[id] = false;
-                            })
-                            .catch(() => {
-                                resettingTimers[id] = false;
-                            });
-                    }
-                }
-
-                if (activePipType === id) renderPiPCanvas(id, remaining);
-            }
-        }
-
-        setInterval(updateUI, 1000);
-
-        function requestAdmin(id) {
-            const pin = prompt("Introduce el PIN de Administrador:");
-            if (pin === ADMIN_PIN) {
-                document.getElementById(`admin-${id}`).classList.add("active");
-            } else if (pin !== null) {
-                alert("PIN incorrecto.");
-            }
-        }
-
-        function closeAdmin(id) {
-            document.getElementById(`admin-${id}`).classList.remove("active");
-        }
-
-        function adjustInput(id, minDiff, maxMinutes) {
-            const mInput = document.getElementById(`${id}-m`);
-            let currentM = parseInt(mInput.value) || 0;
-            let newM = currentM + minDiff;
-            if (newM < 0) newM = 0;
-            if (newM > maxMinutes) newM = maxMinutes;
-            mInput.value = newM;
-        }
-
-        function setQuickTime(id, totalMinutes) {
-            const hInput = document.getElementById(`${id}-h`);
-            const mInput = document.getElementById(`${id}-m`);
-            const sInput = document.getElementById(`${id}-s`);
-            if (hInput) hInput.value = Math.floor(totalMinutes / 60);
-            if (mInput) mInput.value = totalMinutes % 60;
-            if (sInput) sInput.value = 0;
-        }
-
-        function saveTimer(id, maxMinutes) {
-            const h = parseInt(document.getElementById(`${id}-h`).value) || 0;
-            const m = parseInt(document.getElementById(`${id}-m`).value) || 0;
-            const s = parseInt(document.getElementById(`${id}-s`).value) || 0;
-
-            const totalSec = (h * 3600) + (m * 60) + s;
-            if (totalSec > maxMinutes * 60) {
-                alert(`El tiempo máximo permitido para ${id.toUpperCase()} es de ${maxMinutes} minutos.`);
-                return;
-            }
-
-            const targetTime = getNow() + (totalSec * 1000);
-            db.collection("timers").doc(id).set({ targetTime })
-                .then(() => closeAdmin(id))
-                .catch(err => alert("Error al guardar: " + err.message));
-        }
-
-        function saveManualEventTimer() {
-            const d = parseInt(document.getElementById('event-days').value) || 0;
-            const h = parseInt(document.getElementById('event-hours').value) || 0;
-            const m = parseInt(document.getElementById('event-minutes').value) || 0;
-
-            const totalSec = (d * 86400) + (h * 3600) + (m * 60);
-            const targetTime = getNow() + (totalSec * 1000);
-
-            db.collection("timers").doc("event").set({ targetTime })
-                .then(() => closeAdmin("event"))
-                .catch(err => alert("Error al guardar evento: " + err.message));
-        }
-
-        async function togglePiP(id, title) {
-            try {
-                const video = document.getElementById('pipVideo');
-                const canvas = document.getElementById('pipCanvas');
-
-                if (document.pictureInPictureElement) {
-                    await document.exitPictureInPicture();
-                    if (activePipType === id) {
-                        activePipType = null;
-                        return;
-                    }
-                }
-
-                activePipType = id;
-                activePipTitle = title;
-
-                renderPiPCanvas(id, 0);
-
-                const stream = canvas.captureStream(30);
-                video.srcObject = stream;
-                
-                await video.play();
-                await video.requestPictureInPicture();
-            } catch (err) {
-                alert("Tu navegador requiere interactuar con la página antes de abrir la ventana flotante.");
-                console.error("Error al activar PiP: ", err);
-            }
-        }
-
-        function renderPiPCanvas(id, remaining) {
-            const canvas = document.getElementById('pipCanvas');
-            const ctx = canvas.getContext('2d');
-
-            ctx.fillStyle = "#05070b";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.strokeStyle = "#00d2ff";
-            ctx.lineWidth = 6;
-            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-
-            ctx.fillStyle = "#00d2ff";
-            ctx.font = "bold 28px 'Segoe UI', sans-serif";
-            ctx.textAlign = "center";
-            ctx.fillText(activePipTitle, canvas.width / 2, 70);
-
-            let text = "00:00:00";
-            if (timerStates[id]) {
-                const rem = Math.max(0, Math.floor((timerStates[id].targetTime - getNow()) / 1000));
-                text = id === 'event' ? formatEventTime(rem) : formatTime(rem);
-                remaining = rem;
-            }
-
-            ctx.fillStyle = remaining <= 0 ? "#ff2a2a" : "#ffffff";
-            if (id === 'event') {
-                ctx.font = "bold 34px monospace";
-            } else {
-                ctx.font = "bold 52px monospace";
-            }
-            ctx.fillText(text, canvas.width / 2, 210);
-
-            if (remaining <= 0) {
-                ctx.fillStyle = "#ff2a2a";
-                ctx.font = "bold 26px sans-serif";
-                ctx.fillText("¡REINICIANDO CICLO!", canvas.width / 2, 320);
-            } else {
-                ctx.fillStyle = "#64748b";
-                ctx.font = "bold 16px sans-serif";
-                ctx.fillText("ANDROID TYCOON - GREGORY9797", canvas.width / 2, 330);
-            }
-        }
-
-        function giveLike() {
-            if (localStorage.getItem("has_liked_starwars")) {
-                alert("¡Ya le diste Me Gusta a la página! Gracias por el apoyo 🔥");
-                return;
-            }
-
-            const likeRef = db.collection("app_stats").doc("likes");
-            likeRef.set({
-                count: firebase.firestore.FieldValue.increment(1)
-            }, { merge: true }).then(() => {
-                localStorage.setItem("has_liked_starwars", "true");
-                checkUserLikedStatus();
-            });
-        }
-
-        function checkUserLikedStatus() {
-            if (localStorage.getItem("has_liked_starwars")) {
-                const btn = document.getElementById("like-btn");
-                btn.classList.add("liked");
-                document.getElementById("like-icon").innerText = "❤️";
-                document.getElementById("like-text").innerText = "¡TE GUSTA ESTE PROYECTO!";
-            }
-        }
-
-        function loadLikes() {
-            db.collection("app_stats").doc("likes").onSnapshot(doc => {
-                const counterEl = document.getElementById("like-counter");
-                if (doc.exists && doc.data().count !== undefined) {
-                    counterEl.innerText = `🔥 Total de Apoyos: ${doc.data().count} Gamers`;
-                } else {
-                    counterEl.innerText = `🔥 Sé el primero en apoyar la página`;
-                }
-            });
-        }
-
-        function addComment() {
-            const nameInput = document.getElementById("comment-name");
-            const msgInput = document.getElementById("comment-msg");
-
-            const name = nameInput.value.trim() || "Gamer Anónimo";
-            const msg = msgInput.value.trim();
-
-            if (!msg) {
-                alert("Por favor escribe un mensaje antes de publicar.");
-                return;
-            }
-
-            db.collection("comments").add({
-                name: name,
-                msg: msg,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                nameInput.value = "";
-                msgInput.value = "";
-            }).catch(err => alert("Error al publicar: " + err.message));
-        }
-
-        function deleteComment(commentId) {
-            const pin = prompt("Introduce el PIN de Administrador para borrar este comentario:");
-            if (pin === ADMIN_PIN) {
-                db.collection("comments").doc(commentId).delete()
-                    .then(() => alert("Comentario eliminado correctamente."))
-                    .catch(err => alert("Error al eliminar: " + err.message));
-            } else if (pin !== null) {
-                alert("PIN incorrecto.");
-            }
-        }
-
-        function loadComments() {
-            db.collection("comments").orderBy("timestamp", "desc").onSnapshot(snapshot => {
-                const list = document.getElementById("comments-list");
-                list.innerHTML = "";
-
-                if (snapshot.empty) {
-                    list.innerHTML = `<div style="text-align:center; color:#64748b; font-size:13px;">No hay comentarios aún. ¡Sé el primero en dejar un saludo!</div>`;
-                    return;
-                }
-
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const dateStr = data.timestamp ? new Date(data.timestamp.toMillis()).toLocaleString() : "Hace un momento";
-                    
-                    const card = document.createElement("div");
-                    card.className = "comment-card";
-                    card.innerHTML = `
-                        <div>
-                            <div class="comment-author">${escapeHtml(data.name)}</div>
-                            <div class="comment-text">${escapeHtml(data.msg)}</div>
-                            <div class="comment-date">🕒 ${dateStr}</div>
-                        </div>
-                        <button class="btn-delete-comment" onclick="deleteComment('${doc.id}')" title="Borrar Comentario (Admin)">🗑️</button>
-                    `;
-                    list.appendChild(card);
-                });
-            });
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        syncTimers();
-        loadLikes();
-        loadComments();
-    </script>
-</body>
-</html>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
