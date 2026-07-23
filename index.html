@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Fortnite - Contadores de Eventos</title>
+    <title>Star Wars Fortnite - Contadores</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,6 @@
 
         body {
             font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
-            /* Fondo épico temático de Star Wars / Fortnite */
             background: #05070b url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=2000') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -89,7 +88,7 @@
         .instagram-btn { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
         .paypal-btn { background: linear-gradient(135deg, #0070ba, #003087); }
 
-        /* Pestañas de Navegación para los 3 Contadores */
+        /* Pestañas de Navegación originales */
         .tabs-container {
             display: flex;
             gap: 10px;
@@ -320,11 +319,12 @@
         </div>
     </div>
 
-    <!-- Pestañas para alternar entre los contadores -->
+    <!-- Pestañas originales con Beskar, Mítico, Galáctico y agregada la nueva pestaña a un lado -->
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('beskar')">🛡️ PLANO BESKAR</button>
         <button class="tab-btn" onclick="switchTab('mitico')">⚡ PLANO MÍTICO</button>
         <button class="tab-btn" onclick="switchTab('galactico')">🌌 EVENTO GALÁCTICO</button>
+        <button class="tab-btn" onclick="switchTab('proximo')">🚀 PRÓXIMO EVENTO</button>
     </div>
 
     <div class="event-container">
@@ -409,7 +409,8 @@
         const tabNames = {
             'beskar': 'PLANO BESKAR',
             'mitico': 'PLANO MÍTICO',
-            'galactico': 'EVENTO GALÁCTICO'
+            'galactico': 'EVENTO GALÁCTICO',
+            'proximo': 'PRÓXIMO EVENTO'
         };
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
@@ -424,14 +425,11 @@
         function switchTab(tabKey) {
             currentTab = tabKey;
             
-            // Actualizar botones activos
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Cambiar título del banner
             document.getElementById('banner-title').innerText = tabNames[tabKey];
 
-            // Cargar datos de la pestaña seleccionada
             loadTabFirestore();
         }
 
@@ -443,7 +441,6 @@
                     eventData.eventDuration = data.eventDuration || 900;
                     eventData.cycleStartTime = data.cycleStartTime || Date.now();
                 } else {
-                    // Valores por defecto
                     const now = Date.now();
                     db.collection("timers").doc(currentTab).set({
                         waitDuration: 86400,
@@ -454,7 +451,6 @@
             });
         }
 
-        // Cargar pestaña inicial al abrir
         loadTabFirestore();
 
         function updateCountdown() {
