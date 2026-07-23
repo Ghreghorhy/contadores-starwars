@@ -68,18 +68,25 @@
             letter-spacing: 2px;
         }
 
+        /* Grupo de botones sociales (PayPal e Instagram) */
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         /* Botón de PayPal */
         .paypal-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: linear-gradient(135deg, #0070ba, #003087);
             color: #ffffff;
             text-decoration: none;
-            padding: 8px 18px;
+            padding: 8px 14px;
             border-radius: 10px;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 1px;
             border: 1px solid #00a6ff;
             box-shadow: 0 0 15px rgba(0, 112, 186, 0.4);
@@ -90,6 +97,29 @@
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(0, 166, 255, 0.8);
             background: linear-gradient(135deg, #0088e8, #0040b3);
+        }
+
+        /* Botón de Instagram */
+        .instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 1px;
+            border: 1px solid #ff758c;
+            box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .instagram-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(253, 29, 29, 0.8);
         }
 
         /* Titulo XL */
@@ -277,6 +307,60 @@
             border: none;
         }
 
+        /* Sección de Calificación con Estrellas */
+        .rating-section {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .rating-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #ffe600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .star {
+            font-size: 32px;
+            color: #475569;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .star:hover, .star.active {
+            color: #ffe600;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+        }
+
+        .rating-stats {
+            font-size: 15px;
+            font-weight: 800;
+            color: #00d2ff;
+            background: rgba(0, 210, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
         /* Sección de Comentarios */
         .comments-section {
             width: 100%;
@@ -408,14 +492,20 @@
 </head>
 <body>
 
-    <!-- Barra de Creador + Donaciones -->
+    <!-- Barra de Creador + Redes Sociales -->
     <div class="creator-bar">
         <span>CREADOR: <strong>GREGORY</strong></span>
         <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
         
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">
-            💙 Apoyar / Donar
-        </a>
+        <div class="social-buttons">
+            <!-- Tu Instagram real ya integrado -->
+            <a href="https://www.instagram.com/ghregory97?igsh=eHlobWR5Yzc2MnNw" target="_blank" class="instagram-btn">
+                📸 Instagram
+            </a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">
+                💙 Donar
+            </a>
+        </div>
     </div>
 
     <!-- Título de Bienvenida -->
@@ -530,6 +620,19 @@
         </div>
     </div>
 
+    <!-- SECCIÓN DE CALIFICACIÓN CON ESTRELLAS -->
+    <div class="rating-section">
+        <div class="rating-title">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
+        <div class="stars-container" id="stars-container">
+            <span class="star" onclick="ratePage(1)">★</span>
+            <span class="star" onclick="ratePage(2)">★</span>
+            <span class="star" onclick="ratePage(3)">★</span>
+            <span class="star" onclick="ratePage(4)">★</span>
+            <span class="star" onclick="ratePage(5)">★</span>
+        </div>
+        <div id="rating-stats" class="rating-stats">Calculando aprobación de la comunidad...</div>
+    </div>
+
     <!-- SECCIÓN DE COMENTARIOS DE LA COMUNIDAD -->
     <div class="comments-section">
         <div class="comments-header">💬 Comentarios de la Comunidad</div>
@@ -545,7 +648,7 @@
         </div>
     </div>
 
-    <!-- Canvas de PiP reducido (250x120 en lugar de 400x200) -->
+    <!-- Canvas de PiP -->
     <canvas id="pipCanvas" width="250" height="120"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
@@ -641,7 +744,6 @@
         const ctx = canvas.getContext('2d');
         const video = document.getElementById('pipVideo');
 
-        /* DIBUJO DE PIP REFORZADO PARA SER MÁS PEQUEÑO Y NÍTIDO */
         function renderCanvas(title, timeStr, isReady) {
             ctx.fillStyle = isReady ? "#990000" : "#0f172a";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -748,6 +850,39 @@
             });
         }
 
+        /* LÓGICA DE CALIFICACIÓN CON ESTRELLAS */
+        function ratePage(stars) {
+            db.collection("ratings").add({
+                rating: stars,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert(`¡Gracias por calificar con ${stars} estrellas! ⭐`);
+            }).catch(() => {
+                alert("Error al registrar la calificación.");
+            });
+        }
+
+        db.collection("ratings").onSnapshot((snapshot) => {
+            if (snapshot.empty) {
+                document.getElementById('rating-stats').innerText = "Sé el primero en calificar esta página ⭐";
+                return;
+            }
+
+            let totalVotes = 0;
+            let positiveVotes = 0; 
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                totalVotes++;
+                if (data.rating >= 4) {
+                    positiveVotes++;
+                }
+            });
+
+            const positivePercentage = Math.round((positiveVotes / totalVotes) * 100);
+            document.getElementById('rating-stats').innerText = `✨ El ${positivePercentage}% de la gente apoya positivo la página (${totalVotes} votos totales)`;
+        });
+
         /* LÓGICA DE COMENTARIOS */
         function addComment() {
             const nameInput = document.getElementById('comment-name');
@@ -772,7 +907,6 @@
             });
         }
 
-        /* ESCUCHAR COMENTARIOS EN TIEMPO REAL */
         db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
             const list = document.getElementById('comments-list');
             list.innerHTML = "";
