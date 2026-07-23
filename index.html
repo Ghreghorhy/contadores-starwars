@@ -110,7 +110,7 @@
             border: 1px solid rgba(0, 210, 255, 0.3);
             border-radius: 14px;
             padding: 15px 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .project-note h4 {
@@ -127,38 +127,36 @@
             line-height: 1.4;
         }
 
-        /* BOTÓN PRINCIPAL UNIFICADO FLOTANTE 3 EN 1 */
-        .multi-pip-wrapper {
+        /* BANNER BOTÓN ÚNICO ULTRA VISIBLE */
+        .multi-pip-container {
             width: 100%;
             max-width: 900px;
             margin-bottom: 25px;
         }
 
-        .btn-multi-pip {
+        .btn-multi-pip-giant {
             width: 100%;
-            background: linear-gradient(90deg, #ff0055, #7928ca, #00d2ff);
-            background-size: 200% auto;
+            background: linear-gradient(90deg, #ff0055, #7928ca, #00d2ff, #ff0055);
+            background-size: 300% 100%;
+            animation: gradientMove 4s infinite linear;
             color: #ffffff;
             font-weight: 900;
             font-size: 16px;
-            padding: 18px 20px;
+            padding: 22px 15px;
             border-radius: 16px;
-            border: 2px solid #00d2ff;
+            border: 3px solid #ffe600;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
+            box-shadow: 0 0 35px rgba(255, 0, 85, 0.7);
+            letter-spacing: 1px;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            text-align: center;
+            line-height: 1.4;
         }
 
-        .btn-multi-pip:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 40px rgba(255, 0, 85, 0.8);
-            background-position: right center;
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Tarjetas de Temporizadores */
@@ -223,7 +221,7 @@
             gap: 10px;
         }
 
-        button {
+        button.btn-config {
             background: rgba(15, 23, 42, 0.8);
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -237,7 +235,7 @@
             transition: all 0.2s ease;
         }
 
-        button:hover { 
+        button.btn-config:hover { 
             background: #ffffff; 
             color: #000000;
         }
@@ -407,6 +405,8 @@
             align-self: flex-end;
             border: none;
             padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
         .comments-list {
@@ -464,6 +464,7 @@
             .timer-box { flex-direction: column; gap: 15px; text-align: center; }
             .time-display { font-size: 34px; }
             .creator-bar { flex-direction: column; text-align: center; }
+            .btn-multi-pip-giant { font-size: 14px; padding: 18px 10px; }
         }
     </style>
 </head>
@@ -487,14 +488,14 @@
         <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
     </div>
 
-    <!-- BOTÓN ÚNICO DESTACADO FLOTANTE (3 EN 1) -->
-    <div class="multi-pip-wrapper">
-        <button class="btn-multi-pip" onclick="toggleMultiPiP()">
-            📌 ABRIR PANTALLA FLOTANTE (BESKAR + MÍTICO + GALAXY)
+    <!-- BOTÓN ÚNICO ULTRA VISIBLE 3 EN 1 CON AVISO -->
+    <div class="multi-pip-container">
+        <button class="btn-multi-pip-giant" onclick="startUnifiedPip()">
+            📌 ¡CLICK ACÁ PARA VER LOS 3 CONTADORES EN VENTANA FLOTANTE! 📌
         </button>
     </div>
 
-    <!-- Contenedor de Temporizadores -->
+    <!-- Contenedor de Temporizadores (SIN BOTONES FLOTANTES INDIVIDUALES) -->
     <div class="container">
         <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
@@ -503,7 +504,7 @@
                 <div id="beskar-display" class="time-display">00:15:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="requestAdmin('beskar')">⚙️ CONFIGURAR</button>
+                <button class="btn-config" onclick="requestAdmin('beskar')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-beskar" class="admin-controls">
                 <div class="time-inputs">
@@ -511,7 +512,7 @@
                     <label>M: <input type="number" id="beskar-m" value="15"></label>
                     <label>S: <input type="number" id="beskar-s" value="0"></label>
                 </div>
-                <button onclick="saveTimer('beskar')">💾 Guardar</button>
+                <button class="btn-config" onclick="saveTimer('beskar')">💾 Guardar</button>
             </div>
         </div>
 
@@ -522,7 +523,7 @@
                 <div id="mythic-display" class="time-display">01:00:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="requestAdmin('mythic')">⚙️ CONFIGURAR</button>
+                <button class="btn-config" onclick="requestAdmin('mythic')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-mythic" class="admin-controls">
                 <div class="time-inputs">
@@ -530,7 +531,7 @@
                     <label>M: <input type="number" id="mythic-m" value="0"></label>
                     <label>S: <input type="number" id="mythic-s" value="0"></label>
                 </div>
-                <button onclick="saveTimer('mythic')">💾 Guardar</button>
+                <button class="btn-config" onclick="saveTimer('mythic')">💾 Guardar</button>
             </div>
         </div>
 
@@ -541,7 +542,7 @@
                 <div id="galactic-display" class="time-display">01:00:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="requestAdmin('galactic')">⚙️ CONFIGURAR</button>
+                <button class="btn-config" onclick="requestAdmin('galactic')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-galactic" class="admin-controls">
                 <div class="time-inputs">
@@ -549,7 +550,7 @@
                     <label>M: <input type="number" id="galactic-m" value="0"></label>
                     <label>S: <input type="number" id="galactic-s" value="0"></label>
                 </div>
-                <button onclick="saveTimer('galactic')">💾 Guardar</button>
+                <button class="btn-config" onclick="saveTimer('galactic')">💾 Guardar</button>
             </div>
         </div>
     </div>
@@ -562,7 +563,7 @@
                 <div id="event-display" class="event-time-display">02 DÍAS 00 HS : 29 MIN</div>
             </div>
             <div class="action-buttons">
-                <button onclick="requestAdmin('event')">⚙️ CONFIGURAR</button>
+                <button class="btn-config" onclick="requestAdmin('event')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-event" class="admin-controls">
                 <div class="time-inputs">
@@ -570,7 +571,7 @@
                     <label>Horas: <input type="number" id="event-hours" value="0"></label>
                     <label>Min: <input type="number" id="event-minutes" value="30"></label>
                 </div>
-                <button onclick="saveManualEventTimer()">💾 Guardar</button>
+                <button class="btn-config" onclick="saveManualEventTimer()">💾 Guardar</button>
             </div>
         </div>
 
@@ -613,4 +614,249 @@
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const ADMIN_PIN = "HOLAGORDIS69KELL$$";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSQtr6xQONdpcK7HQDe_TIVCm6yBg4C3E",
+            authDomain: "starwars-timers.firebaseapp.com",
+            projectId: "starwars-timers",
+            storageBucket: "starwars-timers.firebasestorage.app",
+            messagingSenderId: "823447387092",
+            appId: "1:823447387092:web:c98ee916a04d00eee83441"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const DEFAULT_DURATIONS = {
+            beskar: 15 * 60,   
+            mythic: 60 * 60,   
+            galactic: 60 * 60  
+        };
+
+        let serverOffset = 0;
+        let isPipActive = false;
+        let timerStates = {};
+
+        function getNow() { return Date.now() + serverOffset; }
+
+        function formatTime(seconds) {
+            if (seconds <= 0) return "00:00:00";
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        function formatEventTime(seconds) {
+            if (seconds <= 0) return "00 DÍAS 00 HS : 00 MIN";
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            return `${days.toString().padStart(2, '0')} DÍAS ${hours.toString().padStart(2, '0')} HS : ${minutes.toString().padStart(2, '0')} MIN`;
+        }
+
+        function syncTimers() {
+            db.collection("timers").onSnapshot(snapshot => {
+                snapshot.forEach(doc => {
+                    timerStates[doc.id] = doc.data();
+                });
+                updateUI();
+            });
+        }
+
+        function updateUI() {
+            const now = getNow();
+
+            ['beskar', 'mythic', 'galactic', 'event'].forEach(id => {
+                const data = timerStates[id];
+                if (!data) return;
+
+                let remaining = Math.floor((data.targetTime - now) / 1000);
+
+                if (remaining <= 0 && DEFAULT_DURATIONS[id]) {
+                    const newTarget = now + (DEFAULT_DURATIONS[id] * 1000);
+                    db.collection("timers").doc(id).set({ targetTime: newTarget });
+                    remaining = DEFAULT_DURATIONS[id];
+                }
+
+                const display = document.getElementById(`${id}-display`);
+                if (display) {
+                    if (id === 'event') {
+                        display.innerText = formatEventTime(Math.max(0, remaining));
+                    } else {
+                        display.innerText = formatTime(Math.max(0, remaining));
+                    }
+                }
+            });
+
+            if (isPipActive) {
+                renderMultiPiPCanvas();
+            }
+        }
+
+        setInterval(updateUI, 1000);
+
+        // VENTANA FLOTANTE ÚNICA (BESKAR + MÍTICO + GALAXY)
+        async function startUnifiedPip() {
+            const video = document.getElementById('pipVideo');
+            const canvas = document.getElementById('pipCanvas');
+
+            if (document.pictureInPictureElement) {
+                await document.exitPictureInPicture();
+                isPipActive = false;
+                return;
+            }
+
+            isPipActive = true;
+            renderMultiPiPCanvas();
+
+            const stream = canvas.captureStream(30);
+            video.srcObject = stream;
+            await video.play();
+            await video.requestPictureInPicture();
+        }
+
+        function renderMultiPiPCanvas() {
+            const canvas = document.getElementById('pipCanvas');
+            const ctx = canvas.getContext('2d');
+            const now = getNow();
+
+            // Fondo
+            ctx.fillStyle = "#070a12";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Borde
+            ctx.strokeStyle = "#00d2ff";
+            ctx.lineWidth = 6;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+            // Título
+            ctx.fillStyle = "#ffe600";
+            ctx.font = "bold 28px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("⚡ ANDROID TYCOON STAR WARS ⚡", canvas.width / 2, 55);
+
+            const items = [
+                { id: 'beskar', label: '🛡️ BESKAR', color: '#e2e8f0' },
+                { id: 'mythic', label: '⚔️ MÍTICO', color: '#ff5252' },
+                { id: 'galactic', label: '🌌 GALAXY', color: '#ba68c8' }
+            ];
+
+            let y = 140;
+            items.forEach(item => {
+                const data = timerStates[item.id];
+                const remaining = data ? Math.max(0, Math.floor((data.targetTime - now) / 1000)) : 0;
+
+                ctx.fillStyle = item.color;
+                ctx.font = "bold 28px sans-serif";
+                ctx.textAlign = "left";
+                ctx.fillText(item.label, 50, y);
+
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 42px monospace";
+                ctx.textAlign = "right";
+                ctx.fillText(formatTime(remaining), canvas.width - 50, y);
+
+                y += 100;
+            });
+        }
+
+        // Likes
+        function addLike() {
+            const hasLiked = localStorage.getItem("has_liked_starwars");
+            if (hasLiked) { alert("¡Ya has apoyado este proyecto! Muchas gracias."); return; }
+
+            db.collection("likes").doc("counter").set({
+                count: firebase.firestore.FieldValue.increment(1)
+            }, { merge: true }).then(() => {
+                localStorage.setItem("has_liked_starwars", "true");
+            });
+        }
+
+        function syncLikes() {
+            db.collection("likes").doc("counter").onSnapshot(doc => {
+                const count = doc.exists ? doc.data().count || 0 : 0;
+                document.getElementById("like-counter").innerText = `🔥 Total de Apoyos: ${count} Gamers`;
+            });
+        }
+
+        // Comentarios
+        function addComment() {
+            const name = document.getElementById("comment-name").value.trim() || "Gamer Anónimo";
+            const msg = document.getElementById("comment-msg").value.trim();
+
+            if (!msg) { alert("Escribe un mensaje antes de publicar."); return; }
+
+            db.collection("comments").add({
+                name: name,
+                msg: msg,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById("comment-name").value = "";
+                document.getElementById("comment-msg").value = "";
+            });
+        }
+
+        function loadComments() {
+            db.collection("comments").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+                const list = document.getElementById("comments-list");
+                list.innerHTML = "";
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const card = document.createElement("div");
+                    card.className = "comment-card";
+                    card.innerHTML = `
+                        <div class="comment-author">${escapeHtml(data.name)}</div>
+                        <div class="comment-text">${escapeHtml(data.msg)}</div>
+                    `;
+                    list.appendChild(card);
+                });
+            });
+        }
+
+        function requestAdmin(id) {
+            const pin = prompt("Introduce el PIN:");
+            if (pin === ADMIN_PIN) {
+                document.getElementById(`admin-${id}`).classList.add("active");
+            }
+        }
+
+        function saveTimer(id) {
+            const h = parseInt(document.getElementById(`${id}-h`).value) || 0;
+            const m = parseInt(document.getElementById(`${id}-m`).value) || 0;
+            const s = parseInt(document.getElementById(`${id}-s`).value) || 0;
+            const totalSec = (h * 3600) + (m * 60) + s;
+            const targetTime = getNow() + (totalSec * 1000);
+
+            db.collection("timers").doc(id).set({ targetTime }).then(() => {
+                document.getElementById(`admin-${id}`).classList.remove("active");
+            });
+        }
+
+        function saveManualEventTimer() {
+            const d = parseInt(document.getElementById('event-days').value) || 0;
+            const h = parseInt(document.getElementById('event-hours').value) || 0;
+            const m = parseInt(document.getElementById('event-minutes').value) || 0;
+            const totalSec = (d * 86400) + (h * 3600) + (m * 60);
+            const targetTime = getNow() + (totalSec * 1000);
+
+            db.collection("timers").doc("event").set({ targetTime }).then(() => {
+                document.getElementById("admin-event").classList.remove("active");
+            });
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Inicializar
+        syncTimers();
+        syncLikes();
+        loadComments();
+    </script>
+</body>
+</html>
