@@ -35,6 +35,23 @@
             z-index: -2;
         }
 
+        /* Fondo animado estilo partículas gamer */
+        .gaming-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 0);
+            background-size: 50px 50px;
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
+            animation: moveParticles 20s linear infinite;
+        }
+
+        @keyframes moveParticles {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 500px; }
+        }
+
         .bg-watermark {
             position: fixed;
             top: 50%;
@@ -66,9 +83,28 @@
             font-weight: 700;
             letter-spacing: 1px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.2), inset 0 0 15px rgba(0, 210, 255, 0.1);
             z-index: 2;
+            position: relative;
+        }
+
+        /* Animación de borde RGB gamer sutil */
+        .creator-bar::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(90deg, #ff0055, #00d2ff, #ffe600, #ff0055);
+            background-size: 300%;
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.4;
+            animation: rgbBorder 6s linear infinite;
+        }
+
+        @keyframes rgbBorder {
+            0% { background-position: 0%; }
+            100% { background-position: 300%; }
         }
 
         .creator-bar strong { color: #00d2ff; font-size: 17px; }
@@ -90,11 +126,10 @@
             flex-wrap: wrap;
         }
 
-        .paypal-btn {
+        .paypal-btn, .instagram-btn {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #0070ba, #003087);
             color: #ffffff;
             text-decoration: none;
             padding: 8px 14px;
@@ -102,37 +137,39 @@
             font-weight: 800;
             font-size: 13px;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .paypal-btn {
+            background: linear-gradient(135deg, #0070ba, #003087);
             border: 1px solid #00a6ff;
             box-shadow: 0 0 15px rgba(0, 112, 186, 0.4);
-            transition: all 0.3s ease;
         }
 
         .paypal-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(0, 166, 255, 0.8);
-            background: linear-gradient(135deg, #0088e8, #0040b3);
         }
 
         .instagram-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
             background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 1px;
             border: 1px solid #ff758c;
             box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);
-            transition: all 0.3s ease;
         }
 
         .instagram-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(253, 29, 29, 0.8);
+        }
+
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            z-index: 2;
+            flex-wrap: wrap;
         }
 
         .welcome-title {
@@ -144,9 +181,27 @@
             background: linear-gradient(90deg, #ffe600, #ff0055, #00d2ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 35px;
             text-shadow: 0 0 30px rgba(255, 230, 0, 0.3);
-            z-index: 2;
+        }
+
+        /* Contenedor de GIF de Fortnite decorativo */
+        .fortnite-gif-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+        }
+
+        .fortnite-gif-badge img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
         }
 
         .container {
@@ -169,6 +224,17 @@
             backdrop-filter: blur(12px);
             border: 2px solid;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Brillo animado interno en las tarjetas */
+        .timer-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+            transform: rotate(30deg);
+            pointer-events: none;
         }
 
         .timer-header {
@@ -176,6 +242,8 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .card-info {
@@ -184,11 +252,24 @@
             gap: 5px;
         }
 
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .card-title {
             font-size: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 900;
+        }
+
+        .mini-gif {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
         }
 
         .time-display {
@@ -284,11 +365,13 @@
 
         .admin-controls {
             display: none;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             border-top: 1px dashed rgba(255, 255, 255, 0.2);
             padding-top: 15px;
             margin-top: 5px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .admin-controls.active {
@@ -342,7 +425,7 @@
             border: none;
         }
 
-        /* Nota emotiva flotante en la esquina */
+        /* Nota emotiva con detalle GIF gamer */
         .project-note {
             width: 100%;
             max-width: 900px;
@@ -354,17 +437,19 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             margin-bottom: 25px;
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             z-index: 2;
         }
 
-        .project-note-icon {
-            font-size: 26px;
-            background: rgba(0, 210, 255, 0.15);
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 210, 255, 0.4);
+        .project-note-gif {
+            width: 65px;
+            height: 65px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 210, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+            flex-shrink: 0;
         }
 
         .project-note-content h4 {
@@ -383,7 +468,7 @@
             font-weight: 600;
         }
 
-        .rating-section {
+        .rating-section, .comments-section {
             width: 100%;
             max-width: 900px;
             background: rgba(15, 23, 42, 0.85);
@@ -393,9 +478,10 @@
             padding: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             margin-bottom: 30px;
-            text-align: center;
             z-index: 2;
         }
+
+        .rating-section { text-align: center; }
 
         .rating-title {
             font-size: 18px;
@@ -435,18 +521,6 @@
             border-radius: 12px;
             display: inline-block;
             border: 1px solid rgba(0, 210, 255, 0.3);
-        }
-
-        .comments-section {
-            width: 100%;
-            max-width: 900px;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            z-index: 2;
         }
 
         .comments-header {
@@ -561,16 +635,18 @@
         @media (max-width: 600px) {
             .time-display { font-size: 36px; }
             .event-time-display { font-size: 22px; }
-            .welcome-title { font-size: 22px; }
+            .welcome-title { font-size: 20px; }
             .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
             .timer-header { flex-direction: column; gap: 15px; text-align: center; }
             .bg-watermark { font-size: 20vw; }
-            .project-note { flex-direction: column; text-align: center; align-items: center; }
+            .project-note { flex-direction: column; text-align: center; }
+            .card-title-row { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
+    <div class="gaming-particles"></div>
     <div class="bg-watermark">FORTNITE</div>
 
     <div class="creator-bar">
@@ -587,13 +663,22 @@
         </div>
     </div>
 
-    <div class="welcome-title">
-        ¡BIENVENIDO ANDROID TYCOON STAR WARS!
+    <!-- Título con GIF temático animado -->
+    <div class="title-wrapper">
+        <div class="fortnite-gif-badge">
+            <img src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" alt="Fortnite Bus GIF">
+        </div>
+        <div class="welcome-title">
+            ¡BIENVENIDO ANDROID TYCOON STAR WARS!
+        </div>
+        <div class="fortnite-gif-badge">
+            <img src="https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif" alt="Fortnite Loot GIF">
+        </div>
     </div>
 
-    <!-- Nota del Proyecto / Dedicatoria -->
+    <!-- Nota del Proyecto (Opción 2 con detalle GIF) -->
     <div class="project-note">
-        <div class="project-note-icon">💡</div>
+        <img class="project-note-gif" src="https://media.giphy.com/media/9u1J84ZtCSl9K/giphy.gif" alt="Gamer GIF">
         <div class="project-note-content">
             <h4>Nota del Creador (Gregory)</h4>
             <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
@@ -605,7 +690,10 @@
         <div id="box-beskar" class="timer-box beskar">
             <div class="timer-header">
                 <div class="card-info">
-                    <div class="card-title">Beskar</div>
+                    <div class="card-title-row">
+                        <img class="mini-gif" src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" alt="Shield GIF">
+                        <div class="card-title">Beskar</div>
+                    </div>
                     <div id="beskar-display" class="time-display">00:15:00</div>
                     <div id="beskar-status" class="status-badge">⚠️ ¡BESKAR LISTO! (ATENCIÓN)</div>
                 </div>
@@ -640,7 +728,10 @@
         <div id="box-mythic" class="timer-box mythic">
             <div class="timer-header">
                 <div class="card-info">
-                    <div class="card-title">Mítico</div>
+                    <div class="card-title-row">
+                        <img class="mini-gif" src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" alt="Fire GIF">
+                        <div class="card-title">Mítico</div>
+                    </div>
                     <div id="mythic-display" class="time-display">01:00:00</div>
                     <div id="mythic-status" class="status-badge">🔥 ¡MÍTICO LISTO! (ATENCIÓN)</div>
                 </div>
@@ -675,7 +766,10 @@
         <div id="box-galactic" class="timer-box galactic">
             <div class="timer-header">
                 <div class="card-info">
-                    <div class="card-title">Galaxy</div>
+                    <div class="card-title-row">
+                        <img class="mini-gif" src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" alt="Galaxy GIF">
+                        <div class="card-title">Galaxy</div>
+                    </div>
                     <div id="galactic-display" class="time-display">01:00:00</div>
                     <div id="galactic-status" class="status-badge">⚡ ¡GALAXY LISTO! (ATENCIÓN)</div>
                 </div>
