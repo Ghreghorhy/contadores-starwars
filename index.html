@@ -35,7 +35,6 @@
             z-index: -2;
         }
 
-        /* Fondo animado estilo rejilla RGB */
         .gaming-particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -67,7 +66,6 @@
             text-transform: uppercase;
         }
 
-        /* Animación Global RGB */
         @keyframes rgbAnimation {
             0% { background-position: 0% 50%; border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
             33% { background-position: 50% 50%; border-color: #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
@@ -75,7 +73,6 @@
             100% { background-position: 0% 50%; border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
         }
 
-        /* Barra de Creador con Efecto RGB */
         .creator-bar {
             width: 100%;
             max-width: 950px;
@@ -255,7 +252,6 @@
             100% { opacity: 1; }
         }
 
-        /* Diseños Estilo RGB y Neón para Eventos */
         .beskar { 
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
             border-color: #00d2ff; 
@@ -284,7 +280,6 @@
             color: #fffbeb;
         }
 
-        /* Fila del Evento Galáctico + Noticia */
         .event-row-container {
             display: flex;
             gap: 20px;
@@ -296,7 +291,6 @@
             flex: 1.1;
         }
 
-        /* Noticia Ampliada a la Derecha */
         .news-box {
             flex: 1.3;
             background: rgba(15, 23, 42, 0.9);
@@ -473,7 +467,6 @@
             border: none;
         }
 
-        /* Nota con Borde RGB */
         .project-note {
             width: 100%;
             max-width: 950px;
@@ -702,7 +695,6 @@
         </div>
     </div>
 
-    <!-- Nota del Creador -->
     <div class="project-note">
         <h4>Nota del Creador (Gregory)</h4>
         <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
@@ -816,7 +808,6 @@
 
         <!-- Fila: Evento Galáctico + Bloque Noticia Importante -->
         <div class="event-row-container">
-            <!-- Evento de Galáctico -->
             <div id="box-event" class="timer-box event">
                 <div class="timer-header">
                     <div class="card-info">
@@ -844,7 +835,6 @@
                 </div>
             </div>
 
-            <!-- Módulo de Noticia Importante a la Derecha -->
             <div class="news-box">
                 <div class="news-header">
                     <div class="news-badge">🚨 NOTICIA IMPORTANTE</div>
@@ -866,7 +856,6 @@
         </div>
     </div>
 
-    <!-- Sección de Calificación con Estrellas -->
     <div class="rating-section">
         <div class="rating-title">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
         <div class="stars-container" id="stars-container">
@@ -879,7 +868,6 @@
         <div id="rating-stats" class="rating-stats">Calculando aprobación de la comunidad...</div>
     </div>
 
-    <!-- Sección Comentarios de la Comunidad -->
     <div class="comments-section">
         <div class="comments-header">💬 Comentarios de la Comunidad</div>
         
@@ -921,12 +909,12 @@
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
                 db.collection(".info").doc("serverTime").get().then(doc => {
-                    if (doc.exists) {
+                    if (doc.exists && doc.data().now) {
                         const serverTime = doc.data().now.toMillis();
                         serverOffset = serverTime - Date.now();
                     }
                 });
-            }).catch(() => {});
+            }).catch(e => console.log(e));
 
         function getNow() { return Date.now() + serverOffset; }
 
@@ -952,8 +940,7 @@
         function syncTimers() {
             db.collection("timers").onSnapshot(snapshot => {
                 snapshot.forEach(doc => {
-                    const data = doc.data();
-                    timerStates[doc.id] = data;
+                    timerStates[doc.id] = doc.data();
                 });
                 updateUI();
             });
@@ -1052,7 +1039,6 @@
                 .catch(err => alert("Error al guardar evento: " + err.message));
         }
 
-        // Flotante PiP
         async function togglePiP(id, title) {
             const video = document.getElementById('pipVideo');
             const canvas = document.getElementById('pipCanvas');
@@ -1102,7 +1088,6 @@
             }
         }
 
-        // Calificación por Estrellas
         function ratePage(stars) {
             const userRated = localStorage.getItem("has_rated_starwars");
             if (userRated) {
@@ -1151,7 +1136,6 @@
             });
         }
 
-        // Comentarios
         function addComment() {
             const nameInput = document.getElementById("comment-name");
             const msgInput = document.getElementById("comment-msg");
@@ -1218,7 +1202,6 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // Inicializar
         syncTimers();
         loadRatings();
         loadComments();
