@@ -3,239 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contadores y Eventos Star Wars Tycoon</title>
+    <title>Contadores Star Wars Tycoon</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0b0e14;
+            background-color: rgba(10, 10, 10, 0.85);
             color: #ffffff;
-            margin: 0;
-            padding: 20px;
+            margin: 10px;
+            padding: 12px;
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
             align-items: flex-start;
-            min-height: 100vh;
             user-select: none;
         }
 
-        .main-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 800px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .panel {
-            background: rgba(18, 24, 38, 0.85);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            flex: 1;
-            min-width: 300px;
-        }
-
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #e2e8f0;
-            font-size: 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
-        }
-
-        /* Timers Container */
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .timers-container {
+            width: 250px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            background: rgba(15, 15, 15, 0.9);
         }
 
         .timer-box {
-            padding: 12px 15px;
-            border-radius: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
         }
-
-        .card-title {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        .time-display {
-            font-size: 20px;
-            font-family: monospace;
-            letter-spacing: 2px;
-        }
-
-        /* Diseños por Categoría */
         .beskar { 
-            background: rgba(212, 175, 55, 0.15); 
+            background: rgba(212, 175, 55, 0.25); 
             border: 2px solid #ffd700; 
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
             color: #fff8dc;
         }
         .mythic { 
-            background: rgba(220, 20, 60, 0.15); 
+            background: rgba(220, 20, 60, 0.3); 
             border: 2px solid #ff1493; 
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 0 8px rgba(255, 20, 147, 0.4);
             color: #ffe4e1;
         }
         .galactic { 
-            background: rgba(138, 43, 226, 0.15); 
+            background: rgba(138, 43, 226, 0.35); 
             border: 2px solid #a855f7; 
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
             color: #f3e8ff;
         }
 
-        /* Alerta visual de 5 segundos */
-        .warning-alert {
-            animation: blink 0.5s infinite alternate;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.4; transform: scale(1.02); filter: drop-shadow(0 0 15px red); }
+        .time-display {
+            font-size: 16px;
+            font-family: monospace;
+            letter-spacing: 1px;
         }
 
         button {
-            background: #1e293b;
+            background: #111;
             color: #fff;
-            border: 1px solid #475569;
-            border-radius: 6px;
-            padding: 6px 12px;
+            border: 1px solid #777;
+            border-radius: 5px;
+            padding: 4px 8px;
             cursor: pointer;
             font-size: 12px;
             font-weight: bold;
+            transition: 0.2s;
         }
         button:hover { 
-            background: #cbd5e1; 
-            color: #0f172a;
+            background: #fff; 
+            color: #000;
         }
 
-        /* Panel del Evento */
-        .event-card {
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid #a855f7;
-            border-radius: 8px;
-            padding: 15px;
+        /* Sección del Evento al lado */
+        .event-box {
+            width: 250px;
+            background: rgba(138, 43, 226, 0.15);
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
         }
 
-        .event-header {
-            color: #c084fc;
+        .event-title {
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .event-details {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 15px 0;
+            color: #c084fc;
+            margin-bottom: 8px;
+            text-transform: uppercase;
             font-size: 14px;
         }
 
-        .event-details li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #e2e8f0;
+        .event-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
         }
 
         .event-date {
-            font-size: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px;
-            border-radius: 6px;
-            color: #94a3b8;
-            border-left: 3px solid #a855f7;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px;
+            border-radius: 5px;
+            color: #cbd5e1;
+            border-left: 2px solid #a855f7;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <!-- Panel Izquierdo: Contadores -->
-        <div class="panel">
-            <h2>Respawn Timers</h2>
-            <div class="container">
-                <div id="box-beskar" class="timer-box beskar">
-                    <div>
-                        <div class="card-title">Beskar</div>
-                        <div id="beskar-display" class="time-display">00:15:00</div>
-                    </div>
-                    <button onclick="resetTimer('beskar', 900)">Reset</button>
-                </div>
-
-                <div id="box-mythic" class="timer-box mythic">
-                    <div>
-                        <div class="card-title">Mítico</div>
-                        <div id="mythic-display" class="time-display">01:00:00</div>
-                    </div>
-                    <button onclick="resetTimer('mythic', 3600)">Reset</button>
-                </div>
-
-                <div id="box-galactic" class="timer-box galactic">
-                    <div>
-                        <div class="card-title">Galáctico</div>
-                        <div id="galactic-display" class="time-display">01:00:00</div>
-                    </div>
-                    <button onclick="resetTimer('galactic', 3600)">Reset</button>
-                </div>
-            </div>
+    <!-- Bloque Original de Contadores -->
+    <div class="timers-container">
+        <div class="timer-box beskar">
+            <div>Beskar<br><span id="beskar-display" class="time-display">00:15:00</span></div>
+            <button onclick="resetTimer('beskar', 900)">Reset</button>
         </div>
 
-        <!-- Panel Derecho: Información del Evento -->
-        <div class="panel">
-            <h2>Próximo Evento</h2>
-            <div class="event-card">
-                <div class="event-header">🌌 EVENTO GALÁCTICO</div>
-                <ul class="event-details">
-                    <li>📦 Aumento de aparición de planos galácticos en el Sandcrawler</li>
-                    <li>⛏️ Nivel de pico x2</li>
-                    <li>⚡ Velocidad de fabricación x2</li>
-                    <li>💎 Cristales Nova</li>
-                </ul>
-                <div class="event-date">
-                    📅 <strong>Inicio:</strong> Sábado 25 de julio, 14:00<br>
-                    🏁 <strong>Fin:</strong> Domingo 26 de julio, 14:00
-                </div>
-            </div>
+        <div class="timer-box mythic">
+            <div>Mítico<br><span id="mythic-display" class="time-display">01:00:00</span></div>
+            <button onclick="resetTimer('mythic', 3600)">Reset</button>
+        </div>
+
+        <div class="timer-box galactic">
+            <div>Galáctico<br><span id="galactic-display" class="time-display">01:00:00</span></div>
+            <button onclick="resetTimer('galactic', 3600)">Reset</button>
+        </div>
+    </div>
+
+    <!-- Info del Evento al lado -->
+    <div class="event-box">
+        <div class="event-title">🌌 EVENTO GALÁCTICO</div>
+        <ul class="event-list">
+            <li>📦 Planos galácticos en el Sandcrawler</li>
+            <li>⛏️ Nivel de pico x2</li>
+            <li>⚡ Velocidad de fabricación x2</li>
+            <li>💎 Cristales Nova</li>
+        </ul>
+        <div class="event-date">
+            📅 Sábado 25 de julio, 14:00<br>
+            🏁 Domingo 26 de julio, 14:00
         </div>
     </div>
 
     <script>
         const timers = {
-            beskar: 900,  // 15 min
-            mythic: 3600, // 1 hr
-            galactic: 3600// 1 hr
+            beskar: 900,
+            mythic: 3600,
+            galactic: 3600
         };
-
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playBeep() {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = 880;
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
-        }
 
         function formatTime(seconds) {
             const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -245,19 +164,9 @@
         }
 
         function updateDisplay() {
-            for (let key in timers) {
-                const display = document.getElementById(`${key}-display`);
-                const box = document.getElementById(`box-${key}`);
-                
-                display.innerText = formatTime(timers[key]);
-
-                if (timers[key] <= 5 && timers[key] > 0) {
-                    box.classList.add('warning-alert');
-                    playBeep();
-                } else {
-                    box.classList.remove('warning-alert');
-                }
-            }
+            document.getElementById('beskar-display').innerText = formatTime(timers.beskar);
+            document.getElementById('mythic-display').innerText = formatTime(timers.mythic);
+            document.getElementById('galactic-display').innerText = formatTime(timers.galactic);
         }
 
         function resetTimer(type, defaultSeconds) {
