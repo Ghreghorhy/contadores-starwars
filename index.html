@@ -35,7 +35,6 @@
             z-index: -2;
         }
 
-        /* Fondo animado estilo partículas gamer */
         .gaming-particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -89,7 +88,6 @@
             position: relative;
         }
 
-        /* Animación de borde RGB gamer sutil */
         .creator-bar::after {
             content: '';
             position: absolute;
@@ -184,7 +182,6 @@
             text-shadow: 0 0 30px rgba(255, 230, 0, 0.3);
         }
 
-        /* Contenedor de GIF de Fortnite decorativo */
         .fortnite-gif-badge {
             width: 50px;
             height: 50px;
@@ -227,7 +224,6 @@
             overflow: hidden;
         }
 
-        /* Brillo animado interno en las tarjetas */
         .timer-box::before {
             content: '';
             position: absolute;
@@ -425,7 +421,6 @@
             border: none;
         }
 
-        /* Nota emotiva con detalle GIF gamer */
         .project-note {
             width: 100%;
             max-width: 900px;
@@ -663,7 +658,6 @@
         </div>
     </div>
 
-    <!-- Título con GIF temático animado -->
     <div class="title-wrapper">
         <div class="fortnite-gif-badge">
             <img src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" alt="Fortnite Bus GIF">
@@ -676,7 +670,6 @@
         </div>
     </div>
 
-    <!-- Nota del Proyecto (Opción 2 con detalle GIF) -->
     <div class="project-note">
         <img class="project-note-gif" src="https://media.giphy.com/media/9u1J84ZtCSl9K/giphy.gif" alt="Gamer GIF">
         <div class="project-note-content">
@@ -698,7 +691,7 @@
                     <div id="beskar-status" class="status-badge">⚠️ ¡BESKAR LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="initAudio(); togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
                     <button onclick="requestAdmin('beskar')">⚙️ Configurar</button>
                 </div>
             </div>
@@ -736,7 +729,7 @@
                     <div id="mythic-status" class="status-badge">🔥 ¡MÍTICO LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="initAudio(); togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
                     <button onclick="requestAdmin('mythic')">⚙️ Configurar</button>
                 </div>
             </div>
@@ -774,7 +767,7 @@
                     <div id="galactic-status" class="status-badge">⚡ ¡GALAXY LISTO! (ATENCIÓN)</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('galactic', 'GALAXY')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="initAudio(); togglePiP('galactic', 'GALAXY')">📌 Flotante</button>
                     <button onclick="requestAdmin('galactic')">⚙️ Configurar</button>
                 </div>
             </div>
@@ -812,7 +805,7 @@
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="initAudio(); togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 Flotante</button>
                     <button onclick="requestAdmin('event')">⚙️ Configurar</button>
                 </div>
             </div>
@@ -833,7 +826,7 @@
     </div>
 
     <div class="rating-section">
-        <div class="rating-title">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
+        <div class="rating-title" id="rating-title-text">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
         <div class="stars-container" id="stars-container">
             <span class="star" onclick="ratePage(1)">★</span>
             <span class="star" onclick="ratePage(2)">★</span>
@@ -893,10 +886,24 @@
 
         const targetTimes = { beskar: 0, mythic: 0, galactic: 0, event: 0 };
 
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Activar audio automáticamente con cualquier toque en la pantalla (ideal para celulares)
+        document.addEventListener('click', initAudio, { once: true });
+        document.addEventListener('touchstart', initAudio, { once: true });
 
         function playUniqueAlert(type) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            initAudio();
+            if (!audioCtx) return;
             
             const now = audioCtx.currentTime;
             const osc = audioCtx.createOscillator();
@@ -905,41 +912,45 @@
             gain.connect(audioCtx.destination);
 
             if (type === 'beskar') {
+                // Sonido 1: Tono agudo doble rápido (Estilo escudo/campana)
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(1046.50, now);
-                osc.frequency.setValueAtTime(1318.51, now + 0.1);
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.setValueAtTime(1320, now + 0.1);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now);
-                osc.stop(now + 0.25);
+                osc.stop(now + 0.3);
             } 
             else if (type === 'mythic') {
+                // Sonido 2: Tono fuerte tipo alarma militar o fuego descendente/ascendente
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.setValueAtTime(660, now + 0.12);
-                osc.frequency.setValueAtTime(880, now + 0.24);
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                osc.frequency.setValueAtTime(500, now);
+                osc.frequency.linearRampToValueAtTime(750, now + 0.15);
+                osc.frequency.linearRampToValueAtTime(500, now + 0.3);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
                 osc.start(now);
-                osc.stop(now + 0.4);
+                osc.stop(now + 0.45);
             } 
             else if (type === 'galactic') {
+                // Sonido 3: Sonido cibernético espacial futurista
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(300, now);
-                osc.frequency.linearRampToValueAtTime(900, now + 0.3);
+                osc.frequency.setValueAtTime(350, now);
+                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.35);
                 gain.gain.setValueAtTime(0.4, now);
                 gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
                 osc.start(now);
                 osc.stop(now + 0.45);
             }
             else if (type === 'event') {
+                // Sonido 4: Tono grave contundente con pulso cuadrado
                 osc.type = 'square';
-                osc.frequency.setValueAtTime(523.25, now);
-                osc.frequency.setValueAtTime(523.25, now + 0.2);
-                gain.gain.setValueAtTime(0.25, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.setValueAtTime(450, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
                 osc.start(now);
-                osc.stop(now + 0.35);
+                osc.stop(now + 0.4);
             }
         }
 
@@ -1153,16 +1164,42 @@
             });
         }
 
+        // --- SISTEMA DE CALIFICACIÓN PROTEGIDO ANTISPAM POR DISPOSITIVO ---
+        const HAS_RATED_KEY = "gregory_tycoon_rated";
+
+        function checkUserRatingStatus() {
+            if (localStorage.getItem(HAS_RATED_KEY)) {
+                lockRatingUI("¡Gracias por tu apoyo! Ya registramos tu calificación en este dispositivo ⭐");
+            }
+        }
+
         function ratePage(stars) {
+            if (localStorage.getItem(HAS_RATED_KEY)) {
+                alert("Ya has calificado esta página anteriormente desde este dispositivo.");
+                return;
+            }
+
             db.collection("ratings").add({
                 rating: stars,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                alert(`¡Gracias por calificar con ${stars} estrellas! ⭐`);
+                localStorage.setItem(HAS_RATED_KEY, "true");
+                lockRatingUI(`¡Gracias por calificar con ${stars} estrellas! ⭐`);
             }).catch(() => {
                 alert("Error al registrar la calificación.");
             });
         }
+
+        function lockRatingUI(message) {
+            document.getElementById('rating-title-text').innerText = message;
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(s => {
+                s.style.opacity = "0.5";
+                s.style.cursor = "not-allowed";
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', checkUserRatingStatus);
 
         db.collection("ratings").onSnapshot((snapshot) => {
             if (snapshot.empty) {
