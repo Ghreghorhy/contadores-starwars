@@ -58,7 +58,6 @@
             letter-spacing: 2px;
         }
 
-        /* Diseños por Categoría */
         .beskar { 
             background: rgba(212, 175, 55, 0.15); 
             border: 2px solid #ffd700; 
@@ -78,7 +77,6 @@
             color: #f3e8ff;
         }
 
-        /* Alerta visual de 5 segundos */
         .warning-alert {
             animation: blink 0.5s infinite alternate;
         }
@@ -93,7 +91,7 @@
             color: #fff;
             border: 1px solid #475569;
             border-radius: 6px;
-            padding: 6px 12px;
+            padding: 8px 14px;
             cursor: pointer;
             font-size: 12px;
             font-weight: bold;
@@ -106,7 +104,7 @@
 </head>
 <body>
 
-    <h2>Respawn Timers</h2>
+    <h2>Respawn Timers (En Vivo)</h2>
 
     <div class="container">
         <div id="box-beskar" class="timer-box beskar">
@@ -134,14 +132,29 @@
         </div>
     </div>
 
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <script>
-        const timers = {
-            beskar: 900,  // 15 min
-            mythic: 3600, // 1 hr
-            galactic: 3600// 1 hr
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSQtr6xQONdpcK7HQDe_TIVCm6yBg4C3E",
+            authDomain: "starwars-timers.firebaseapp.com",
+            projectId: "starwars-timers",
+            storageBucket: "starwars-timers.firebasestorage.app",
+            messagingSenderId: "823447387092",
+            appId: "1:823447387092:web:c98ee916a04d00eee83441"
         };
 
-        // Generar sonido Beep mediante Audio API del navegador
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const targetTimes = {
+            beskar: 0,
+            mythic: 0,
+            galactic: 0
+        };
+
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
             if (audioCtx.state === 'suspended') {
@@ -150,14 +163,15 @@
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'sine';
-            osc.frequency.value = 880; // Frecuencia del tono
+            osc.frequency.value = 880;
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.15); // Duración corta
+            osc.stop(audioCtx.currentTime + 0.15);
         }
 
         function formatTime(seconds) {
+            if (seconds <= 0) return "00:00:00";
             const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
             const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
             const s = (seconds % 60).toString().padStart(2, '0');
@@ -165,14 +179,18 @@
         }
 
         function updateDisplay() {
-            for (let key in timers) {
+            const now = Date.now();
+
+            for (let key in targetTimes) {
                 const display = document.getElementById(`${key}-display`);
                 const box = document.getElementById(`box-${key}`);
                 
-                display.innerText = formatTime(timers[key]);
+                if (targetTimes[key] === 0) continue;
 
-                // Alerta cuando quedan entre 1 y 5 segundos
-                if (timers[key] <= 5 && timers[key] > 0) {
+                const remainingSeconds = Math.max(0, Math.ceil((targetTimes[key] - now) / 1000));
+                display.innerText = formatTime(remainingSeconds);
+
+                if (remainingSeconds <= 5 && remainingSeconds > 0) {
                     box.classList.add('warning-alert');
                     playBeep();
                 } else {
@@ -181,22 +199,30 @@
             }
         }
 
-        function resetTimer(type, defaultSeconds) {
-            timers[type] = defaultSeconds;
-            updateDisplay();
+        // Sincronización en vivo con la base de datos
+        db.collection("timers").doc("starwars").onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                if (data.beskar) targetTimes.beskar = data.beskar;
+                if (data.mythic) targetTimes.mythic = data.mythic;
+                if (data.galactic) targetTimes.galactic = data.galactic;
+                updateDisplay();
+            } else {
+                resetTimer('beskar', 900);
+                resetTimer('mythic', 3600);
+                resetTimer('galactic', 3600);
+            }
+        });
+
+        function resetTimer(type, secondsDuration) {
+            const targetTimestamp = Date.now() + (secondsDuration * 1000);
+            
+            db.collection("timers").doc("starwars").set({
+                [type]: targetTimestamp
+            }, { merge: true });
         }
 
-        setInterval(() => {
-            for (let key in timers) {
-                if (timers[key] > 0) {
-                    timers[key]--;
-                }
-            }
-            updateDisplay();
-        }, 1000);
-
-        updateDisplay();
+        setInterval(updateDisplay, 1000);
     </script>
 </body>
 </html>
- 
