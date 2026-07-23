@@ -41,28 +41,55 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.8);
+            flex-wrap: wrap;
+            gap: 15px;
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(10px);
             padding: 15px 30px;
             border-radius: 16px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        .creator-bar strong { color: #00d2ff; font-size: 18px; }
+        .creator-bar strong { color: #00d2ff; font-size: 17px; }
+        
         .creator-bar .code {
             color: #ff0055;
             background: rgba(255, 0, 85, 0.2);
             padding: 6px 14px;
             border-radius: 8px;
             border: 1px solid #ff0055;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 900;
             letter-spacing: 2px;
+        }
+
+        /* Botón de PayPal */
+        .paypal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border: 1px solid #00a6ff;
+            box-shadow: 0 0 15px rgba(0, 112, 186, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .paypal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 166, 255, 0.8);
+            background: linear-gradient(135deg, #0088e8, #0040b3);
         }
 
         /* Titulo XL */
@@ -133,7 +160,6 @@
             display: none;
             color: #ff2a2a;
             text-transform: uppercase;
-            animation: pulse 1s infinite alternate;
         }
 
         /* Colores Neón Personalizados */
@@ -186,10 +212,7 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Canvas oculto para generar la mini pantalla flotante */
-        canvas {
-            display: none;
-        }
+        canvas { display: none; }
 
         @keyframes readyPulse {
             0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
@@ -203,17 +226,22 @@
         @media (max-width: 600px) {
             .time-display { font-size: 36px; }
             .welcome-title { font-size: 22px; }
-            .creator-bar { flex-direction: column; gap: 8px; text-align: center; }
+            .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
             .timer-box { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Barra de Creador -->
+    <!-- Barra de Creador + Donaciones -->
     <div class="creator-bar">
         <span>CREADOR: <strong>GREGORY</strong></span>
         <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
+        
+        <!-- Enlace de Donación configurado con tu correo lordkellvnzl@gmail.com -->
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">
+            💙 Apoyar / Donar
+        </a>
     </div>
 
     <!-- Título de Bienvenida -->
@@ -262,7 +290,6 @@
         </div>
     </div>
 
-    <!-- Video y Canvas para reproducir en Mini Ventana Flotante -->
     <canvas id="pipCanvas" width="400" height="200"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
@@ -348,14 +375,12 @@
                     status.style.display = 'none';
                 }
 
-                // Si este contador está activado en ventana flotante, renderizar en canvas
                 if (activePipType === key) {
                     renderCanvas(activePipTitle, formatted, remainingSeconds === 0);
                 }
             }
         }
 
-        // Renderizador para la ventana flotante (Picture in Picture)
         const canvas = document.getElementById('pipCanvas');
         const ctx = canvas.getContext('2d');
         const video = document.getElementById('pipVideo');
