@@ -137,6 +137,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
+        const ADMIN_PIN = "1234"; 
+
         const firebaseConfig = {
             apiKey: "AIzaSyDSQtr6xQONdpcK7HQDe_TIVCm6yBg4C3E",
             authDomain: "starwars-timers.firebaseapp.com",
@@ -148,6 +150,19 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+
+        let serverOffset = 0; // Calculo del desfase del reloj local con el servidor
+
+        // Obtener la diferencia exacta de tiempo con el servidor de Firebase
+        db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
+            .then(() => {
+                db.collection(".info").doc("serverTime").get().then((doc) => {
+                    if (doc.exists && doc.data().now) {
+                        const serverTime = doc.data().now.toMillis();
+                        serverOffset = serverTime - Date.now();
+                    }
+                });
+            }).catch(() => {});
 
         const targetTimes = {
             beskar: 0,
@@ -179,7 +194,7 @@
         }
 
         function updateDisplay() {
-            const now = Date.now();
+            const now = Date.now() + serverOffset;
 
             for (let key in targetTimes) {
                 const display = document.getElementById(`${key}-display`);
@@ -199,7 +214,7 @@
             }
         }
 
-        // Sincronización en vivo con la base de datos
+        // Sincronización en vivo permanente
         db.collection("timers").doc("starwars").onSnapshot((doc) => {
             if (doc.exists) {
                 const data = doc.data();
@@ -207,15 +222,18 @@
                 if (data.mythic) targetTimes.mythic = data.mythic;
                 if (data.galactic) targetTimes.galactic = data.galactic;
                 updateDisplay();
-            } else {
-                resetTimer('beskar', 900);
-                resetTimer('mythic', 3600);
-                resetTimer('galactic', 3600);
             }
         });
 
         function resetTimer(type, secondsDuration) {
-            const targetTimestamp = Date.now() + (secondsDuration * 1000);
+            const userPin = prompt("Ingresa el PIN de administrador para reiniciar:");
+            if (userPin !== ADMIN_PIN) {
+                alert("PIN incorrecto. No tienes permiso para reiniciar el contador.");
+                return;
+            }
+
+            const currentServerTime = Date.now() + serverOffset;
+            const targetTimestamp = currentServerTime + (secondsDuration * 1000);
             
             db.collection("timers").doc("starwars").set({
                 [type]: targetTimestamp
