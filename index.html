@@ -415,8 +415,15 @@
         }
 
         .btn-pip {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(0, 210, 255, 0.15);
+            border-color: #00d2ff;
+            color: #00d2ff;
+        }
+
+        .btn-pip:hover {
+            background: #00d2ff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.8);
         }
 
         .admin-controls {
@@ -709,8 +716,6 @@
             box-shadow: none;
         }
 
-        canvas { display: none; }
-
         @keyframes readyPulse {
             0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
             100% { border-color: #ffffff; box-shadow: 0 0 50px #ff0000; }
@@ -719,6 +724,10 @@
         .ready-alert {
             animation: readyPulse 0.8s infinite alternate !important;
         }
+
+        /* Elementos PIP ocultos en pantalla */
+        #pipCanvas { display: none; }
+        #pipVideo { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
         @media (max-width: 768px) {
             .event-row-container { flex-direction: column; }
@@ -877,7 +886,7 @@
                         <div id="event-status" class="status-badge">🌟 ¡EVENTO EN VIVO!</div>
                     </div>
                     <div class="action-buttons">
-                        <button class="btn-pip" onclick="togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 Flotante</button>
+                        <button class="btn-pip" onclick="togglePiP('event', 'EVENTO GALÁCTICO')">📌 Flotante</button>
                         <button onclick="requestAdmin('event')">⚙️ Configurar</button>
                     </div>
                 </div>
@@ -940,7 +949,7 @@
     </div>
 
     <canvas id="pipCanvas" width="800" height="400"></canvas>
-    <video id="pipVideo" autoplay muted style="display:none;"></video>
+    <video id="pipVideo" autoplay muted playsinline></video>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -964,6 +973,35 @@
         let activePipType = null;
         let activePipTitle = "";
         let timerStates = {};
+        let playedAlerts = {};
+
+        // Sistema de Sonido Gamer NATIVO (Web Audio API)
+        function playGamerAlertSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                function playBeep(freq, startTime, duration) {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.3, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + duration);
+                }
+
+                // 3 Beeps Gamer ascendentes
+                const now = audioCtx.currentTime;
+                playBeep(880, now, 0.15);       // Nota A5
+                playBeep(1046.5, now + 0.2, 0.15); // Nota C6
+                playBeep(1318.5, now + 0.4, 0.3);  // Nota E6
+            } catch (e) {
+                console.log("Audio no permitido aún por la interacción del usuario:", e);
+            }
+        }
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
@@ -1026,9 +1064,16 @@
                 if (remaining <= 0) {
                     if (status) status.style.display = "block";
                     if (box) box.classList.add("ready-alert");
+
+                    // Activar alerta de sonido solo 1 vez cuando se acaba
+                    if (!playedAlerts[id]) {
+                        playGamerAlertSound();
+                        playedAlerts[id] = true;
+                    }
                 } else {
                     if (status) status.style.display = "none";
                     if (box) box.classList.remove("ready-alert");
+                    playedAlerts[id] = false; // Resetear cuando hay tiempo corriendo
                 }
 
                 if (activePipType === id) renderPiPCanvas(id, remaining);
@@ -1098,51 +1143,67 @@
                 .catch(err => alert("Error al guardar evento: " + err.message));
         }
 
+        // SISTEMA FLOTANTE CORREGIDO Y COMPATIBLE CON NAVEGADORES MODERNOS
         async function togglePiP(id, title) {
-            const video = document.getElementById('pipVideo');
-            const canvas = document.getElementById('pipCanvas');
+            try {
+                const video = document.getElementById('pipVideo');
+                const canvas = document.getElementById('pipCanvas');
 
-            if (document.pictureInPictureElement) {
-                await document.exitPictureInPicture();
-                if (activePipType === id) {
-                    activePipType = null;
-                    return;
+                if (document.pictureInPictureElement) {
+                    await document.exitPictureInPicture();
+                    if (activePipType === id) {
+                        activePipType = null;
+                        return;
+                    }
                 }
+
+                activePipType = id;
+                activePipTitle = title;
+
+                // Render inicial inmediato para enviar imagen al video
+                renderPiPCanvas(id, 0);
+
+                const stream = canvas.captureStream(30);
+                video.srcObject = stream;
+                
+                await video.play();
+                await video.requestPictureInPicture();
+            } catch (err) {
+                alert("Tu navegador requiere interactuar con la página antes de abrir la ventana flotante.");
+                console.error("Error al activar PiP: ", err);
             }
-
-            activePipType = id;
-            activePipTitle = title;
-
-            const stream = canvas.captureStream(30);
-            video.srcObject = stream;
-            await video.play();
-            await video.requestPictureInPicture();
         }
 
         function renderPiPCanvas(id, remaining) {
             const canvas = document.getElementById('pipCanvas');
             const ctx = canvas.getContext('2d');
 
-            ctx.fillStyle = "#0f172a";
+            ctx.fillStyle = "#05070b";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.strokeStyle = "#00d2ff";
-            ctx.lineWidth = 6;
+            ctx.lineWidth = 8;
             ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
             ctx.fillStyle = "#00d2ff";
-            ctx.font = "bold 28px 'Segoe UI', sans-serif";
+            ctx.font = "bold 32px 'Segoe UI', sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText(activePipTitle, canvas.width / 2, 80);
+            ctx.fillText(activePipTitle, canvas.width / 2, 85);
 
-            const text = id === 'event' ? formatEventTime(remaining) : formatTime(remaining);
+            let text = "00:00:00";
+            if (timerStates[id]) {
+                const rem = Math.max(0, Math.floor((timerStates[id].targetTime - getNow()) / 1000));
+                text = id === 'event' ? formatEventTime(rem) : formatTime(rem);
+                remaining = rem;
+            }
+
             ctx.fillStyle = remaining <= 0 ? "#ff2a2a" : "#ffffff";
-            ctx.font = "bold 45px monospace";
+            ctx.font = "bold 48px monospace";
             ctx.fillText(text, canvas.width / 2, 210);
 
             if (remaining <= 0) {
                 ctx.fillStyle = "#ff2a2a";
-                ctx.font = "bold 26px sans-serif";
+                ctx.font = "bold 28px sans-serif";
                 ctx.fillText("¡LISTO PARA USAR!", canvas.width / 2, 310);
             }
         }
