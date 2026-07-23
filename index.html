@@ -5,159 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Android Tycoon Star Wars - Timers</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #080a0f;
-            color: #ffffff;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+            background: #05070b url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=2000') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 95vh;
+            padding: 30px 20px;
             user-select: none;
         }
 
-        /* Barra Superior del Creador */
+        /* Overlay oscuro sobre el fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(5, 7, 11, 0.88);
+            z-index: -1;
+        }
+
+        /* Header del Creador Grande */
         .creator-bar {
             width: 100%;
-            max-width: 380px;
+            max-width: 900px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 11px;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-sizing: border-box;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        .creator-bar strong {
-            color: #00d2ff;
-        }
-
+        .creator-bar strong { color: #00d2ff; font-size: 18px; }
         .creator-bar .code {
             color: #ff0055;
-            background: rgba(255, 0, 85, 0.15);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background: rgba(255, 0, 85, 0.2);
+            padding: 6px 14px;
+            border-radius: 8px;
             border: 1px solid #ff0055;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
-        /* Banner de Bienvenida */
+        /* Titulo XL */
         .welcome-title {
-            font-size: 18px;
+            font-size: 32px;
             font-weight: 900;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             background: linear-gradient(90deg, #ffe600, #ff0055, #00d2ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 230, 0, 0.2);
+            margin-bottom: 35px;
+            text-shadow: 0 0 30px rgba(255, 230, 0, 0.3);
         }
 
+        /* Contenedor Gigante */
         .container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px;
             width: 100%;
-            max-width: 380px;
+            max-width: 900px;
         }
 
+        /* Tarjeta de Contador XL */
         .timer-box {
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: bold;
+            padding: 25px 35px;
+            border-radius: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            border: 2px solid;
             position: relative;
-            overflow: hidden;
+        }
+
+        .timer-box:hover {
+            transform: translateY(-3px);
         }
 
         .card-info {
             display: flex;
             flex-direction: column;
+            gap: 5px;
         }
 
         .card-title {
-            font-size: 13px;
+            font-size: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            opacity: 0.9;
+            letter-spacing: 2px;
+            font-weight: 900;
         }
 
         .time-display {
-            font-size: 26px;
-            font-family: monospace;
-            letter-spacing: 2px;
+            font-size: 52px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px currentColor;
         }
 
         .status-badge {
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-top: 4px;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
             display: none;
-            color: #ff4757;
+            color: #ff2a2a;
             text-transform: uppercase;
+            animation: pulse 1s infinite alternate;
         }
 
-        /* Estilos por categoría */
+        /* Colores Neón Personalizados */
         .beskar { 
-            background: rgba(212, 175, 55, 0.12); 
-            border: 2px solid #ffd700; 
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
-            color: #fff8dc;
+            background: rgba(212, 175, 55, 0.08); 
+            border-color: #ffd700; 
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
+            color: #fff3a1;
         }
         .mythic { 
-            background: rgba(220, 20, 60, 0.12); 
-            border: 2px solid #ff1493; 
-            box-shadow: 0 0 15px rgba(255, 20, 147, 0.15);
-            color: #ffe4e1;
+            background: rgba(220, 20, 60, 0.08); 
+            border-color: #ff1493; 
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.2);
+            color: #ffb6c1;
         }
         .galactic { 
-            background: rgba(138, 43, 226, 0.12); 
-            border: 2px solid #a855f7; 
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
-            color: #f3e8ff;
+            background: rgba(138, 43, 226, 0.08); 
+            border-color: #a855f7; 
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+            color: #e9d5ff;
         }
 
-        /* Alerta visual cuando respawnea */
-        .ready-alert {
-            animation: readyPulse 0.8s infinite alternate !important;
-        }
-
-        @keyframes readyPulse {
-            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; transform: scale(1); }
-            100% { border-color: #ffffff; box-shadow: 0 0 35px #ff0000; transform: scale(1.02); }
+        .action-buttons {
+            display: flex;
+            gap: 12px;
         }
 
         button {
             background: #1e293b;
             color: #fff;
             border: 1px solid #475569;
-            border-radius: 8px;
-            padding: 10px 16px;
+            border-radius: 12px;
+            padding: 14px 22px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 800;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: all 0.2s ease;
         }
+
         button:hover { 
             background: #ffffff; 
             color: #000000;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-pip {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Canvas oculto para generar la mini pantalla flotante */
+        canvas {
+            display: none;
+        }
+
+        @keyframes readyPulse {
+            0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
+            100% { border-color: #ffffff; box-shadow: 0 0 50px #ff0000; }
+        }
+
+        .ready-alert {
+            animation: readyPulse 0.8s infinite alternate !important;
+        }
+
+        @media (max-width: 600px) {
+            .time-display { font-size: 36px; }
+            .welcome-title { font-size: 22px; }
+            .creator-bar { flex-direction: column; gap: 8px; text-align: center; }
+            .timer-box { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -182,7 +229,10 @@
                 <div id="beskar-display" class="time-display">00:15:00</div>
                 <div id="beskar-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
-            <button onclick="resetTimer('beskar', 900)">Reset</button>
+            <div class="action-buttons">
+                <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
+                <button onclick="resetTimer('beskar', 900)">Reset</button>
+            </div>
         </div>
 
         <!-- Mítico -->
@@ -192,7 +242,10 @@
                 <div id="mythic-display" class="time-display">01:00:00</div>
                 <div id="mythic-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
-            <button onclick="resetTimer('mythic', 3600)">Reset</button>
+            <div class="action-buttons">
+                <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
+                <button onclick="resetTimer('mythic', 3600)">Reset</button>
+            </div>
         </div>
 
         <!-- Galáctico -->
@@ -202,16 +255,23 @@
                 <div id="galactic-display" class="time-display">01:00:00</div>
                 <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
-            <button onclick="resetTimer('galactic', 3600)">Reset</button>
+            <div class="action-buttons">
+                <button class="btn-pip" onclick="togglePiP('galactic', 'GALÁCTICO')">📌 Flotante</button>
+                <button onclick="resetTimer('galactic', 3600)">Reset</button>
+            </div>
         </div>
     </div>
+
+    <!-- Video y Canvas para reproducir en Mini Ventana Flotante -->
+    <canvas id="pipCanvas" width="400" height="200"></canvas>
+    <video id="pipVideo" autoplay muted style="display:none;"></video>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
-        const ADMIN_PIN = "1234"; 
+        const ADMIN_PIN = "HOLAGORDIS69KELL$$"; 
 
         const firebaseConfig = {
             apiKey: "AIzaSyDSQtr6xQONdpcK7HQDe_TIVCm6yBg4C3E",
@@ -226,6 +286,8 @@
         const db = firebase.firestore();
 
         let serverOffset = 0;
+        let activePipType = null;
+        let activePipTitle = "";
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
@@ -237,11 +299,7 @@
                 });
             }).catch(() => {});
 
-        const targetTimes = {
-            beskar: 0,
-            mythic: 0,
-            galactic: 0
-        };
+        const targetTimes = { beskar: 0, mythic: 0, galactic: 0 };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep(freq = 880) {
@@ -275,7 +333,8 @@
                 if (targetTimes[key] === 0) continue;
 
                 const remainingSeconds = Math.max(0, Math.ceil((targetTimes[key] - now) / 1000));
-                display.innerText = formatTime(remainingSeconds);
+                const formatted = formatTime(remainingSeconds);
+                display.innerText = formatted;
 
                 if (remainingSeconds === 0) {
                     box.classList.add('ready-alert');
@@ -288,6 +347,61 @@
                     box.classList.remove('ready-alert');
                     status.style.display = 'none';
                 }
+
+                // Si este contador está activado en ventana flotante, renderizar en canvas
+                if (activePipType === key) {
+                    renderCanvas(activePipTitle, formatted, remainingSeconds === 0);
+                }
+            }
+        }
+
+        // Renderizador para la ventana flotante (Picture in Picture)
+        const canvas = document.getElementById('pipCanvas');
+        const ctx = canvas.getContext('2d');
+        const video = document.getElementById('pipVideo');
+
+        function renderCanvas(title, timeStr, isReady) {
+            ctx.fillStyle = isReady ? "#990000" : "#0f172a";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00d2ff";
+            ctx.font = "bold 22px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(title, canvas.width / 2, 45);
+
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 46px monospace";
+            ctx.fillText(timeStr, canvas.width / 2, 115);
+
+            ctx.fillStyle = isReady ? "#ffea00" : "#94a3b8";
+            ctx.font = "bold 16px sans-serif";
+            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 165);
+        }
+
+        async function togglePiP(type, title) {
+            try {
+                if (document.pictureInPictureElement) {
+                    await document.exitPictureInPicture();
+                    if (activePipType === type) {
+                        activePipType = null;
+                        return;
+                    }
+                }
+
+                activePipType = type;
+                activePipTitle = title;
+
+                const stream = canvas.captureStream(30);
+                video.srcObject = stream;
+                await video.play();
+                await video.requestPictureInPicture();
+
+                video.addEventListener('leavepictureinpicture', () => {
+                    activePipType = null;
+                }, { once: true });
+
+            } catch (err) {
+                alert("Tu navegador no soporta el modo flotante. Prueba desde Chrome o Edge en PC.");
             }
         }
 
@@ -302,9 +416,9 @@
         });
 
         function resetTimer(type, secondsDuration) {
-            const userPin = prompt("Ingresa el PIN de administrador:");
+            const userPin = prompt("Ingresa la clave de administrador:");
             if (userPin !== ADMIN_PIN) {
-                alert("PIN incorrecto.");
+                alert("Clave incorrecta.");
                 return;
             }
 
