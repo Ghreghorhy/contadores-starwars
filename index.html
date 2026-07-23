@@ -463,74 +463,51 @@
         .rating-title {
             font-size: 18px;
             font-weight: 900;
-            color: #ffe600;
-            margin-bottom: 12px;
+            color: #00d2ff;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .auth-status-box {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-google {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .btn-google:hover {
-            background: #f1f5f9;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .user-logged-info {
-            font-size: 13px;
-            color: #00d2ff;
-            font-weight: 700;
-        }
-
-        .stars-container {
+        .like-container {
             display: flex;
             justify-content: center;
-            gap: 8px;
+            align-items: center;
             margin-bottom: 15px;
+        }
+
+        .btn-like {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            color: #000;
+            font-size: 20px;
+            font-weight: 900;
+            padding: 14px 28px;
+            border-radius: 50px;
+            border: none;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            transition: all 0.2s ease;
         }
 
-        .star {
-            font-size: 32px;
-            color: #475569;
-            transition: transform 0.2s, color 0.2s;
-        }
-
-        .star:hover, .star.active {
-            color: #ffe600;
-            transform: scale(1.2);
-            text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+        .btn-like:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #33dcff, #3390ff);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.8);
+            color: #000;
         }
 
         .rating-stats {
             font-size: 15px;
             font-weight: 800;
-            color: #00d2ff;
-            background: rgba(0, 210, 255, 0.1);
+            color: #ffe600;
+            background: rgba(255, 230, 0, 0.1);
             padding: 10px 20px;
             border-radius: 12px;
             display: inline-block;
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            border: 1px solid rgba(255, 230, 0, 0.3);
         }
 
         .comments-header {
@@ -835,23 +812,14 @@
     </div>
 
     <div class="rating-section">
-        <div class="rating-title" id="rating-title-text">⭐ Califica la página ⭐</div>
+        <div class="rating-title" id="rating-title-text">👍 ¡APoya ESTA PÁGINA CON UN LIKE! 👍</div>
         
-        <div class="auth-status-box" id="auth-status-box">
-            <button class="btn-google" onclick="loginWithGoogle()">
-                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.32 7.24 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.19C.43 8.13 0 9.87 0 12s.43 3.87 1.19 5.4l4.08-3.16z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.6l4.08 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
-                Inicia sesión con Google para calificar
+        <div class="like-container">
+            <button class="btn-like" onclick="sendLike()">
+                👍 <span id="like-btn-text">Dar Like</span>
             </button>
         </div>
-
-        <div class="stars-container" id="stars-container">
-            <span class="star" onclick="ratePage(1)">★</span>
-            <span class="star" onclick="ratePage(2)">★</span>
-            <span class="star" onclick="ratePage(3)">★</span>
-            <span class="star" onclick="ratePage(4)">★</span>
-            <span class="star" onclick="ratePage(5)">★</span>
-        </div>
-        <div id="rating-stats" class="rating-stats">Calculando aprobación de la comunidad...</div>
+        <div id="rating-stats" class="rating-stats">Cargando likes de la comunidad...</div>
     </div>
 
     <div class="comments-section">
@@ -872,7 +840,6 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
         const ADMIN_PIN = "HOLAGORDIS69KELL$$"; 
@@ -888,12 +855,10 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const auth = firebase.auth();
 
         let serverOffset = 0;
         let activePipType = null;
         let activePipTitle = "";
-        let currentUser = null;
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
@@ -1179,81 +1144,34 @@
             });
         }
 
-        function loginWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).catch((error) => {
-                alert("Error al iniciar sesión con Google: " + error.message);
-            });
-        }
-
-        auth.onAuthStateChanged((user) => {
-            currentUser = user;
-            const authBox = document.getElementById('auth-status-box');
-            const ratingTitle = document.getElementById('rating-title-text');
-
-            if (user) {
-                authBox.innerHTML = `<div class="user-logged-info">👤 Conectado como: <strong>${user.displayName}</strong></div>`;
-                
-                db.collection("ratings").doc(user.uid).get().then((doc) => {
+        // Sistema de Likes optimizado en Firebase
+        function sendLike() {
+            const likeDocRef = db.collection("stats").doc("likes");
+            
+            db.runTransaction((transaction) => {
+                return transaction.get(likeDocRef).then((doc) => {
+                    let newCount = 1;
                     if (doc.exists) {
-                        ratingTitle.innerText = `¡Ya registramos tu voto de ${doc.data().rating} estrellas! ⭐`;
-                        lockStars();
-                    } else {
-                        ratingTitle.innerText = "⭐ ¡Ya puedes calificar con tu cuenta! ⭐";
+                        newCount = (doc.data().count || 0) + 1;
                     }
+                    transaction.set(likeDocRef, { count: newCount });
+                    return newCount;
                 });
-            } else {
-                authBox.innerHTML = `
-                    <button class="btn-google" onclick="loginWithGoogle()">
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.32 7.24 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.19C.43 8.13 0 9.87 0 12s.43 3.87 1.19 5.4l4.08-3.16z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.6l4.08 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
-                        Inicia sesión con Google para calificar
-                    </button>
-                `;
-                ratingTitle.innerText = "⭐ Inicia sesión para calificar la página ⭐";
-            }
-        });
-
-        function ratePage(stars) {
-            if (!currentUser) {
-                alert("Debes iniciar sesión con Google antes de poder calificar.");
-                loginWithGoogle();
-                return;
-            }
-
-            db.collection("ratings").doc(currentUser.uid).set({
-                rating: stars,
-                userName: currentUser.displayName,
-                email: currentUser.email,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                document.getElementById('rating-title-text').innerText = `¡Gracias por calificar con ${stars} estrellas! ⭐`;
-                lockStars();
+            }).then((count) => {
+                document.getElementById('like-btn-text').innerText = "¡Gracias por tu Like! 👍";
+                document.getElementById('rating-title-text').innerText = "👍 ¡GRACIAS POR EL APOYO! 👍";
             }).catch(() => {
-                alert("Error al registrar la calificación.");
+                alert("Error al registrar el like.");
             });
         }
 
-        function lockStars() {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach(s => {
-                s.style.opacity = "0.4";
-                s.style.cursor = "not-allowed";
-            });
-        }
-
-        db.collection("ratings").onSnapshot((snapshot) => {
-            if (snapshot.empty) {
-                document.getElementById('rating-stats').innerText = "Sé el primero en calificar ⭐";
-                return;
+        db.collection("stats").doc("likes").onSnapshot((doc) => {
+            if (doc.exists && doc.data().count !== undefined) {
+                const count = doc.data().count;
+                document.getElementById('rating-stats').innerText = `❤️ Apoyo Total: ${count} Likes de la comunidad`;
+            } else {
+                document.getElementById('rating-stats').innerText = "❤️ Sé el primero en dejar tu Like";
             }
-            let total = 0;
-            let count = 0;
-            snapshot.forEach((doc) => {
-                total += doc.data().rating;
-                count++;
-            });
-            let avg = (total / count).toFixed(1);
-            document.getElementById('rating-stats').innerText = `Aprobación de la Comunidad: ${avg} / 5.0 ⭐ (${count} votos)`;
         });
 
         function addComment() {
