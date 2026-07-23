@@ -981,7 +981,14 @@
         let activePipType = null;
         let activePipTitle = "";
         let timerStates = {};
-        let playedAlerts = {};
+        let resettingTimers = {};
+
+        // DURACIONES POR DEFECTO EN MINUTOS PARA CADA CICLO
+        const DEFAULT_DURATIONS = {
+            beskar: 15,     // 15 minutos
+            mythic: 60,     // 1 hora
+            galactic: 60    // 1 hora
+        };
 
         function playGamerAlertSound() {
             try {
@@ -1049,6 +1056,7 @@
             });
         }
 
+        // LÓGICA DE ACTUALIZACIÓN Y AUTO-REINICIO EN CICLO
         function updateUI() {
             const now = getNow();
             for (let id in timerStates) {
@@ -1067,18 +1075,22 @@
                     display.innerText = formatTime(remaining);
                 }
 
-                if (remaining <= 0) {
-                    if (status) status.style.display = "block";
-                    if (box) box.classList.add("ready-alert");
-
-                    if (!playedAlerts[id]) {
+                // SI EL TIEMPO LLEGA A 0 Y PERTENECE A LOS TIMERS EN BUCLE:
+                if (remaining <= 0 && DEFAULT_DURATIONS[id]) {
+                    if (!resettingTimers[id]) {
+                        resettingTimers[id] = true;
                         playGamerAlertSound();
-                        playedAlerts[id] = true;
+
+                        // REINICIAR AUTOMÁTICAMENTE AL TIEMPO POR DEFECTO
+                        const nextTarget = now + (DEFAULT_DURATIONS[id] * 60 * 1000);
+                        db.collection("timers").doc(id).set({ targetTime: nextTarget })
+                            .then(() => {
+                                resettingTimers[id] = false;
+                            })
+                            .catch(() => {
+                                resettingTimers[id] = false;
+                            });
                     }
-                } else {
-                    if (status) status.style.display = "none";
-                    if (box) box.classList.remove("ready-alert");
-                    playedAlerts[id] = false;
                 }
 
                 if (activePipType === id) renderPiPCanvas(id, remaining);
@@ -1177,7 +1189,6 @@
             }
         }
 
-        // CANVAS AJUSTADO PARA EVITAR QUE NINGÚN TEXTO SE CORTE
         function renderPiPCanvas(id, remaining) {
             const canvas = document.getElementById('pipCanvas');
             const ctx = canvas.getContext('2d');
@@ -1189,7 +1200,6 @@
             ctx.lineWidth = 6;
             ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
-            // Título superior
             ctx.fillStyle = "#00d2ff";
             ctx.font = "bold 28px 'Segoe UI', sans-serif";
             ctx.textAlign = "center";
@@ -1202,7 +1212,6 @@
                 remaining = rem;
             }
 
-            // Fuente dinámica para que el texto largo del evento quepa holgado sin salirse
             ctx.fillStyle = remaining <= 0 ? "#ff2a2a" : "#ffffff";
             if (id === 'event') {
                 ctx.font = "bold 34px monospace";
@@ -1214,7 +1223,7 @@
             if (remaining <= 0) {
                 ctx.fillStyle = "#ff2a2a";
                 ctx.font = "bold 26px sans-serif";
-                ctx.fillText("¡LISTO PARA USAR!", canvas.width / 2, 320);
+                ctx.fillText("¡REINICIANDO CICLO!", canvas.width / 2, 320);
             } else {
                 ctx.fillStyle = "#64748b";
                 ctx.font = "bold 16px sans-serif";
