@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android Tycoon - Evento Galáctico</title>
+    <title>Star Wars Fortnite - Contadores de Eventos</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,8 @@
 
         body {
             font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
-            background: #05070b url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000') no-repeat center center fixed;
+            /* Fondo épico temático de Star Wars / Fortnite */
+            background: #05070b url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=2000') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
             min-height: 100vh;
@@ -31,7 +32,7 @@
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(5, 7, 11, 0.55);
+            background: rgba(5, 7, 11, 0.7);
             z-index: -1;
         }
 
@@ -88,6 +89,41 @@
         .instagram-btn { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
         .paypal-btn { background: linear-gradient(135deg, #0070ba, #003087); }
 
+        /* Pestañas de Navegación para los 3 Contadores */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #475569;
+            color: #94a3b8;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 13px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn:hover {
+            border-color: #00d2ff;
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            border-color: #00d2ff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+        }
+
         .event-container {
             display: flex;
             flex-direction: column;
@@ -115,7 +151,7 @@
         }
 
         .event-title {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -126,7 +162,7 @@
         }
 
         .countdown-box {
-            background: rgba(10, 14, 26, 0.9);
+            background: rgba(10, 14, 26, 0.92);
             border: 3px solid #ffe600;
             border-radius: 20px;
             padding: 20px 30px;
@@ -139,7 +175,6 @@
             min-width: 380px;
         }
 
-        /* Indicador de qué fase está corriendo (Espera vs Duración del Evento) */
         #phase-indicator {
             font-size: 12px;
             font-weight: 900;
@@ -242,7 +277,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .card-glass {
@@ -250,7 +285,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            padding: 15px 20px;
+            padding: 12px 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             text-align: center;
         }
@@ -260,16 +295,16 @@
             justify-content: center;
             gap: 5px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 22px;
             color: #475569;
-            margin: 5px 0;
+            margin: 3px 0;
         }
 
         .star:hover, .star.active { color: #ffe600; text-shadow: 0 0 10px rgba(255, 230, 0, 0.6); }
 
         @media (max-width: 600px) {
             .time-digits { font-size: 32px; }
-            .event-title { font-size: 22px; }
+            .event-title { font-size: 20px; }
             .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
         }
     </style>
@@ -285,10 +320,17 @@
         </div>
     </div>
 
+    <!-- Pestañas para alternar entre los contadores -->
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchTab('beskar')">🛡️ PLANO BESKAR</button>
+        <button class="tab-btn" onclick="switchTab('mitico')">⚡ PLANO MÍTICO</button>
+        <button class="tab-btn" onclick="switchTab('galactico')">🌌 EVENTO GALÁCTICO</button>
+    </div>
+
     <div class="event-container">
         <div class="event-banner">
-            <div class="event-subtitle">— EVENTO DE —</div>
-            <div class="event-title">GALÁCTICO</div>
+            <div class="event-subtitle">— TEMPORADA STAR WARS —</div>
+            <div id="banner-title" class="event-title">PLANO BESKAR</div>
         </div>
 
         <div class="countdown-box">
@@ -306,11 +348,11 @@
             <div id="admin-panel" class="admin-panel">
                 <div style="font-size: 11px; color: #00d2ff; font-weight: 800;">FASE 1: TIEMPO HASTA EL EVENTO</div>
                 <div class="inputs-row">
-                    <label>D: <input type="number" id="in-wait-d" min="0" value="2"></label>
-                    <label>H: <input type="number" id="in-wait-h" min="0" max="23" value="9"></label>
+                    <label>D: <input type="number" id="in-wait-d" min="0" value="1"></label>
+                    <label>H: <input type="number" id="in-wait-h" min="0" max="23" value="0"></label>
                     <label>M: <input type="number" id="in-wait-m" min="0" max="59" value="0"></label>
                 </div>
-                <div style="font-size: 11px; color: #ffe600; font-weight: 800; border-top: 1px solid #334155; padding-top: 8px;">FASE 2: CUÁNTO DURA EL EVENTO</div>
+                <div style="font-size: 11px; color: #ffe600; font-weight: 800; border-top: 1px solid #334155; padding-top: 8px;">FASE 2: DURACIÓN ACTIVA</div>
                 <div class="inputs-row">
                     <label>H: <input type="number" id="in-dur-h" min="0" max="23" value="0"></label>
                     <label>M: <input type="number" id="in-dur-m" min="0" max="59" value="15"></label>
@@ -325,7 +367,7 @@
 
     <div class="bottom-section">
         <div class="card-glass">
-            <div style="font-size: 14px; font-weight: 900; color: #ffe600;">⭐ CALIFICA LA PÁGINA ⭐</div>
+            <div style="font-size: 13px; font-weight: 900; color: #ffe600;">⭐ CALIFICA LA PÁGINA ⭐</div>
             <div class="stars">
                 <span class="star" onclick="ratePage(1)">★</span>
                 <span class="star" onclick="ratePage(2)">★</span>
@@ -333,7 +375,7 @@
                 <span class="star" onclick="ratePage(4)">★</span>
                 <span class="star" onclick="ratePage(5)">★</span>
             </div>
-            <div id="rating-stats" style="font-size: 13px; font-weight: 800; color: #00d2ff;">Cargando opiniones...</div>
+            <div id="rating-stats" style="font-size: 12px; font-weight: 800; color: #00d2ff;">Cargando opiniones...</div>
         </div>
     </div>
 
@@ -356,10 +398,18 @@
         const db = firebase.firestore();
 
         let serverOffset = 0;
+        let currentTab = 'beskar';
+        
         let eventData = {
-            waitDuration: (2 * 86400) + (9 * 3600), // Tiempo de espera inicial por defecto
-            eventDuration: 15 * 60,                 // Cuánto dura el evento activo (ej. 15 min)
-            cycleStartTime: Date.now()              // Cuándo arrancó este ciclo
+            waitDuration: 86400,
+            eventDuration: 900,
+            cycleStartTime: Date.now()
+        };
+
+        const tabNames = {
+            'beskar': 'PLANO BESKAR',
+            'mitico': 'PLANO MÍTICO',
+            'galactico': 'EVENTO GALÁCTICO'
         };
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
@@ -371,27 +421,41 @@
                 });
             }).catch(() => {});
 
-        // Escuchar en tiempo real los cambios de configuración
-        db.collection("timers").doc("galactico_ciclo").onSnapshot((doc) => {
-            if (doc.exists) {
-                const data = doc.data();
-                eventData.waitDuration = data.waitDuration || (2 * 86400);
-                eventData.eventDuration = data.eventDuration || (15 * 60);
-                eventData.cycleStartTime = data.cycleStartTime || Date.now();
-            } else {
-                // Configuración inicial por defecto si la base de datos está vacía
-                saveDefaults();
-            }
-        });
+        function switchTab(tabKey) {
+            currentTab = tabKey;
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-        function saveDefaults() {
-            const now = Date.now();
-            db.collection("timers").doc("galactico_ciclo").set({
-                waitDuration: 2 * 86400 + 9 * 3600,
-                eventDuration: 15 * 60,
-                cycleStartTime: now
+            // Cambiar título del banner
+            document.getElementById('banner-title').innerText = tabNames[tabKey];
+
+            // Cargar datos de la pestaña seleccionada
+            loadTabFirestore();
+        }
+
+        function loadTabFirestore() {
+            db.collection("timers").doc(currentTab).onSnapshot((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    eventData.waitDuration = data.waitDuration || 86400;
+                    eventData.eventDuration = data.eventDuration || 900;
+                    eventData.cycleStartTime = data.cycleStartTime || Date.now();
+                } else {
+                    // Valores por defecto
+                    const now = Date.now();
+                    db.collection("timers").doc(currentTab).set({
+                        waitDuration: 86400,
+                        eventDuration: 900,
+                        cycleStartTime: now
+                    });
+                }
             });
         }
+
+        // Cargar pestaña inicial al abrir
+        loadTabFirestore();
 
         function updateCountdown() {
             const now = Date.now() + serverOffset;
@@ -405,7 +469,6 @@
             const box = document.querySelector('.countdown-box');
 
             if (currentCycleTime < eventData.waitDuration) {
-                // FASE 1: Cuenta regresiva hasta que comience el evento
                 remainingSeconds = eventData.waitDuration - currentCycleTime;
                 indicator.innerText = "⏳ Tiempo para el Evento";
                 indicator.style.color = "#00d2ff";
@@ -414,9 +477,8 @@
                 box.style.borderColor = "#ffe600";
                 box.style.boxShadow = "0 0 40px rgba(255, 230, 0, 0.4)";
             } else {
-                // FASE 2: El evento está activo y corriendo su duración (ej. 15 min u 1 hora)
                 remainingSeconds = totalCycleTime - currentCycleTime;
-                indicator.innerText = "🔴 ¡EVENTO EN DIRECTO / ACTIVO!";
+                indicator.innerText = "🔴 ¡EN DIRECTO / ACTIVO!";
                 indicator.style.color = "#ff2a2a";
                 indicator.style.borderColor = "rgba(255, 42, 42, 0.5)";
                 indicator.style.background = "rgba(255, 42, 42, 0.15)";
@@ -464,13 +526,13 @@
 
             const currentServerTime = Date.now() + serverOffset;
 
-            db.collection("timers").doc("galactico_ciclo").set({
+            db.collection("timers").doc(currentTab).set({
                 waitDuration: waitTotalSec,
-                eventDuration: durTotalSec > 0 ? durTotalSec : 900, // Por defecto 15 min si ponen 0
+                eventDuration: durTotalSec > 0 ? durTotalSec : 900,
                 cycleStartTime: currentServerTime
             }, { merge: true }).then(() => {
                 closeAdmin();
-                alert("¡Configuración guardada! El ciclo se reinició desde este momento exacto.");
+                alert(`¡Configuración guardada para ${tabNames[currentTab]}!`);
             });
         }
 
