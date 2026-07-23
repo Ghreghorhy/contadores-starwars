@@ -649,7 +649,7 @@
             </div>
         </div>
 
-        <!-- Evento de Galáctico (Configuración manual exacta: Días, Horas, Minutos) -->
+        <!-- Evento de Galáctico -->
         <div id="box-event" class="timer-box event">
             <div class="timer-header">
                 <div class="card-info" style="flex-direction: row; align-items: center; gap: 15px;">
@@ -705,7 +705,8 @@
         <div id="comments-list" class="comments-list"></div>
     </div>
 
-    <canvas id="pipCanvas" width="250" height="120"></canvas>
+    <!-- CANVAS MEJORADO (MÁS RESOLUCIÓN) -->
+    <canvas id="pipCanvas" width="800" height="400"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -833,22 +834,30 @@
         const ctx = canvas.getContext('2d');
         const video = document.getElementById('pipVideo');
 
+        // FUNCIÓN MEJORADA PARA ADAPTAR TEXTOS
         function renderCanvas(title, timeStr, isReady) {
             ctx.fillStyle = isReady ? "#990000" : "#0f172a";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Título
             ctx.fillStyle = "#00d2ff";
-            ctx.font = "bold 15px sans-serif";
+            ctx.font = "bold 45px sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText(title, canvas.width / 2, 28);
+            ctx.fillText(title, canvas.width / 2, 80);
 
+            // Tiempo Dinámico (Más pequeño si el texto es muy largo)
             ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 20px sans-serif";
-            ctx.fillText(timeStr, canvas.width / 2, 72);
+            if (timeStr.length > 15) {
+                ctx.font = "bold 38px sans-serif"; // Letra chica para "02 DÍAS 08 HORAS..."
+            } else {
+                ctx.font = "bold 90px Courier New"; // Letra gigante para "01:15:00"
+            }
+            ctx.fillText(timeStr, canvas.width / 2, 220);
 
+            // Pie de página
             ctx.fillStyle = isReady ? "#ffea00" : "#94a3b8";
-            ctx.font = "bold 11px sans-serif";
-            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 102);
+            ctx.font = "bold 30px sans-serif";
+            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 340);
         }
 
         async function togglePiP(type, title) {
