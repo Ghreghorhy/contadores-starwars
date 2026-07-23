@@ -20,7 +20,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 30px 20px;
             user-select: none;
         }
@@ -113,6 +113,7 @@
             gap: 25px;
             width: 100%;
             max-width: 900px;
+            margin-bottom: 40px;
         }
 
         /* Tarjeta de Contador XL */
@@ -120,16 +121,19 @@
             padding: 25px 35px;
             border-radius: 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 15px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(12px);
             border: 2px solid;
             position: relative;
         }
 
-        .timer-box:hover {
-            transform: translateY(-3px);
+        .timer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .card-info {
@@ -192,7 +196,7 @@
             color: #fff;
             border: 1px solid #475569;
             border-radius: 12px;
-            padding: 14px 22px;
+            padding: 12px 20px;
             cursor: pointer;
             font-size: 13px;
             font-weight: 800;
@@ -212,6 +216,177 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
+        /* Panel de Edición de Admin */
+        .admin-controls {
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-top: 15px;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .admin-controls.active {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .time-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+        }
+
+        .time-inputs input {
+            width: 65px;
+            padding: 8px;
+            background: #0f172a;
+            border: 1px solid #00d2ff;
+            color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .quick-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-quick {
+            padding: 6px 12px;
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-save {
+            background: #00c853 !important;
+            color: #000 !important;
+            border: none;
+            font-weight: 900;
+        }
+
+        .btn-cancel {
+            background: #d50000 !important;
+            color: #fff !important;
+            border: none;
+        }
+
+        /* Sección de Comentarios */
+        .comments-section {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .comments-header {
+            font-size: 20px;
+            font-weight: 900;
+            color: #00d2ff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .comment-form input, .comment-form textarea {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .comment-form input:focus, .comment-form textarea:focus {
+            border-color: #00d2ff;
+        }
+
+        .btn-comment {
+            background: linear-gradient(90deg, #00d2ff, #0072ff);
+            color: #000;
+            font-weight: 900;
+            align-self: flex-end;
+            border: none;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .comment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .comment-author {
+            font-weight: 800;
+            color: #ffe600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #e2e8f0;
+            word-break: break-word;
+            user-select: text;
+        }
+
+        .comment-date {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .btn-delete-comment {
+            background: transparent;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .btn-delete-comment:hover {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff6b81;
+            box-shadow: none;
+        }
+
         canvas { display: none; }
 
         @keyframes readyPulse {
@@ -227,7 +402,7 @@
             .time-display { font-size: 36px; }
             .welcome-title { font-size: 22px; }
             .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
-            .timer-box { flex-direction: column; gap: 15px; text-align: center; }
+            .timer-header { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -238,7 +413,6 @@
         <span>CREADOR: <strong>GREGORY</strong></span>
         <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
         
-        <!-- Enlace de Donación configurado con tu correo lordkellvnzl@gmail.com -->
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lordkellvnzl@gmail.com&item_name=Apoyo+a+Gregory+Star+Wars+Tycoon&currency_code=USD" target="_blank" class="paypal-btn">
             💙 Apoyar / Donar
         </a>
@@ -252,45 +426,127 @@
     <div class="container">
         <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
-            <div class="card-info">
-                <div class="card-title">Beskar</div>
-                <div id="beskar-display" class="time-display">00:15:00</div>
-                <div id="beskar-status" class="status-badge">¡RESPAWN LISTO!</div>
+            <div class="timer-header">
+                <div class="card-info">
+                    <div class="card-title">Beskar</div>
+                    <div id="beskar-display" class="time-display">00:15:00</div>
+                    <div id="beskar-status" class="status-badge">¡RESPAWN LISTO!</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
+                    <button onclick="requestAdmin('beskar')">⚙️ Configurar</button>
+                </div>
             </div>
-            <div class="action-buttons">
-                <button class="btn-pip" onclick="togglePiP('beskar', 'BESKAR')">📌 Flotante</button>
-                <button onclick="resetTimer('beskar', 900)">Reset</button>
+
+            <div id="admin-beskar" class="admin-controls">
+                <div style="font-size: 13px; color: #00d2ff; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR):</div>
+                <div class="time-inputs">
+                    <label>H: <input type="number" id="beskar-h" min="0" value="0"></label>
+                    <label>M: <input type="number" id="beskar-m" min="0" max="59" value="15"></label>
+                    <label>S: <input type="number" id="beskar-s" min="0" max="59" value="0"></label>
+                </div>
+                <div class="quick-btn-group">
+                    <button class="btn-quick" onclick="setQuickTime('beskar', 15)">Default 15m</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', 5)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', -5)">-5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', 1)">+1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('beskar', -1)">-1 min</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <button class="btn-save" onclick="saveTimer('beskar')">💾 Guardar y Aplicar</button>
+                    <button class="btn-cancel" onclick="closeAdmin('beskar')">❌ Cancelar</button>
+                </div>
             </div>
         </div>
 
         <!-- Mítico -->
         <div id="box-mythic" class="timer-box mythic">
-            <div class="card-info">
-                <div class="card-title">Mítico</div>
-                <div id="mythic-display" class="time-display">01:00:00</div>
-                <div id="mythic-status" class="status-badge">¡RESPAWN LISTO!</div>
+            <div class="timer-header">
+                <div class="card-info">
+                    <div class="card-title">Mítico</div>
+                    <div id="mythic-display" class="time-display">01:00:00</div>
+                    <div id="mythic-status" class="status-badge">¡RESPAWN LISTO!</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
+                    <button onclick="requestAdmin('mythic')">⚙️ Configurar</button>
+                </div>
             </div>
-            <div class="action-buttons">
-                <button class="btn-pip" onclick="togglePiP('mythic', 'MÍTICO')">📌 Flotante</button>
-                <button onclick="resetTimer('mythic', 3600)">Reset</button>
+
+            <div id="admin-mythic" class="admin-controls">
+                <div style="font-size: 13px; color: #ff1493; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO):</div>
+                <div class="time-inputs">
+                    <label>H: <input type="number" id="mythic-h" min="0" value="1"></label>
+                    <label>M: <input type="number" id="mythic-m" min="0" max="59" value="0"></label>
+                    <label>S: <input type="number" id="mythic-s" min="0" max="59" value="0"></label>
+                </div>
+                <div class="quick-btn-group">
+                    <button class="btn-quick" onclick="setQuickTime('mythic', 60)">Default 1h</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', 5)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', -5)">-5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', 1)">+1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('mythic', -1)">-1 min</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <button class="btn-save" onclick="saveTimer('mythic')">💾 Guardar y Aplicar</button>
+                    <button class="btn-cancel" onclick="closeAdmin('mythic')">❌ Cancelar</button>
+                </div>
             </div>
         </div>
 
         <!-- Galáctico -->
         <div id="box-galactic" class="timer-box galactic">
-            <div class="card-info">
-                <div class="card-title">Galáctico</div>
-                <div id="galactic-display" class="time-display">01:00:00</div>
-                <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
+            <div class="timer-header">
+                <div class="card-info">
+                    <div class="card-title">Galáctico</div>
+                    <div id="galactic-display" class="time-display">01:00:00</div>
+                    <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-pip" onclick="togglePiP('galactic', 'GALÁCTICO')">📌 Flotante</button>
+                    <button onclick="requestAdmin('galactic')">⚙️ Configurar</button>
+                </div>
             </div>
-            <div class="action-buttons">
-                <button class="btn-pip" onclick="togglePiP('galactic', 'GALÁCTICO')">📌 Flotante</button>
-                <button onclick="resetTimer('galactic', 3600)">Reset</button>
+
+            <div id="admin-galactic" class="admin-controls">
+                <div style="font-size: 13px; color: #a855f7; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALÁCTICO):</div>
+                <div class="time-inputs">
+                    <label>H: <input type="number" id="galactic-h" min="0" value="1"></label>
+                    <label>M: <input type="number" id="galactic-m" min="0" max="59" value="0"></label>
+                    <label>S: <input type="number" id="galactic-s" min="0" max="59" value="0"></label>
+                </div>
+                <div class="quick-btn-group">
+                    <button class="btn-quick" onclick="setQuickTime('galactic', 60)">Default 1h</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', 5)">+5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', -5)">-5 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', 1)">+1 min</button>
+                    <button class="btn-quick" onclick="adjustInput('galactic', -1)">-1 min</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <button class="btn-save" onclick="saveTimer('galactic')">💾 Guardar y Aplicar</button>
+                    <button class="btn-cancel" onclick="closeAdmin('galactic')">❌ Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <canvas id="pipCanvas" width="400" height="200"></canvas>
+    <!-- SECCIÓN DE COMENTARIOS DE LA COMUNIDAD -->
+    <div class="comments-section">
+        <div class="comments-header">💬 Comentarios de la Comunidad</div>
+        
+        <div class="comment-form">
+            <input type="text" id="comment-name" placeholder="Tu Nombre o Nickname de Fortnite..." maxlength="30">
+            <textarea id="comment-msg" rows="3" placeholder="Deja un mensaje o saludo positivo..." maxlength="250"></textarea>
+            <button class="btn-comment" onclick="addComment()">Publicar Comentario</button>
+        </div>
+
+        <div id="comments-list" class="comments-list">
+            <!-- Aquí cargan los comentarios en tiempo real desde Firebase -->
+        </div>
+    </div>
+
+    <!-- Canvas de PiP reducido (250x120 en lugar de 400x200) -->
+    <canvas id="pipCanvas" width="250" height="120"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
     <!-- Firebase SDKs -->
@@ -385,22 +641,23 @@
         const ctx = canvas.getContext('2d');
         const video = document.getElementById('pipVideo');
 
+        /* DIBUJO DE PIP REFORZADO PARA SER MÁS PEQUEÑO Y NÍTIDO */
         function renderCanvas(title, timeStr, isReady) {
             ctx.fillStyle = isReady ? "#990000" : "#0f172a";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = "#00d2ff";
-            ctx.font = "bold 22px sans-serif";
+            ctx.font = "bold 15px sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText(title, canvas.width / 2, 45);
+            ctx.fillText(title, canvas.width / 2, 28);
 
             ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 46px monospace";
-            ctx.fillText(timeStr, canvas.width / 2, 115);
+            ctx.font = "bold 32px monospace";
+            ctx.fillText(timeStr, canvas.width / 2, 72);
 
             ctx.fillStyle = isReady ? "#ffea00" : "#94a3b8";
-            ctx.font = "bold 16px sans-serif";
-            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 165);
+            ctx.font = "bold 11px sans-serif";
+            ctx.fillText(isReady ? "¡RESPAWN LISTO!" : "GREGORY9797", canvas.width / 2, 102);
         }
 
         async function togglePiP(type, title) {
@@ -440,19 +697,136 @@
             }
         });
 
-        function resetTimer(type, secondsDuration) {
+        /* LÓGICA DE ADMINISTRADOR MANUAL */
+        function requestAdmin(type) {
             const userPin = prompt("Ingresa la clave de administrador:");
             if (userPin !== ADMIN_PIN) {
                 alert("Clave incorrecta.");
                 return;
             }
 
+            document.getElementById(`admin-${type}`).classList.add('active');
+        }
+
+        function closeAdmin(type) {
+            document.getElementById(`admin-${type}`).classList.remove('active');
+        }
+
+        function setQuickTime(type, minutes) {
+            document.getElementById(`${type}-h`).value = Math.floor(minutes / 60);
+            document.getElementById(`${type}-m`).value = minutes % 60;
+            document.getElementById(`${type}-s`).value = 0;
+        }
+
+        function adjustInput(type, minDelta) {
+            let mInput = document.getElementById(`${type}-m`);
+            let currentM = parseInt(mInput.value) || 0;
+            let newM = currentM + minDelta;
+            if (newM < 0) newM = 0;
+            mInput.value = newM;
+        }
+
+        function saveTimer(type) {
+            const h = parseInt(document.getElementById(`${type}-h`).value) || 0;
+            const m = parseInt(document.getElementById(`${type}-m`).value) || 0;
+            const s = parseInt(document.getElementById(`${type}-s`).value) || 0;
+
+            const totalSeconds = (h * 3600) + (m * 60) + s;
+
+            if (totalSeconds < 0) {
+                alert("Ingresa un tiempo válido.");
+                return;
+            }
+
             const currentServerTime = Date.now() + serverOffset;
-            const targetTimestamp = currentServerTime + (secondsDuration * 1000);
-            
+            const targetTimestamp = currentServerTime + (totalSeconds * 1000);
+
             db.collection("timers").doc("starwars").set({
                 [type]: targetTimestamp
-            }, { merge: true });
+            }, { merge: true }).then(() => {
+                closeAdmin(type);
+            });
+        }
+
+        /* LÓGICA DE COMENTARIOS */
+        function addComment() {
+            const nameInput = document.getElementById('comment-name');
+            const msgInput = document.getElementById('comment-msg');
+
+            const name = nameInput.value.trim() || "Anónimo";
+            const msg = msgInput.value.trim();
+
+            if (!msg) {
+                alert("Por favor escribe un mensaje antes de publicar.");
+                return;
+            }
+
+            db.collection("comments").add({
+                author: name,
+                text: msg,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                msgInput.value = "";
+            }).catch(() => {
+                alert("Error al publicar el comentario.");
+            });
+        }
+
+        /* ESCUCHAR COMENTARIOS EN TIEMPO REAL */
+        db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+            const list = document.getElementById('comments-list');
+            list.innerHTML = "";
+
+            if (snapshot.empty) {
+                list.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 13px;">Sé el primero en dejar un comentario positivo 🙌</div>`;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const docId = doc.id;
+                
+                let dateStr = "Hace un momento";
+                if (data.timestamp) {
+                    const d = data.timestamp.toDate();
+                    dateStr = d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                }
+
+                const card = document.createElement('div');
+                card.className = 'comment-card';
+                card.innerHTML = `
+                    <div style="flex: 1;">
+                        <div class="comment-author">${escapeHtml(data.author)}</div>
+                        <div class="comment-text">${escapeHtml(data.text)}</div>
+                        <div class="comment-date">${dateStr}</div>
+                    </div>
+                    <button class="btn-delete-comment" onclick="deleteComment('${docId}')" title="Borrar Comentario">🗑️</button>
+                `;
+                list.appendChild(card);
+            });
+        });
+
+        function deleteComment(docId) {
+            const userPin = prompt("Ingresa la clave de administrador para borrar este comentario:");
+            if (userPin !== ADMIN_PIN) {
+                alert("Clave incorrecta. No tienes permiso para borrar comentarios.");
+                return;
+            }
+
+            db.collection("comments").doc(docId).delete().then(() => {
+                alert("Comentario eliminado correctamente.");
+            }).catch(() => {
+                alert("Error al intentar borrar el comentario.");
+            });
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
         setInterval(updateDisplay, 1000);
