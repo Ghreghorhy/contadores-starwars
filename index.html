@@ -34,6 +34,7 @@
             z-index: -2;
         }
 
+        /* Barra Superior */
         .creator-bar {
             width: 100%;
             max-width: 900px;
@@ -109,7 +110,7 @@
             border: 1px solid rgba(0, 210, 255, 0.3);
             border-radius: 14px;
             padding: 15px 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .project-note h4 {
@@ -126,34 +127,41 @@
             line-height: 1.4;
         }
 
-        /* Botón Multi-Timer 3 en 1 */
+        /* BOTÓN PRINCIPAL UNIFICADO FLOTANTE 3 EN 1 */
         .multi-pip-wrapper {
             width: 100%;
             max-width: 900px;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 25px;
         }
 
         .btn-multi-pip {
-            background: linear-gradient(90deg, #ff0055, #00d2ff);
+            width: 100%;
+            background: linear-gradient(90deg, #ff0055, #7928ca, #00d2ff);
+            background-size: 200% auto;
             color: #ffffff;
             font-weight: 900;
-            font-size: 14px;
-            padding: 14px 28px;
-            border-radius: 12px;
-            border: none;
+            font-size: 16px;
+            padding: 18px 20px;
+            border-radius: 16px;
+            border: 2px solid #00d2ff;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.5);
-            letter-spacing: 1px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .btn-multi-pip:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 35px rgba(255, 0, 85, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(255, 0, 85, 0.8);
+            background-position: right center;
         }
 
+        /* Tarjetas de Temporizadores */
         .container {
             display: flex;
             flex-direction: column;
@@ -318,7 +326,7 @@
             font-weight: 700;
         }
 
-        /* Sección Likes / Apoyos */
+        /* Likes */
         .likes-section {
             width: 100%;
             max-width: 900px;
@@ -479,10 +487,10 @@
         <p>Este proyecto fue creado con el corazón, pensando en hacerle el camino más fácil a todos los que se conectan cada día a dar lo mejor. Que cada partida valga la pena y que vengan muchos proyectos y metas cumplidas. ¡Gracias por estar acá!</p>
     </div>
 
-    <!-- NUEVO: Botón Flotante 3 en 1 -->
+    <!-- BOTÓN ÚNICO DESTACADO FLOTANTE (3 EN 1) -->
     <div class="multi-pip-wrapper">
         <button class="btn-multi-pip" onclick="toggleMultiPiP()">
-            📌 ABRIR FLOTANTE MULTI-TIMER (BESKAR + MÍTICO + GALAXY)
+            📌 ABRIR PANTALLA FLOTANTE (BESKAR + MÍTICO + GALAXY)
         </button>
     </div>
 
@@ -495,7 +503,6 @@
                 <div id="beskar-display" class="time-display">00:15:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="togglePiP('beskar', 'BESKAR')">📌 FLOTANTE</button>
                 <button onclick="requestAdmin('beskar')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-beskar" class="admin-controls">
@@ -515,7 +522,6 @@
                 <div id="mythic-display" class="time-display">01:00:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="togglePiP('mythic', 'MÍTICO')">📌 FLOTANTE</button>
                 <button onclick="requestAdmin('mythic')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-mythic" class="admin-controls">
@@ -535,7 +541,6 @@
                 <div id="galactic-display" class="time-display">01:00:00</div>
             </div>
             <div class="action-buttons">
-                <button onclick="togglePiP('galactic', 'GALAXY')">📌 FLOTANTE</button>
                 <button onclick="requestAdmin('galactic')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-galactic" class="admin-controls">
@@ -557,7 +562,6 @@
                 <div id="event-display" class="event-time-display">02 DÍAS 00 HS : 29 MIN</div>
             </div>
             <div class="action-buttons">
-                <button onclick="togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 FLOTANTE</button>
                 <button onclick="requestAdmin('event')">⚙️ CONFIGURAR</button>
             </div>
             <div id="admin-event" class="admin-controls">
@@ -590,7 +594,7 @@
     <div class="likes-section">
         <div style="font-size: 15px; font-weight: 900; color: #ffe600;">🔥 ¿TE SIRVE LA PÁGINA? ¡DALE UN LIKE! 🔥</div>
         <button class="btn-like" onclick="addLike()">👍 ¡ME GUSTA ESTE PROYECTO!</button><br>
-        <div id="like-counter" class="like-counter">🔥 Total de Apoyos: Loading...</div>
+        <div id="like-counter" class="like-counter">🔥 Total de Apoyos: Cargando...</div>
     </div>
 
     <!-- Comentarios -->
@@ -608,4 +612,5 @@
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/1
