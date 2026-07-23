@@ -208,29 +208,38 @@
             text-transform: uppercase;
         }
 
+        /* 1. BESKAR: Gris metálico elegante y sobrio */
         .beskar { 
-            background: rgba(212, 175, 55, 0.12); 
-            border-color: #ffd700; 
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
-            color: #fff3a1;
+            background: linear-gradient(135deg, rgba(67, 72, 83, 0.25), rgba(30, 35, 45, 0.4));
+            border-color: #8c95a5; 
+            box-shadow: 0 0 25px rgba(140, 149, 165, 0.2);
+            color: #e2e8f0;
         }
+        
+        /* 2. MÍTICO: Rojo intenso y vibrante */
         .mythic { 
-            background: rgba(220, 20, 60, 0.12); 
-            border-color: #ff1493; 
-            box-shadow: 0 0 25px rgba(255, 20, 147, 0.25);
-            color: #ffb6c1;
+            background: linear-gradient(135deg, rgba(229, 57, 53, 0.2), rgba(120, 20, 25, 0.35)); 
+            border-color: #ff3b30; 
+            box-shadow: 0 0 25px rgba(255, 59, 48, 0.3);
+            color: #ff8580;
         }
+        
+        /* 3. GALAXY: Morado con estrellas / brillo cósmico */
         .galactic { 
-            background: rgba(138, 43, 226, 0.12); 
-            border-color: #a855f7; 
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
-            color: #e9d5ff;
+            background: radial-gradient(circle at top right, rgba(123, 31, 162, 0.35), rgba(26, 10, 48, 0.6)), 
+                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600') no-repeat center center;
+            background-size: cover;
+            border-color: #ba68c8; 
+            box-shadow: 0 0 30px rgba(186, 104, 200, 0.4);
+            color: #f3e8ff;
         }
+
+        /* 4. EVENTO DE GALÁCTICO: Estética cósmica especial */
         .event { 
-            background: rgba(0, 255, 200, 0.12); 
-            border-color: #00ffc8; 
-            box-shadow: 0 0 25px rgba(0, 255, 200, 0.25);
-            color: #a1fff6;
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.3), rgba(18, 0, 94, 0.5));
+            border-color: #9c27b0; 
+            box-shadow: 0 0 30px rgba(156, 39, 176, 0.4);
+            color: #e1bee7;
         }
 
         .action-buttons {
@@ -265,7 +274,7 @@
 
         .admin-controls {
             display: none;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             border-top: 1px dashed rgba(255, 255, 255, 0.2);
             padding-top: 15px;
             margin-top: 5px;
@@ -530,7 +539,7 @@
     </div>
 
     <div class="container">
-        <!-- Beskar (15 min cíclico estricto) -->
+        <!-- Beskar (15 min cíclico estricto - Gris metálico elegante) -->
         <div id="box-beskar" class="timer-box beskar">
             <div class="timer-header">
                 <div class="card-info">
@@ -545,7 +554,7 @@
             </div>
 
             <div id="admin-beskar" class="admin-controls">
-                <div style="font-size: 13px; color: #00d2ff; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR - Máx 15m):</div>
+                <div style="font-size: 13px; color: #a0aec0; font-weight: 800;">⚙️ MODIFICAR TIEMPO (BESKAR - Máx 15m):</div>
                 <div class="time-inputs">
                     <label>H: <input type="number" id="beskar-h" min="0" value="0"></label>
                     <label>M: <input type="number" id="beskar-m" min="0" max="15" value="15"></label>
@@ -565,7 +574,7 @@
             </div>
         </div>
 
-        <!-- Mítico (1 hora cíclico estricto) -->
+        <!-- Mítico (1 hora cíclico estricto - Rojo intenso y vibrante) -->
         <div id="box-mythic" class="timer-box mythic">
             <div class="timer-header">
                 <div class="card-info">
@@ -580,7 +589,7 @@
             </div>
 
             <div id="admin-mythic" class="admin-controls">
-                <div style="font-size: 13px; color: #ff1493; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO - Máx 60m):</div>
+                <div style="font-size: 13px; color: #ff5252; font-weight: 800;">⚙️ MODIFICAR TIEMPO (MÍTICO - Máx 60m):</div>
                 <div class="time-inputs">
                     <label>H: <input type="number" id="mythic-h" min="0" max="1" value="1"></label>
                     <label>M: <input type="number" id="mythic-m" min="0" max="59" value="0"></label>
@@ -600,22 +609,22 @@
             </div>
         </div>
 
-        <!-- Galáctico (1 hora cíclico estricto) -->
+        <!-- Galáctico (1 hora cíclico estricto - Morado con estrellas) -->
         <div id="box-galactic" class="timer-box galactic">
             <div class="timer-header">
                 <div class="card-info">
-                    <div class="card-title">Galáctico</div>
+                    <div class="card-title">Galaxy</div>
                     <div id="galactic-display" class="time-display">01:00:00</div>
                     <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('galactic', 'GALÁCTICO')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="togglePiP('galactic', 'GALAXY')">📌 Flotante</button>
                     <button onclick="requestAdmin('galactic')">⚙️ Configurar</button>
                 </div>
             </div>
 
             <div id="admin-galactic" class="admin-controls">
-                <div style="font-size: 13px; color: #a855f7; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALÁCTICO - Máx 60m):</div>
+                <div style="font-size: 13px; color: #e040fb; font-weight: 800;">⚙️ MODIFICAR TIEMPO (GALAXY - Máx 60m):</div>
                 <div class="time-inputs">
                     <label>H: <input type="number" id="galactic-h" min="0" max="1" value="1"></label>
                     <label>M: <input type="number" id="galactic-m" min="0" max="59" value="0"></label>
@@ -635,22 +644,25 @@
             </div>
         </div>
 
-        <!-- Próximo Evento (Se queda en 0 y no se reinicia) -->
+        <!-- Evento de Galáctico (Se queda en 0 y no se reinicia) -->
         <div id="box-event" class="timer-box event">
             <div class="timer-header">
-                <div class="card-info">
-                    <div class="card-title">Próximo Evento</div>
-                    <div id="event-display" class="time-display">00:00:00</div>
-                    <div id="event-status" class="status-badge">¡EVENTO EN VIVO / FINALIZADO!</div>
+                <div class="card-info" style="flex-direction: row; align-items: center; gap: 15px;">
+                    <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=120" alt="Evento Galaxy" style="width: 55px; height: 55px; border-radius: 12px; object-fit: cover; border: 2px solid #ba68c8;">
+                    <div>
+                        <div class="card-title">Evento de Galáctico</div>
+                        <div id="event-display" class="time-display">00:00:00</div>
+                        <div id="event-status" class="status-badge">¡EVENTO EN VIVO / FINALIZADO!</div>
+                    </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-pip" onclick="togglePiP('event', 'EVENTO')">📌 Flotante</button>
+                    <button class="btn-pip" onclick="togglePiP('event', 'EVENTO DE GALÁCTICO')">📌 Flotante</button>
                     <button onclick="requestAdmin('event')">⚙️ Configurar</button>
                 </div>
             </div>
 
             <div id="admin-event" class="admin-controls">
-                <div style="font-size: 13px; color: #00ffc8; font-weight: 800;">⚙️ CONFIGURAR FECHA/HORA DEL EVENTO:</div>
+                <div style="font-size: 13px; color: #e1bee7; font-weight: 800;">⚙️ CONFIGURAR FECHA/HORA DEL EVENTO DE GALÁCTICO:</div>
                 <div class="time-inputs" style="flex-wrap: wrap;">
                     <label>Fecha: <input type="date" id="event-date" style="width: 140px;"></label>
                     <label>Hora: <input type="time" id="event-time" style="width: 110px;" step="1"></label>
@@ -722,7 +734,6 @@
                 });
             }).catch(() => {});
 
-        // Almacenamiento de marcas objetivo absolutas en milisegundos
         const targetTimes = { beskar: 0, mythic: 0, galactic: 0, event: 0 };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -758,15 +769,12 @@
 
                 let remainingMillis = targetTimes[key] - now;
 
-                // CICLO AUTOMÁTICO ESTRICTO para Beskar (15m) y Mítico/Galáctico (60m)
                 if (key !== 'event' && remainingMillis <= 0) {
                     const cycleDurationMs = (key === 'beskar' ? 15 : 60) * 60 * 1000;
-                    // Calcula cuántos ciclos pasaron y salta exactamente al siguiente ciclo para no perder sincronía
                     const elapsed = Math.abs(remainingMillis);
                     const cyclesPassed = Math.floor(elapsed / cycleDurationMs) + 1;
                     targetTimes[key] += cyclesPassed * cycleDurationMs;
                     
-                    // Actualizar silenciosamente en Firebase para mantener a todos sincronizados
                     db.collection("timers").doc("starwars").set({
                         [key]: targetTimes[key]
                     }, { merge: true }).catch(() => {});
