@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contadores Star Wars Tycoon</title>
+    <title>Android Tycoon Star Wars - Timers</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0b0e14;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #080a0f;
             color: #ffffff;
             margin: 0;
             padding: 20px;
@@ -15,16 +15,51 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90vh;
+            min-height: 95vh;
             user-select: none;
         }
 
-        h2 {
-            margin-bottom: 20px;
+        /* Barra Superior del Creador */
+        .creator-bar {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+        }
+
+        .creator-bar strong {
+            color: #00d2ff;
+        }
+
+        .creator-bar .code {
+            color: #ff0055;
+            background: rgba(255, 0, 85, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ff0055;
+        }
+
+        /* Banner de Bienvenida */
+        .welcome-title {
+            font-size: 18px;
+            font-weight: 900;
+            text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #e2e8f0;
-            text-align: center;
+            background: linear-gradient(90deg, #ffe600, #ff0055, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 230, 0, 0.2);
         }
 
         .container {
@@ -32,101 +67,140 @@
             flex-direction: column;
             gap: 15px;
             width: 100%;
-            max-width: 320px;
+            max-width: 380px;
         }
 
         .timer-box {
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .card-title {
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 4px;
+            opacity: 0.9;
         }
 
         .time-display {
-            font-size: 22px;
+            font-size: 26px;
             font-family: monospace;
             letter-spacing: 2px;
         }
 
+        .status-badge {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: none;
+            color: #ff4757;
+            text-transform: uppercase;
+        }
+
+        /* Estilos por categoría */
         .beskar { 
-            background: rgba(212, 175, 55, 0.15); 
+            background: rgba(212, 175, 55, 0.12); 
             border: 2px solid #ffd700; 
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
             color: #fff8dc;
         }
         .mythic { 
-            background: rgba(220, 20, 60, 0.15); 
+            background: rgba(220, 20, 60, 0.12); 
             border: 2px solid #ff1493; 
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.15);
             color: #ffe4e1;
         }
         .galactic { 
-            background: rgba(138, 43, 226, 0.15); 
+            background: rgba(138, 43, 226, 0.12); 
             border: 2px solid #a855f7; 
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
             color: #f3e8ff;
         }
 
-        .warning-alert {
-            animation: blink 0.5s infinite alternate;
+        /* Alerta visual cuando respawnea */
+        .ready-alert {
+            animation: readyPulse 0.8s infinite alternate !important;
         }
 
-        @keyframes blink {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.4; transform: scale(1.02); filter: drop-shadow(0 0 15px red); }
+        @keyframes readyPulse {
+            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; transform: scale(1); }
+            100% { border-color: #ffffff; box-shadow: 0 0 35px #ff0000; transform: scale(1.02); }
         }
 
         button {
             background: #1e293b;
             color: #fff;
             border: 1px solid #475569;
-            border-radius: 6px;
-            padding: 8px 14px;
+            border-radius: 8px;
+            padding: 10px 16px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
         }
         button:hover { 
-            background: #cbd5e1; 
-            color: #0f172a;
+            background: #ffffff; 
+            color: #000000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <h2>Respawn Timers (En Vivo)</h2>
+    <!-- Barra de Creador -->
+    <div class="creator-bar">
+        <span>CREADOR: <strong>GREGORY</strong></span>
+        <span>CÓDIGO FORTNITE: <span class="code">GREGORY9797</span></span>
+    </div>
+
+    <!-- Título de Bienvenida -->
+    <div class="welcome-title">
+        ¡BIENVENIDO ANDROID TYCOON STAR WARS!
+    </div>
 
     <div class="container">
+        <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
-            <div>
+            <div class="card-info">
                 <div class="card-title">Beskar</div>
                 <div id="beskar-display" class="time-display">00:15:00</div>
+                <div id="beskar-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
             <button onclick="resetTimer('beskar', 900)">Reset</button>
         </div>
 
+        <!-- Mítico -->
         <div id="box-mythic" class="timer-box mythic">
-            <div>
+            <div class="card-info">
                 <div class="card-title">Mítico</div>
                 <div id="mythic-display" class="time-display">01:00:00</div>
+                <div id="mythic-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
             <button onclick="resetTimer('mythic', 3600)">Reset</button>
         </div>
 
+        <!-- Galáctico -->
         <div id="box-galactic" class="timer-box galactic">
-            <div>
+            <div class="card-info">
                 <div class="card-title">Galáctico</div>
                 <div id="galactic-display" class="time-display">01:00:00</div>
+                <div id="galactic-status" class="status-badge">¡RESPAWN LISTO!</div>
             </div>
             <button onclick="resetTimer('galactic', 3600)">Reset</button>
         </div>
@@ -151,9 +225,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let serverOffset = 0; // Calculo del desfase del reloj local con el servidor
+        let serverOffset = 0;
 
-        // Obtener la diferencia exacta de tiempo con el servidor de Firebase
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
                 db.collection(".info").doc("serverTime").get().then((doc) => {
@@ -171,18 +244,16 @@
         };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playBeep() {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+        function playBeep(freq = 880) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'sine';
-            osc.frequency.value = 880;
+            osc.frequency.value = freq;
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
+            osc.stop(audioCtx.currentTime + 0.2);
         }
 
         function formatTime(seconds) {
@@ -199,22 +270,27 @@
             for (let key in targetTimes) {
                 const display = document.getElementById(`${key}-display`);
                 const box = document.getElementById(`box-${key}`);
+                const status = document.getElementById(`${key}-status`);
                 
                 if (targetTimes[key] === 0) continue;
 
                 const remainingSeconds = Math.max(0, Math.ceil((targetTimes[key] - now) / 1000));
                 display.innerText = formatTime(remainingSeconds);
 
-                if (remainingSeconds <= 5 && remainingSeconds > 0) {
-                    box.classList.add('warning-alert');
-                    playBeep();
+                if (remainingSeconds === 0) {
+                    box.classList.add('ready-alert');
+                    status.style.display = 'block';
+                } else if (remainingSeconds <= 5) {
+                    playBeep(600);
+                    box.classList.remove('ready-alert');
+                    status.style.display = 'none';
                 } else {
-                    box.classList.remove('warning-alert');
+                    box.classList.remove('ready-alert');
+                    status.style.display = 'none';
                 }
             }
         }
 
-        // Sincronización en vivo permanente
         db.collection("timers").doc("starwars").onSnapshot((doc) => {
             if (doc.exists) {
                 const data = doc.data();
@@ -226,9 +302,9 @@
         });
 
         function resetTimer(type, secondsDuration) {
-            const userPin = prompt("Ingresa el PIN de administrador para reiniciar:");
+            const userPin = prompt("Ingresa el PIN de administrador:");
             if (userPin !== ADMIN_PIN) {
-                alert("PIN incorrecto. No tienes permiso para reiniciar el contador.");
+                alert("PIN incorrecto.");
                 return;
             }
 
