@@ -199,6 +199,15 @@
             text-shadow: 0 0 15px currentColor;
         }
 
+        /* Estilo específico para el formato Fortnite del Evento */
+        .event-time-display {
+            font-size: 32px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px currentColor;
+        }
+
         .status-badge {
             font-size: 14px;
             font-weight: 900;
@@ -509,6 +518,7 @@
 
         @media (max-width: 600px) {
             .time-display { font-size: 36px; }
+            .event-time-display { font-size: 22px; }
             .welcome-title { font-size: 22px; }
             .creator-bar { flex-direction: column; text-align: center; justify-content: center; }
             .timer-header { flex-direction: column; gap: 15px; text-align: center; }
@@ -644,14 +654,14 @@
             </div>
         </div>
 
-        <!-- Evento de Galáctico (Se queda en 0 y no se reinicia) -->
+        <!-- Evento de Galáctico (Formato Días / Horas / Minutos Estilo Fortnite) -->
         <div id="box-event" class="timer-box event">
             <div class="timer-header">
                 <div class="card-info" style="flex-direction: row; align-items: center; gap: 15px;">
                     <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=120" alt="Evento Galaxy" style="width: 55px; height: 55px; border-radius: 12px; object-fit: cover; border: 2px solid #ba68c8;">
                     <div>
                         <div class="card-title">Evento de Galáctico</div>
-                        <div id="event-display" class="time-display">00:00:00</div>
+                        <div id="event-display" class="event-time-display">02 DÍAS 08 HORAS : 30 MINUTOS</div>
                         <div id="event-status" class="status-badge">¡EVENTO EN VIVO / FINALIZADO!</div>
                     </div>
                 </div>
@@ -757,6 +767,17 @@
             return `${h}:${m}:${s}`;
         }
 
+        // NUEVA FUNCIÓN: Formato estilo Fortnite Días / Horas / Minutos para el evento
+        function formatFortniteEventTime(seconds) {
+            if (seconds <= 0) return "00 DÍAS 00 HORAS : 00 MINUTOS";
+            const days = Math.floor(seconds / (3600 * 24));
+            const hours = Math.floor((seconds % (3600 * 24)) / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            
+            const dayText = days === 1 ? "1 DÍA" : `${days} DÍAS`;
+            return `${dayText} ${hours} HORAS : ${minutes} MINUTOS`;
+        }
+
         function updateDisplay() {
             const now = Date.now() + serverOffset;
 
@@ -783,7 +804,15 @@
                 }
 
                 const remainingSeconds = Math.max(0, Math.ceil(remainingMillis / 1000));
-                const formatted = formatTime(remainingSeconds);
+                
+                // Aplicar formato específico si es el evento
+                let formatted = "";
+                if (key === 'event') {
+                    formatted = formatFortniteEventTime(remainingSeconds);
+                } else {
+                    formatted = formatTime(remainingSeconds);
+                }
+                
                 display.innerText = formatted;
 
                 if (remainingSeconds === 0) {
@@ -820,7 +849,7 @@
             ctx.fillText(title, canvas.width / 2, 28);
 
             ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 32px monospace";
+            ctx.font = "bold 20px sans-serif";
             ctx.fillText(timeStr, canvas.width / 2, 72);
 
             ctx.fillStyle = isReady ? "#ffea00" : "#94a3b8";
