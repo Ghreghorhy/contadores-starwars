@@ -487,6 +487,39 @@
             letter-spacing: 1px;
         }
 
+        .auth-status-box {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-google {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-google:hover {
+            background: #f1f5f9;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .user-logged-info {
+            font-size: 13px;
+            color: #00d2ff;
+            font-weight: 700;
+        }
+
         .stars-container {
             display: flex;
             justify-content: center;
@@ -826,7 +859,15 @@
     </div>
 
     <div class="rating-section">
-        <div class="rating-title" id="rating-title-text">⭐ ¿Qué te parece la página? ¡Califícala! ⭐</div>
+        <div class="rating-title" id="rating-title-text">⭐ Califica la página ⭐</div>
+        
+        <div class="auth-status-box" id="auth-status-box">
+            <button class="btn-google" onclick="loginWithGoogle()">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.32 7.24 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.19C.43 8.13 0 9.87 0 12s.43 3.87 1.19 5.4l4.08-3.16z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.6l4.08 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                Inicia sesión con Google para calificar
+            </button>
+        </div>
+
         <div class="stars-container" id="stars-container">
             <span class="star" onclick="ratePage(1)">★</span>
             <span class="star" onclick="ratePage(2)">★</span>
@@ -852,8 +893,10 @@
     <canvas id="pipCanvas" width="800" height="400"></canvas>
     <video id="pipVideo" autoplay muted style="display:none;"></video>
 
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
         const ADMIN_PIN = "HOLAGORDIS69KELL$$"; 
@@ -869,10 +912,12 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const auth = firebase.auth();
 
         let serverOffset = 0;
         let activePipType = null;
         let activePipTitle = "";
+        let currentUser = null;
 
         db.collection(".info").doc("serverTime").set({ now: firebase.firestore.FieldValue.serverTimestamp() })
             .then(() => {
@@ -885,7 +930,6 @@
             }).catch(() => {});
 
         const targetTimes = { beskar: 0, mythic: 0, galactic: 0, event: 0 };
-
         let audioCtx = null;
 
         function initAudio() {
@@ -897,7 +941,6 @@
             }
         }
 
-        // Activar audio automáticamente con cualquier toque en la pantalla (ideal para celulares)
         document.addEventListener('click', initAudio, { once: true });
         document.addEventListener('touchstart', initAudio, { once: true });
 
@@ -912,7 +955,6 @@
             gain.connect(audioCtx.destination);
 
             if (type === 'beskar') {
-                // Sonido 1: Tono agudo doble rápido (Estilo escudo/campana)
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(880, now);
                 osc.frequency.setValueAtTime(1320, now + 0.1);
@@ -922,7 +964,6 @@
                 osc.stop(now + 0.3);
             } 
             else if (type === 'mythic') {
-                // Sonido 2: Tono fuerte tipo alarma militar o fuego descendente/ascendente
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(500, now);
                 osc.frequency.linearRampToValueAtTime(750, now + 0.15);
@@ -933,7 +974,6 @@
                 osc.stop(now + 0.45);
             } 
             else if (type === 'galactic') {
-                // Sonido 3: Sonido cibernético espacial futurista
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(350, now);
                 osc.frequency.exponentialRampToValueAtTime(1200, now + 0.35);
@@ -943,7 +983,6 @@
                 osc.stop(now + 0.45);
             }
             else if (type === 'event') {
-                // Sonido 4: Tono grave contundente con pulso cuadrado
                 osc.type = 'square';
                 osc.frequency.setValueAtTime(300, now);
                 osc.frequency.setValueAtTime(450, now + 0.15);
@@ -1129,7 +1168,7 @@
             const maxSeconds = maxLimitMinutes * 60;
 
             if (totalSeconds < 0 || totalSeconds > maxSeconds) {
-                alert(`El tiempo ingresado excede el límite máximo permitido para este temporizador (${maxLimitMinutes} minutos).`);
+                alert(`El tiempo ingresado excede el límite máximo permitido (${maxLimitMinutes} min).`);
                 return;
             }
 
@@ -1164,42 +1203,70 @@
             });
         }
 
-        // --- SISTEMA DE CALIFICACIÓN PROTEGIDO ANTISPAM POR DISPOSITIVO ---
-        const HAS_RATED_KEY = "gregory_tycoon_rated";
-
-        function checkUserRatingStatus() {
-            if (localStorage.getItem(HAS_RATED_KEY)) {
-                lockRatingUI("¡Gracias por tu apoyo! Ya registramos tu calificación en este dispositivo ⭐");
-            }
+        // --- AUTENTICACIÓN GOOGLE Y CALIFICACIÓN ANTISPAM POR CUENTA ---
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch((error) => {
+                alert("Error al iniciar sesión con Google: " + error.message);
+            });
         }
 
+        auth.onAuthStateChanged((user) => {
+            currentUser = user;
+            const authBox = document.getElementById('auth-status-box');
+            const ratingTitle = document.getElementById('rating-title-text');
+
+            if (user) {
+                authBox.innerHTML = `<div class="user-logged-info">👤 Conectado como: <strong>${user.displayName}</strong></div>`;
+                
+                // Verificar si este usuario ya votó consultando su ID de Google en la base de datos
+                db.collection("ratings").doc(user.uid).get().then((doc) => {
+                    if (doc.exists) {
+                        ratingTitle.innerText = `¡Ya registramos tu voto de ${doc.data().rating} estrellas! ⭐`;
+                        lockStars();
+                    } else {
+                        ratingTitle.innerText = "⭐ ¡Ya puedes calificar con tu cuenta! ⭐";
+                    }
+                });
+            } else {
+                authBox.innerHTML = `
+                    <button class="btn-google" onclick="loginWithGoogle()">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.32 7.24 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.19C.43 8.13 0 9.87 0 12s.43 3.87 1.19 5.4l4.08-3.16z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.6l4.08 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                        Inicia sesión con Google para calificar
+                    </button>
+                `;
+                ratingTitle.innerText = "⭐ Inicia sesión para calificar la página ⭐";
+            }
+        });
+
         function ratePage(stars) {
-            if (localStorage.getItem(HAS_RATED_KEY)) {
-                alert("Ya has calificado esta página anteriormente desde este dispositivo.");
+            if (!currentUser) {
+                alert("Debes iniciar sesión con Google antes de poder calificar.");
+                loginWithGoogle();
                 return;
             }
 
-            db.collection("ratings").add({
+            // Usamos el ID único de Google (currentUser.uid) como nombre del documento para bloquear duplicados
+            db.collection("ratings").doc(currentUser.uid).set({
                 rating: stars,
+                userName: currentUser.displayName,
+                email: currentUser.email,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                localStorage.setItem(HAS_RATED_KEY, "true");
-                lockRatingUI(`¡Gracias por calificar con ${stars} estrellas! ⭐`);
+                document.getElementById('rating-title-text').innerText = `¡Gracias por calificar con ${stars} estrellas! ⭐`;
+                lockStars();
             }).catch(() => {
                 alert("Error al registrar la calificación.");
             });
         }
 
-        function lockRatingUI(message) {
-            document.getElementById('rating-title-text').innerText = message;
+        function lockStars() {
             const stars = document.querySelectorAll('.star');
             stars.forEach(s => {
-                s.style.opacity = "0.5";
+                s.style.opacity = "0.4";
                 s.style.cursor = "not-allowed";
             });
         }
-
-        window.addEventListener('DOMContentLoaded', checkUserRatingStatus);
 
         db.collection("ratings").onSnapshot((snapshot) => {
             if (snapshot.empty) {
@@ -1267,8 +1334,8 @@
                 if (data.timestamp) {
                     const dateDiv = document.createElement('div');
                     dateDiv.className = 'comment-date';
-                    dateDiv.date = data.timestamp.toDate();
-                    dateDiv.innerText = dateDiv.date.toLocaleDateString() + ' ' + dateDiv.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    const dateObj = data.timestamp.toDate();
+                    dateDiv.innerText = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     contentDiv.appendChild(dateDiv);
                 }
 
