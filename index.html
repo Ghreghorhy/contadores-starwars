@@ -199,7 +199,6 @@
             text-shadow: 0 0 15px currentColor;
         }
 
-        /* Estilo específico para el formato Fortnite del Evento */
         .event-time-display {
             font-size: 32px;
             font-family: 'Segoe UI', Roboto, sans-serif;
@@ -217,7 +216,6 @@
             text-transform: uppercase;
         }
 
-        /* 1. BESKAR: Gris metálico elegante y sobrio */
         .beskar { 
             background: linear-gradient(135deg, rgba(67, 72, 83, 0.25), rgba(30, 35, 45, 0.4));
             border-color: #8c95a5; 
@@ -225,7 +223,6 @@
             color: #e2e8f0;
         }
         
-        /* 2. MÍTICO: Rojo intenso y vibrante */
         .mythic { 
             background: linear-gradient(135deg, rgba(229, 57, 53, 0.2), rgba(120, 20, 25, 0.35)); 
             border-color: #ff3b30; 
@@ -233,7 +230,6 @@
             color: #ff8580;
         }
         
-        /* 3. GALAXY: Morado con estrellas / brillo cósmico */
         .galactic { 
             background: radial-gradient(circle at top right, rgba(123, 31, 162, 0.35), rgba(26, 10, 48, 0.6)), 
                         url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600') no-repeat center center;
@@ -243,7 +239,6 @@
             color: #f3e8ff;
         }
 
-        /* 4. EVENTO DE GALÁCTICO: Estética cósmica especial */
         .event { 
             background: linear-gradient(135deg, rgba(74, 20, 140, 0.3), rgba(18, 0, 94, 0.5));
             border-color: #9c27b0; 
@@ -549,7 +544,7 @@
     </div>
 
     <div class="container">
-        <!-- Beskar (15 min cíclico estricto - Gris metálico elegante) -->
+        <!-- Beskar -->
         <div id="box-beskar" class="timer-box beskar">
             <div class="timer-header">
                 <div class="card-info">
@@ -584,7 +579,7 @@
             </div>
         </div>
 
-        <!-- Mítico (1 hora cíclico estricto - Rojo intenso y vibrante) -->
+        <!-- Mítico -->
         <div id="box-mythic" class="timer-box mythic">
             <div class="timer-header">
                 <div class="card-info">
@@ -619,7 +614,7 @@
             </div>
         </div>
 
-        <!-- Galáctico (1 hora cíclico estricto - Morado con estrellas) -->
+        <!-- Galáctico -->
         <div id="box-galactic" class="timer-box galactic">
             <div class="timer-header">
                 <div class="card-info">
@@ -654,7 +649,7 @@
             </div>
         </div>
 
-        <!-- Evento de Galáctico (Formato Días / Horas / Minutos Estilo Fortnite) -->
+        <!-- Evento de Galáctico (Configuración manual exacta: Días, Horas, Minutos) -->
         <div id="box-event" class="timer-box event">
             <div class="timer-header">
                 <div class="card-info" style="flex-direction: row; align-items: center; gap: 15px;">
@@ -672,13 +667,14 @@
             </div>
 
             <div id="admin-event" class="admin-controls">
-                <div style="font-size: 13px; color: #e1bee7; font-weight: 800;">⚙️ CONFIGURAR FECHA/HORA DEL EVENTO DE GALÁCTICO:</div>
-                <div class="time-inputs" style="flex-wrap: wrap;">
-                    <label>Fecha: <input type="date" id="event-date" style="width: 140px;"></label>
-                    <label>Hora: <input type="time" id="event-time" style="width: 110px;" step="1"></label>
+                <div style="font-size: 13px; color: #e1bee7; font-weight: 800;">⚙️ CONFIGURAR TIEMPO MANUAL (DÍAS, HORAS, MINUTOS):</div>
+                <div class="time-inputs">
+                    <label>Días: <input type="number" id="event-days" min="0" value="2" style="width: 70px;"></label>
+                    <label>Horas: <input type="number" id="event-hours" min="0" max="23" value="8" style="width: 65px;"></label>
+                    <label>Minutos: <input type="number" id="event-minutes" min="0" max="59" value="30" style="width: 65px;"></label>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <button class="btn-save" onclick="saveEventTimer()">💾 Guardar Evento</button>
+                    <button class="btn-save" onclick="saveManualEventTimer()">💾 Guardar Evento</button>
                     <button class="btn-cancel" onclick="closeAdmin('event')">❌ Cancelar</button>
                 </div>
             </div>
@@ -767,7 +763,6 @@
             return `${h}:${m}:${s}`;
         }
 
-        // NUEVA FUNCIÓN: Formato estilo Fortnite Días / Horas / Minutos para el evento
         function formatFortniteEventTime(seconds) {
             if (seconds <= 0) return "00 DÍAS 00 HORAS : 00 MINUTOS";
             const days = Math.floor(seconds / (3600 * 24));
@@ -805,7 +800,6 @@
 
                 const remainingSeconds = Math.max(0, Math.ceil(remainingMillis / 1000));
                 
-                // Aplicar formato específico si es el evento
                 let formatted = "";
                 if (key === 'event') {
                     formatted = formatFortniteEventTime(remainingSeconds);
@@ -949,23 +943,22 @@
             });
         }
 
-        function saveEventTimer() {
-            const dateStr = document.getElementById('event-date').value;
-            const timeStr = document.getElementById('event-time').value;
+        function saveManualEventTimer() {
+            const days = parseInt(document.getElementById('event-days').value) || 0;
+            const hours = parseInt(document.getElementById('event-hours').value) || 0;
+            const minutes = parseInt(document.getElementById('event-minutes').value) || 0;
 
-            if (!dateStr || !timeStr) {
-                alert("Por favor selecciona una fecha y hora válidas para el evento.");
+            const totalSeconds = (days * 86400) + (hours * 3600) + (minutes * 60);
+            if (totalSeconds <= 0) {
+                alert("Por favor ingresa un tiempo mayor a 0.");
                 return;
             }
 
-            const eventDateTime = new Date(`${dateStr}T${timeStr}`).getTime();
-            if (isNaN(eventDateTime)) {
-                alert("Fecha u hora inválida.");
-                return;
-            }
+            const currentServerTime = Date.now() + serverOffset;
+            const targetTimestamp = currentServerTime + (totalSeconds * 1000);
 
             db.collection("timers").doc("starwars").set({
-                event: eventDateTime
+                event: targetTimestamp
             }, { merge: true }).then(() => {
                 closeAdmin('event');
             });
